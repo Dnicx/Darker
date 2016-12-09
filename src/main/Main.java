@@ -20,6 +20,7 @@ public class Main extends Application {
 		// TODO Auto-generated method stub
 		gameScreen = new GameScreen();
 		gameScene = new Scene(gameScreen);
+		
 	}
 
 }

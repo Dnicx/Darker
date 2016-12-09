@@ -15,6 +15,7 @@ public class Animation implements Renderable {
 	private int numberOfFrame;
 	private int offsetX = 0, offsetY = 0;
 	private int spriteLine; // specify the column in sprite sheet
+	private int scale; // size of animation. get from setting
 	
 	public Animation(Image model,int frameWidth, int frameHeight, int numberOfFrame, int frameDelay, int spriteLine) {
 		this.model = model;
@@ -25,6 +26,7 @@ public class Animation implements Renderable {
 		visible = false;
 		playing = false;
 		this.spriteLine = spriteLine;
+		scale = 1;
 	}
 	
 	public void setOffset(int offsetX, int offsetY) {
@@ -95,7 +97,7 @@ public class Animation implements Renderable {
 		// TODO Auto-generated method stub
 		if (visible && model != null) {
 			WritableImage frame = new WritableImage(model.getPixelReader(), currentFrame*frameWidth, spriteLine*frameHeight, frameWidth, frameHeight);
-			gc.drawImage(frame, x, y);
+			gc.drawImage(frame, x, y, frameWidth*scale, frameHeight*scale);
 		}
 	}
 	
