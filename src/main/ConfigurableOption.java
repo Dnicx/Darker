@@ -2,7 +2,7 @@ package main;
 
 public class ConfigurableOption {
 	
-	private ConfigurableOption instance = new ConfigurableOption();
+	private static final ConfigurableOption instance = new ConfigurableOption();
 	
 	private int scale;
 	private int screenWidth = 768, screenHeight = 512;
@@ -10,6 +10,10 @@ public class ConfigurableOption {
 	
 	public ConfigurableOption() {
 		scale = 1;
+	}
+	
+	public static ConfigurableOption getInstance() {
+		return instance;
 	}
 	
 	public void setScale(int scale) {
@@ -36,5 +40,13 @@ public class ConfigurableOption {
 		this.screenHeight = height;
 	}
 	
+	public int getBrightness() {
+		return brightness;
+	}
+	
+	public void setBrightness(int brightness) {
+		this.brightness = brightness;
+	}
+
 	
 }

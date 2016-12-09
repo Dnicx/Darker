@@ -7,7 +7,9 @@ public class GameScreen extends StackPane {
 	
 	private Canvas canvas;
 	
-	public GameScreen() {
-		
+	public GameScreen(int width, int height) {
+		this.getChildren().add(canvas);
+		canvas.setHeight(height);
+		canvas.setWidth(width);
 	}
 }

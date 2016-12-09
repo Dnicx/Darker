@@ -30,7 +30,6 @@ public class RenderableHolder {
 	}
 	
 	
-	
 	public List<Renderable> getEntity() {
 		return entities;
 	}
@@ -41,7 +40,7 @@ public class RenderableHolder {
 	}
 
 	
-	public RenderableHolder getInstance() {
+	public static RenderableHolder getInstance() {
 		return instance;
 	}
 	
