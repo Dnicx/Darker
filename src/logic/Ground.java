@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.sun.swing.internal.plaf.synth.resources.synth;
-
 public class Ground {
 	
-	private List<CollideBox> box = new ArrayList<>();
+	private List<CollideBox> box;
 	
-	public Ground(String file) {
+	public Ground(Scanner file) {
+		box = new ArrayList<>();
 		try{ 
-			Scanner boxs = new Scanner(file);
-			while (boxs.hasNextLine()) {
+			Scanner boxs = file;
+			while (boxs.hasNextInt()) {
 				box.add(new CollideBox(boxs.nextInt(), boxs.nextInt(), boxs.nextInt(), boxs.nextInt()));
 			}
 		} catch (Exception e) {
