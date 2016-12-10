@@ -17,6 +17,7 @@ public class Hero implements Renderable {
 	private int x = 0, y = 0;
 	private int offsetX = 80;
 	private int offsetY = 90;
+	private int direction;
 	
 	private Animation currentState;
 	
@@ -27,6 +28,7 @@ public class Hero implements Renderable {
 		speed = 3;
 		damage = 2;
 		visible = true;
+		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idle;
 		currentState.play();
@@ -37,11 +39,12 @@ public class Hero implements Renderable {
 		this.x = x;
 		this.y = y;
 		HP = 5;
-		speed = 5;
+		speed = 4;
 		damage = 2;
 		visible = true;
+		direction = FACE_RIGHT;
 		loadAnimation();
-		currentState = walk;
+		currentState = idle;
 		currentState.play();
 		RenderableHolder.getInstance().add(this);
 	}
@@ -53,6 +56,7 @@ public class Hero implements Renderable {
 		this.speed = speed;
 		this.damage = damage;
 		visible = true;
+		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idle;
 		currentState.play();
@@ -81,6 +85,13 @@ public class Hero implements Renderable {
 
 	public Animation getCurrentState() {
 		return currentState;
+	}
+	
+	public int getDirection() {
+		return direction;
+	}
+	public void setDirection(int dir) {
+		this.direction = dir;
 	}
 	
 	public void setPosition(int x, int y) {

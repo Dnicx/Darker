@@ -100,7 +100,7 @@ public class Animation {
 		if (visible && spriteSheet != null) {
 			//System.out.println("render : " + this);
 			WritableImage frame = new WritableImage(spriteSheet.getPixelReader(), currentFrame*frameWidth, spriteLine*frameHeight, frameWidth, frameHeight);
-			gc.drawImage(frame, x-offsetX, y-offsetY, frameWidth*scale, frameHeight*scale);
+			gc.drawImage(frame, x, y, frameWidth*scale, frameHeight*scale);
 		}
 	}
 	

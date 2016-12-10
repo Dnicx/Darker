@@ -9,7 +9,7 @@ import main.ConfigurableOption;
 public class Background implements Renderable{
 
 	private Image farBackground;
-	private Image nearBackGround;
+	private Image nearBackground;
 	private boolean visible;
 	private int farPositionX, farPositionY; // far background top left position
 	private int nearPositionX, nearPositionY; // near background top left position
@@ -21,7 +21,7 @@ public class Background implements Renderable{
 		nearPositionX = 0;
 		nearPositionY = 0;
 		this.farBackground = farBackground;
-		this.nearBackGround = nearBackground;
+		this.nearBackground = nearBackground;
 		this.visible = true;
 		RenderableHolder.getInstance().add(this);
 	}
@@ -72,17 +72,27 @@ public class Background implements Renderable{
 		// TODO Auto-generated method stub
 		ConfigurableOption option = ConfigurableOption.getInstance();
 		int scale = option.getScale();
-		if (visible && farBackground != null && nearBackGround != null) {
+		if (visible && farBackground != null && nearBackground != null) {
 			WritableImage fbg = null, nbg = null;
+			if (farPositionX < 0) farPositionX = 0;
+			if (farPositionY < 0) farPositionY = 0;
+			if (farPositionX + option.getScreenWidth() > farBackground.getWidth())  farPositionX = (int)farBackground.getWidth()- option.getScreenWidth();
+			if (farPositionY + option.getScreenHeight() > farBackground.getHeight()) farPositionY = (int)farBackground.getHeight()-option.getScreenHeight();
+			
+			if (nearPositionX < 0) nearPositionX = 0;
+			if (nearPositionY < 0) nearPositionY = 0;
+			if (nearPositionX + option.getScreenWidth() > nearBackground.getWidth())  nearPositionX = (int)nearBackground.getWidth()- option.getScreenWidth();
+			if (nearPositionY + option.getScreenHeight() > nearBackground.getHeight()) nearPositionY = (int)nearBackground.getHeight()-option.getScreenHeight();
+			
 			try {
 				fbg = new WritableImage(farBackground.getPixelReader() , farPositionX, farPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
-			} catch (ArrayIndexOutOfBoundsException e) {
+			} catch (IndexOutOfBoundsException e) {
 				fbg = new WritableImage(farBackground.getPixelReader() , (int)farBackground.getWidth()- option.getScreenWidth(), (int)farBackground.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
 			}
 			try {
-				nbg = new WritableImage(nearBackGround.getPixelReader(), nearPositionX, nearPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
-			} catch (ArrayIndexOutOfBoundsException e) {
-				nbg = new WritableImage(nearBackGround.getPixelReader() , (int)nearBackGround.getWidth()- option.getScreenWidth(), (int)nearBackGround.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+				nbg = new WritableImage(nearBackground.getPixelReader(), nearPositionX, nearPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+			} catch (IndexOutOfBoundsException e) {
+				nbg = new WritableImage(nearBackground.getPixelReader() , (int)nearBackground.getWidth()- option.getScreenWidth(), (int)nearBackground.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
 			}
 			gc.drawImage(fbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
 			gc.drawImage(nbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
