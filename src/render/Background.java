@@ -3,6 +3,7 @@ package render;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import main.ConfigurableOption;
 
 public class Background implements Renderable{
@@ -15,6 +16,10 @@ public class Background implements Renderable{
 	
 	
 	public Background(Image farBackground, Image nearBackground) {
+		farPositionX = 0;
+		farPositionY= 0;
+		nearPositionX = 0;
+		nearPositionY = 0;
 		this.farBackground = farBackground;
 		this.nearBackGround = nearBackground;
 		this.visible = true;
@@ -68,10 +73,19 @@ public class Background implements Renderable{
 		ConfigurableOption option = ConfigurableOption.getInstance();
 		int scale = option.getScale();
 		if (visible && farBackground != null && nearBackGround != null) {
-			WritableImage fbg = new WritableImage(farBackground.getPixelReader() , farPositionX, farPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
-			WritableImage nbg = new WritableImage(nearBackGround.getPixelReader(), nearPositionX, nearPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
-			gc.drawImage(fbg, farPositionX, farPositionY, option.getScreenWidth(), option.getScreenHeight());
-			gc.drawImage(nbg, nearPositionX, nearPositionY, option.getScreenWidth(), option.getScreenHeight());
+			WritableImage fbg = null, nbg = null;
+			try {
+				fbg = new WritableImage(farBackground.getPixelReader() , farPositionX, farPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				fbg = new WritableImage(farBackground.getPixelReader() , (int)farBackground.getWidth()- option.getScreenWidth(), (int)farBackground.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+			}
+			try {
+				nbg = new WritableImage(nearBackGround.getPixelReader(), nearPositionX, nearPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				nbg = new WritableImage(nearBackGround.getPixelReader() , (int)nearBackGround.getWidth()- option.getScreenWidth(), (int)nearBackGround.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+			}
+			gc.drawImage(fbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
+			gc.drawImage(nbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
 		}
 	}
 	

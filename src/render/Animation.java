@@ -3,10 +3,11 @@ package render;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import main.ConfigurableOption;
 
-public class Animation implements Renderable {
+public class Animation {
 	
-	private Image model = null;
+	private Image spriteSheet = null;
 	private boolean visible = false, playing = false;
 	private int x = 0, y = 0, z = 0;
 	private int frameWidth, frameHeight;
@@ -17,8 +18,18 @@ public class Animation implements Renderable {
 	private int spriteLine; // specify the column in sprite sheet
 	private int scale; // size of animation. get from setting
 	
-	public Animation(Image model,int frameWidth, int frameHeight, int numberOfFrame, int frameDelay, int spriteLine) {
-		this.model = model;
+	
+	/**
+	 * 
+	 * @param spriteSheet : Animation's sprite sheet
+	 * @param frameWidth : Animation's frame width
+	 * @param frameHeight : Animation's frame height
+	 * @param numberOfFrame : number of animation in frame
+	 * @param frameDelay
+	 * @param spriteLine
+	 */
+	public Animation(Image spriteSheet,int frameWidth, int frameHeight, int numberOfFrame, int frameDelay, int spriteLine) {
+		this.spriteSheet = spriteSheet;
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.numberOfFrame = numberOfFrame;
@@ -26,7 +37,7 @@ public class Animation implements Renderable {
 		visible = false;
 		playing = false;
 		this.spriteLine = spriteLine;
-		scale = 1;
+		scale = ConfigurableOption.getInstance().getScale();
 	}
 	
 	public void setOffset(int offsetX, int offsetY) {
@@ -54,13 +65,14 @@ public class Animation implements Renderable {
 		frameDelayCount = frameDelay;
 	}
 	
-	public void play(int x, int y) {
+	public void play(int x, int y, GraphicsContext gc) {
 		this.x = x;
 		this.y = y;
 		visible = true;
 		playing = true;
 		currentFrame = 0;
 		frameDelayCount = frameDelay;
+		render(gc);
 	}
 	
 	public void stop() {
@@ -81,23 +93,14 @@ public class Animation implements Renderable {
 			currentFrame = 0;
 		}
 	}
-	
-	@Override
-	public int getz() {
-		// TODO Auto-generated method stub
-		return z;
-	}
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return visible;
-	}
-	@Override
+
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		if (visible && model != null) {
-			WritableImage frame = new WritableImage(model.getPixelReader(), currentFrame*frameWidth, spriteLine*frameHeight, frameWidth, frameHeight);
-			gc.drawImage(frame, x, y, frameWidth*scale, frameHeight*scale);
+		//System.out.println("before " + visible);
+		if (visible && spriteSheet != null) {
+			//System.out.println("render : " + this);
+			WritableImage frame = new WritableImage(spriteSheet.getPixelReader(), currentFrame*frameWidth, spriteLine*frameHeight, frameWidth, frameHeight);
+			gc.drawImage(frame, x-offsetX, y-offsetY, frameWidth*scale, frameHeight*scale);
 		}
 	}
 	

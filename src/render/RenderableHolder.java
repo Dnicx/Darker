@@ -5,9 +5,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javafx.scene.image.Image;
+
 public class RenderableHolder {
 	
 	private static final RenderableHolder instance = new RenderableHolder();
+	
+	private String heroSpriteSrc = "consumed-knight-spriteSheet.png";
+	private String testStageFarSrc = "level/test-stage/arena-background.png";
+	private String testStageNearSrc = "level/test-stage/arena-ground.png";
+	public Image heroSprite = null;
+	public Image testStageFar = null;
+	public Image testStageNear = null;
 	
 	private List<Renderable> entities;
 	private Comparator<Renderable> comparator;
@@ -25,8 +34,19 @@ public class RenderableHolder {
 		};
 	
 	}
-	static { 
-		//loadResource();
+	
+	public void loadResource() {
+		entities.clear();
+		ClassLoader loader = ClassLoader.getSystemClassLoader();
+		try {
+			heroSprite = new Image(loader.getResourceAsStream(heroSpriteSrc));
+			testStageFar = new Image(loader.getResourceAsStream(testStageFarSrc));
+			testStageNear = new Image(loader.getResourceAsStream(testStageNearSrc));
+		} catch( NullPointerException e) {
+			System.out.println("can not find resource : "+ e);
+		} catch( Exception e) {
+			System.out.println("error load resource : " + e);
+		}
 	}
 	
 	
