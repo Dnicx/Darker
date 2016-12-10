@@ -12,6 +12,20 @@ public class CollideBox {
 		this.endY = endY;
 	}
 	
+	public void setStartX(int x) {
+		this.startX = x;
+	}
+	public void setStartY(int y) {
+		this.startY = y;
+	}
+	
+	public void setEndX(int x) {
+		this.endX = x;
+	}
+	public void setEndY(int y) {
+		this.endY = y;
+	}
+	
 	public int getTop() {
 		return startY;
 	}

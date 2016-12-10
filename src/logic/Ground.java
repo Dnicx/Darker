@@ -33,6 +33,10 @@ public class Ground {
 		}
 	}
 	
+	public int[][] getBlock() {
+		return block;
+	}
+	
 	/*
 	 * (slow)
 	 * fill block array with 1 wherever there is collide box
