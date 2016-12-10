@@ -28,7 +28,7 @@ public class GameScreen extends StackPane {
 		gc = canvas.getGraphicsContext2D();
 		this.getChildren().add(canvas);
 		RenderableHolder.getInstance().loadResource();
-		knight = new Hero(450, 300);
+		knight = new Hero(450, 0);
 		background = new Background(RenderableHolder.getInstance().testStageFar, RenderableHolder.getInstance().testStageNear);
 		background.setFarPosition(0, 0);
 		background.setNearPosition(0, 0);

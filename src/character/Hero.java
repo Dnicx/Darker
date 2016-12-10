@@ -10,13 +10,16 @@ public class Hero implements Renderable {
 	public int HP;
 	public int speed;
 	public int damage;
+	public int fall_speed = 0;
 	public static final int FACE_RIGHT = 1, FACE_LEFT = -1;
 	public Animation idle = null;
 	public Animation walk = null;
 	private boolean visible;
 	private int x = 0, y = 0;
-	private int offsetX = 80;
-	private int offsetY = 90;
+	public int offsetX = 80;
+	public int offsetY = 90;
+	public int width = 50;
+	public int height  = 140;
 	private int direction;
 	
 	private Animation currentState;

@@ -18,7 +18,7 @@ public class Ground {
 	 * @param file : text file contain ground with format "n width height" follow by n number of blocks 
 	 */
 	public Ground(File file) {
-		block = new int[MAX_Y][MAX_X];
+		block = new int[MAX_X][MAX_Y];
 		box = new ArrayList<>();
 		try{ 
 			Scanner boxs = new Scanner(file);
@@ -48,7 +48,7 @@ public class Ground {
 			for (CollideBox b : box) {
 				for (int i = b.getTop(); i < b.getBottom(); i++) {
 					for (int j = b.getLeft(); j < b.getRight() ; j++) {
-						block[i][j] = 1;
+						block[j][i] = 1;
 					}
 				}
 			}

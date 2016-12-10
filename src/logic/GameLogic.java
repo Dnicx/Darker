@@ -4,6 +4,7 @@ import java.io.File;
 
 import character.Hero;
 import javafx.scene.input.KeyCode;
+import main.ConfigurableOption;
 import render.Background;
 import scene.GameScreen;
 
@@ -14,10 +15,13 @@ public class GameLogic {
 	private GameScreen gameScreen;
 	private Hero hero;
 	private Background bg;
+	private int gravity = 3;
 	
 	public GameLogic(GameScreen gs) {
 		this.gameScreen = gs;
 		this.hero = gs.getHero();
+		heroPositionX = hero.getX();
+		heroPositionY = hero.getY();
 		this.bg = gs.background;
 		try {
 			ground = new Ground(new File(gs.file));
@@ -61,6 +65,17 @@ public class GameLogic {
 		}
 		
 		
+		if (ground.getBlock()[heroPositionX][heroPositionY+hero.fall_speed+1] == 0) {
+			hero.fall_speed += gravity;
+		} else {
+			hero.fall_speed = 0;
+			while (ground.getBlock()[heroPositionX][heroPositionY+1] == 0)
+				heroPositionY += 1;
+		}
+		heroPositionY += hero.fall_speed;
+		if (hero.getY() >= ConfigurableOption.getInstance().getScreenHeight())
+			heroPositionY = ConfigurableOption.getInstance().getScreenHeight();
+		hero.setPosition(heroPositionX, heroPositionY);
 		
 	}
 	
