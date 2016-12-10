@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -45,6 +46,7 @@ public class Main extends Application {
 		stage.setHeight(ConfigurableOption.getInstance().getScreenHeight());
 		stage.show();
 		//System.out.println(RenderableHolder.getInstance().getEntity());
+		
 		new AnimationTimer() {
 			long start = 1;
 			@Override

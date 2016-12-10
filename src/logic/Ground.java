@@ -18,7 +18,7 @@ public class Ground {
 	 * @param file : text file contain ground with format "n width height" follow by n number of blocks 
 	 */
 	public Ground(File file) {
-		block = new int[MAX_X][MAX_Y];
+		block = new int[MAX_Y][MAX_X];
 		box = new ArrayList<>();
 		try{ 
 			Scanner boxs = new Scanner(file);

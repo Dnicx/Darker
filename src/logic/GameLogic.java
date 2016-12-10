@@ -37,7 +37,7 @@ public class GameLogic {
 		InputUtility.setKeyPress(key, false);
 	}
 	
-	public void updateLogic() {
+	public synchronized void updateLogic() {
 		if (InputUtility.isKeyPressed(KeyCode.RIGHT)) {
 			//hero.setPosition(hero.getX() + hero.speed, hero.getY());
 			bg.setNearPosition(bg.getNearPositionX() + hero.speed, bg.getNearPositionY());
