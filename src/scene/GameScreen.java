@@ -17,7 +17,6 @@ public class GameScreen extends StackPane {
 	private Hero knight;
 	private GraphicsContext gc;
 	private Background bg;
-	private GameLogic gameLogic;
 
 	public GameScreen(int width, int height) {
 		canvas = new Canvas(width, height);
@@ -29,24 +28,14 @@ public class GameScreen extends StackPane {
 		bg.setFarPosition(0, 0);
 		bg.setNearPosition(0, 0);
 		
-		gameLogic = new GameLogic();
-		//addListener();
-		
 	}
 
 	public GraphicsContext getGraphicContext() {
 		return gc;
 	}
 	
-	/*rivate void addListener() {
-		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent key) {
-				// TODO Auto-generated method stub
-				gameLogic.Press(key.getCode());
-			}
-		});
-	}*/
+	public Hero getHero() {
+		return knight;
+	}
 
 }

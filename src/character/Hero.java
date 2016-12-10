@@ -10,7 +10,7 @@ public class Hero implements Renderable {
 	public int HP;
 	public int speed;
 	public int damage;
-	
+	public static final int FACE_RIGHT = 1, FACE_LEFT = -1;
 	public Animation idle = null;
 	public Animation walk = null;
 	private boolean visible;
@@ -26,6 +26,7 @@ public class Hero implements Renderable {
 		HP = 5;
 		speed = 3;
 		damage = 2;
+		visible = true;
 		loadAnimation();
 		currentState = idle;
 		currentState.play();
@@ -36,10 +37,11 @@ public class Hero implements Renderable {
 		this.x = x;
 		this.y = y;
 		HP = 5;
-		speed = 3;
+		speed = 5;
 		damage = 2;
+		visible = true;
 		loadAnimation();
-		currentState = idle;
+		currentState = walk;
 		currentState.play();
 		RenderableHolder.getInstance().add(this);
 	}
@@ -50,6 +52,7 @@ public class Hero implements Renderable {
 		this.HP = hp;
 		this.speed = speed;
 		this.damage = damage;
+		visible = true;
 		loadAnimation();
 		currentState = idle;
 		currentState.play();
@@ -64,6 +67,32 @@ public class Hero implements Renderable {
 		walk = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 1);
 		walk.setOffset(offsetX, offsetY);
 		walk.setPosition(x, y);
+	}
+	
+	/**
+	 * 
+	 * @param state : (animation) current animation state
+	 */
+	public void setState(Animation state) {
+		currentState.stop();
+		this.currentState = state;
+		currentState.play();
+	}
+
+	public Animation getCurrentState() {
+		return currentState;
+	}
+	
+	public void setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
 	}
 
 	@Override
@@ -81,9 +110,10 @@ public class Hero implements Renderable {
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
+		currentState.setPosition(x, y);
 		currentState.render(gc);		
 		currentState.updateAnimation();
-		currentState.setPosition(x, y);
+
 	}
 	
 	

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import logic.GameLogic;
+import logic.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
 import scene.GameScreen;
@@ -54,6 +55,8 @@ public class Main extends Application {
 					for (Renderable r : RenderableHolder.getInstance().getEntity()) {
 						r.render(gameScreen.getGraphicContext());
 					}
+					gameLogic.updateLogic(gameScreen);
+					InputUtility.update();	
 				}
 			}
 		}.start();
@@ -71,9 +74,19 @@ public class Main extends Application {
 			@Override
 			public void handle(KeyEvent key) {
 				// TODO Auto-generated method stub
-				gameLogic.Press(key.getCode());
+				gameLogic.pressKey(key.getCode());
+			}
+		});
+		
+		mainStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent key) {
+				// TODO Auto-generated method stub
+				gameLogic.releaseKey(key.getCode());
 			}
 		});
 	}
+	
 
 }
