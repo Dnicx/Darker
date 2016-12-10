@@ -11,6 +11,7 @@ public class Hero implements Renderable {
 	public int speed;
 	public int damage;
 	public int fall_speed = 0;
+	public int jumpStrength = 25;
 	public static final int FACE_RIGHT = 1, FACE_LEFT = -1;
 	public Animation idle = null;
 	public Animation walk = null;

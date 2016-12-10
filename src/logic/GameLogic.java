@@ -15,7 +15,7 @@ public class GameLogic {
 	private GameScreen gameScreen;
 	private Hero hero;
 	private Background bg;
-	private int gravity = 3;
+	private int gravity = 2;
 	
 	public GameLogic(GameScreen gs) {
 		this.gameScreen = gs;
@@ -42,6 +42,9 @@ public class GameLogic {
 	}
 	
 	public synchronized void updateLogic() {
+		
+		//########################## INPUT HANDLE ZONE #############################3
+		
 		if (InputUtility.isKeyPressed(KeyCode.RIGHT)) {
 			//hero.setPosition(hero.getX() + hero.speed, hero.getY());
 			bg.setNearPosition(bg.getNearPositionX() + hero.speed, bg.getNearPositionY());
@@ -64,19 +67,36 @@ public class GameLogic {
 			if (hero.getCurrentState() != hero.idle) hero.setState(hero.idle);
 		}
 		
+		if (InputUtility.isKeyTriggered(KeyCode.UP)) {
+			if (isTouchGround(heroPositionX, heroPositionY)) hero.fall_speed = -hero.jumpStrength;
+		}
 		
-		if (ground.getBlock()[heroPositionX][heroPositionY+hero.fall_speed+1] == 0) {
-			hero.fall_speed += gravity;
-		} else {
-			hero.fall_speed = 0;
-			while (ground.getBlock()[heroPositionX][heroPositionY+1] == 0)
-				heroPositionY += 1;
+		//################# FALLING ZONE ##########################//
+		
+		try {
+			if (ground.getBlock()[heroPositionX][heroPositionY+hero.fall_speed+1] == 0) {
+				hero.fall_speed += gravity;
+			} else {
+				hero.fall_speed = 0;
+				while (ground.getBlock()[heroPositionX][heroPositionY+1] == 0)
+					heroPositionY += 1;
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			if (heroPositionY < 0) {
+				heroPositionY = 0;
+				if (hero.fall_speed < 0) hero.fall_speed = 0;
+			}
 		}
 		heroPositionY += hero.fall_speed;
 		if (hero.getY() >= ConfigurableOption.getInstance().getScreenHeight())
 			heroPositionY = ConfigurableOption.getInstance().getScreenHeight();
 		hero.setPosition(heroPositionX, heroPositionY);
 		
+	}
+	
+	public boolean isTouchGround(int x, int y) {
+		if (ground.getBlock()[heroPositionX][heroPositionY+1] == 1) return true;
+		return false;
 	}
 	
 }
