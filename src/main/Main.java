@@ -14,13 +14,20 @@ import logic.GameLogic;
 import logic.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
+import scene.ConfigScreen;
 import scene.GameScreen;
+import scene.MenuScreen;
 
 public class Main extends Application {
 	
-	private Scene mainMenu;
+	public static Main instance;
+	//private Scene mainMenu;
 	private Scene gameScene;
+	private Scene configScene;
+	private Scene menuScene;
 	private GameScreen gameScreen;
+	private ConfigScreen configScreen;
+	private MenuScreen menuScreen;
 	private Stage mainStage;
 	
 	private String level =  "./level/test-stage";// file root directory
@@ -35,11 +42,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
+		instance=this;
 		mainStage = stage;
+		menuScreen=new MenuScreen();
+		menuScene=new Scene(menuScreen);
+		configScreen = new ConfigScreen();
+		configScene= new Scene(configScreen);
 		gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
 		gameScene = new Scene(gameScreen);
 		
-		stage.setScene(gameScene);
+		//stage.setScene(gameScene);
+		stage.setScene(menuScene);
 		stage.setTitle(GameTitle);
 		stage.setResizable(false);
 		stage.setWidth(ConfigurableOption.getInstance().getScreenWidth());
@@ -65,7 +78,7 @@ public class Main extends Application {
 			}
 		}.start();*/
 		stage.requestFocus();
-		addListener();
+		//addListener();
 	}
 	
 	public Stage getMainStage() {
@@ -80,6 +93,7 @@ public class Main extends Application {
 				// TODO Auto-generated method stub
 				if (mainStage.getScene() == gameScene) {
 					gameScreen.gameLogic.pressKey(key.getCode());
+					System.out.println(key.getCode());
 				}
 			}
 		});
@@ -95,6 +109,22 @@ public class Main extends Application {
 			}
 		});
 	}
-	
-
+	public void toggleScene(String nextScene){
+		if(nextScene=="menuScene"){
+			mainStage.setScene(menuScene);
+		}
+		else if(nextScene=="configScene"){
+			mainStage.setScene(configScene);
+		}
+		else{
+			mainStage.setScene(gameScene);
+			addListener();
+		}
+	}
+	public void resizeStage(){
+		configScreen.applyResize();
+		menuScreen.applyResize();
+		//gameScreen.applyResize();
+		mainStage.sizeToScene();
+	}
 }

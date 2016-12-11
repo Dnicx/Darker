@@ -70,5 +70,8 @@ public class GameScreen extends StackPane {
 	public Hero getHero() {
 		return knight;
 	}
+/*	public void applyResize(){
+		this.setPrefSize(main.ConfigurableOption.getInstance().getScreenWidth(), main.ConfigurableOption.getInstance().getScreenHeight());
+	}*/
 
 }
