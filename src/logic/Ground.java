@@ -17,11 +17,12 @@ public class Ground {
 	 * 
 	 * @param file : text file contain ground with format "n width height" follow by n number of blocks 
 	 */
-	public Ground(File file) {
+	public Ground(Scanner boxs) {
 		block = new int[MAX_X][MAX_Y];
 		box = new ArrayList<>();
 		try{ 
-			Scanner boxs = new Scanner(file);
+			//Scanner boxs = new Scanner(file);
+			
 			int n = 0; 
 			n = boxs.nextInt();
 			this.width = boxs.nextInt();
@@ -55,16 +56,11 @@ public class Ground {
 		}
 	}
 	
-	public boolean canGoLeft(int x, int y, int width, int height) {
-		if (block[x-1][y+(height/2)] == 1) return false;
-		else return true;
+	public int getWidth() {
+		return width;
 	}
-	
-	public boolean canStand(int x, int y, int widht, int height)  {
-		for (int i=0; i<widht; i++) {
-			if (block[x+i][y+1] == 1) return true;
-		}
-		return false;
+	public int getHeight() {
+		return height;
 	}
 	
 	/**

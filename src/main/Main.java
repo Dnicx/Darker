@@ -47,7 +47,7 @@ public class Main extends Application {
 		stage.show();
 		//System.out.println(RenderableHolder.getInstance().getEntity());
 		
-		new AnimationTimer() {
+		/*new AnimationTimer() {
 			long start = 1;
 			@Override
 			public void handle(long now) {
@@ -63,7 +63,7 @@ public class Main extends Application {
 					InputUtility.update();	
 				}
 			}
-		}.start();
+		}.start();*/
 		stage.requestFocus();
 		addListener();
 	}

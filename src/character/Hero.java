@@ -13,8 +13,10 @@ public class Hero implements Renderable {
 	public int fall_speed = 0;
 	public int jumpStrength = 25;
 	public static final int FACE_RIGHT = 1, FACE_LEFT = -1;
-	public Animation idle = null;
-	public Animation walk = null;
+	public Animation idleLeft = null;
+	public Animation walkLeft = null;
+	public Animation idleRight = null;
+	public Animation walkRight = null;
 	private boolean visible;
 	private int x = 0, y = 0;
 	public int offsetX = 80;
@@ -34,7 +36,7 @@ public class Hero implements Renderable {
 		visible = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
-		currentState = idle;
+		currentState = idleRight;
 		currentState.play();
 		RenderableHolder.getInstance().add(this);
 	}
@@ -43,12 +45,12 @@ public class Hero implements Renderable {
 		this.x = x;
 		this.y = y;
 		HP = 5;
-		speed = 4;
+		speed = 5;
 		damage = 2;
 		visible = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
-		currentState = idle;
+		currentState = idleRight;
 		currentState.play();
 		RenderableHolder.getInstance().add(this);
 	}
@@ -62,19 +64,27 @@ public class Hero implements Renderable {
 		visible = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
-		currentState = idle;
+		currentState = idleRight;
 		currentState.play();
 		RenderableHolder.getInstance().add(this);
 	}
 	
 	private void loadAnimation() {
-		idle = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 0);
-		idle.setOffset(offsetX, offsetY);
-		idle.setPosition(x, y);
+		idleLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 0);
+		idleLeft.setOffset(offsetX, offsetY);
+		idleLeft.setPosition(x, y);
 		
-		walk = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 1);
-		walk.setOffset(offsetX, offsetY);
-		walk.setPosition(x, y);
+		walkLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 2);
+		walkLeft.setOffset(offsetX, offsetY);
+		walkLeft.setPosition(x, y);
+		
+		idleRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 1);
+		idleRight.setOffset(offsetX, offsetY);
+		idleRight.setPosition(x, y);
+		
+		walkRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 3);
+		walkRight.setOffset(offsetX, offsetY);
+		walkRight.setPosition(x, y);
 	}
 	
 	/**

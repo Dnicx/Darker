@@ -16,7 +16,7 @@ public class InputUtility {
 	public static boolean isKeyTriggered(KeyCode key) {
 		return keyTriggered.contains(key);
 	}
-	
+
 	public static void setKeyPress(KeyCode key, boolean press) {
 		if (press && !keyPressed.contains(key)) {
 			keyPressed.add(key);
@@ -25,6 +25,10 @@ public class InputUtility {
 		if (!press && keyPressed.contains(key)) { 
 			keyPressed.remove(keyPressed.indexOf(key));
 		}
+	}
+	
+	public static ArrayList<KeyCode> getPressed() {
+		return keyPressed;
 	}
 	
 	public static void update() {

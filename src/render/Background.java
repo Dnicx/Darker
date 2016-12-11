@@ -52,6 +52,14 @@ public class Background implements Renderable{
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	public boolean isBorder(int x, int y) {
+		int width = ConfigurableOption.getInstance().getScreenWidth();
+		int height = ConfigurableOption.getInstance().getScreenHeight();
+		if (x < 0 || y < 0 || x+width > nearBackground.getWidth() || y+height > nearBackground.getHeight()) 
+			return true;
+		return false;
+	}
 
 	@Override
 	public int getz() {
@@ -74,15 +82,27 @@ public class Background implements Renderable{
 		int scale = option.getScale();
 		if (visible && farBackground != null && nearBackground != null) {
 			WritableImage fbg = null, nbg = null;
-			if (farPositionX < 0) farPositionX = 0;
+			/*if (farPositionX < 0) farPositionX = 0;
 			if (farPositionY < 0) farPositionY = 0;
 			if (farPositionX + option.getScreenWidth() > farBackground.getWidth())  farPositionX = (int)farBackground.getWidth()- option.getScreenWidth();
 			if (farPositionY + option.getScreenHeight() > farBackground.getHeight()) farPositionY = (int)farBackground.getHeight()-option.getScreenHeight();
-			
-			if (nearPositionX < 0) nearPositionX = 0;
-			if (nearPositionY < 0) nearPositionY = 0;
-			if (nearPositionX + option.getScreenWidth() > nearBackground.getWidth())  nearPositionX = (int)nearBackground.getWidth()- option.getScreenWidth();
-			if (nearPositionY + option.getScreenHeight() > nearBackground.getHeight()) nearPositionY = (int)nearBackground.getHeight()-option.getScreenHeight();
+			*/
+			if (nearPositionX < 0) {
+				nearPositionX = 0;
+				farPositionX = 0;
+			}
+			if (nearPositionY < 0) {
+				nearPositionY = 0;
+				farPositionY = 0;
+			}
+			if (nearPositionX + option.getScreenWidth() > nearBackground.getWidth())  {
+				nearPositionX = (int)nearBackground.getWidth()- option.getScreenWidth();
+				farPositionX  = nearPositionX/2;
+			}
+			if (nearPositionY + option.getScreenHeight() > nearBackground.getHeight()) {
+				nearPositionY = (int)nearBackground.getHeight()-option.getScreenHeight();
+				farPositionY = nearPositionY/2;
+			}
 			
 			try {
 				fbg = new WritableImage(farBackground.getPixelReader() , farPositionX, farPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
