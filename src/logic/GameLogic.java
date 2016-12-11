@@ -67,24 +67,24 @@ public class GameLogic {
 		//System.out.println(InputUtility.getPressed());
 		if (InputUtility.isKeyPressed(KeyCode.D)) {
 			hero.setDirection(Hero.FACE_RIGHT);
-			if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.getDirection())) {
+			if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 				heroPositionX += hero.speed*hero.getDirection();
 				backgroundScreenX += hero.speed*hero.getDirection();
-				
+				if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
+					heroOnScreenX += hero.speed*hero.getDirection();
+					if (heroOnScreenX < 0) heroOnScreenX = 0;
+					if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth()-hero.width) 
+						heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()-hero.width;
+				}
 			} else {
-				while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.getDirection())) {
+				while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 					heroPositionX -= 1;
-					heroOnScreenX -= 1;
+					//heroOnScreenX -= 1;
 				}
 				heroPositionX += 1;
-				heroOnScreenX += 1;
+				//heroOnScreenX += 1;
 			}
-			if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
-				heroOnScreenX += hero.speed*hero.getDirection();
-				if (heroOnScreenX < 0) heroOnScreenX = 0;
-				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth()-hero.width) 
-					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()-hero.width;
-			}
+			
 			if (heroPositionX < 0) {heroPositionX = 0;}
 			bg.setNearPosition(backgroundScreenX, backgroundScreenY);
 			bg.setFarPosition(backgroundScreenX/2, backgroundScreenY);
@@ -94,22 +94,22 @@ public class GameLogic {
 		}
 		else if (InputUtility.isKeyPressed(KeyCode.A)) {
 			hero.setDirection(Hero.FACE_LEFT);
-			if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.getDirection())) {
+			if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 				heroPositionX += hero.speed*hero.getDirection();
 				backgroundScreenX += hero.speed*hero.getDirection();
+				if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
+					heroOnScreenX += hero.speed*hero.getDirection();
+					if (heroOnScreenX < 0) heroOnScreenX = 0;
+					if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth()-hero.width) 
+						heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()-hero.width;
+				}
 			} else {
-				while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.getDirection())) {
+				while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 					heroPositionX += 1;
-					heroOnScreenX += 1;
+					//heroOnScreenX += 1;
 				}
 				heroPositionX -= 1;
-				heroOnScreenX -= 1;
-			}
-			if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
-				heroOnScreenX += hero.speed*hero.getDirection();
-				if (heroOnScreenX < 0) heroOnScreenX = 0;
-				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth()-hero.width) 
-					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()-hero.width;
+				//heroOnScreenX -= 1;
 			}
 			if (heroPositionX < 0) {heroPositionX = 0;}
 			bg.setNearPosition(backgroundScreenX, backgroundScreenY);
@@ -126,7 +126,7 @@ public class GameLogic {
 		}
 		
 		if (InputUtility.isKeyTriggered(KeyCode.K)) {
-			if (isTouchGround(heroPositionX, heroPositionY, hero.width)) {
+			if (isTouchGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 				hero.fall_speed = -hero.jumpStrength;
 			}
 		}
@@ -134,11 +134,11 @@ public class GameLogic {
 		//################# FALLING ZONE ##########################//
 		
 		try {
-			if (!isTouchGround(heroPositionX, heroPositionY+hero.fall_speed, hero.width)) {
+			if (!isTouchGround(heroPositionX, heroPositionY+hero.fall_speed, hero.width, hero.height)) {
 				hero.fall_speed += gravity;
 			} else {
 				hero.fall_speed = 0;
-				while (!isTouchGround(heroPositionX, heroPositionY, hero.width)) {
+				while (!isTouchGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 					heroPositionY += 1;
 					heroOnScreenY += 1;
 				}
@@ -160,10 +160,12 @@ public class GameLogic {
 			heroPositionY = ConfigurableOption.getInstance().getScreenHeight();
 		hero.setPosition(heroOnScreenX, heroOnScreenY);
 		
+		//System.out.println(canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection()));
+		//System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY);
 	}
 	
-	public boolean isTouchGround(int x, int y, int width) {
-		if (ground.getBlock()[x][y+1] == 1 || ground.getBlock()[x+width][y+1] == 1) return true;
+	public boolean isTouchGround(int x, int y, int width, int height) {
+		if (ground.getBlock()[x][y+height+1] == 1 || ground.getBlock()[x+width][y+height+1] == 1) return true;
 		return false;
 	}
 	
@@ -175,11 +177,11 @@ public class GameLogic {
 	 * @param direction : direction character heading
 	 * @return true if character can go forward
 	 */
-	public boolean canGoForward(int x, int y, int width, int direction) {
-		System.out.println( x + width*((direction+1)/2) + direction);
-		System.out.println(x + width*((direction+1)/2) + direction < 0 || x + width*((direction+1)/2) + direction > ground.getWidth());
+	public boolean canGoForward(int x, int y, int width, int height, int direction) {
+		//System.out.println( x + width*((direction+1)/2) + direction);
+		//System.out.println(x + width*((direction+1)/2) + direction < 0 || x + width*((direction+1)/2) + direction > ground.getWidth());
 		if (x + width*((direction+1)/2) + direction < 0 || x + width*((direction+1)/2) + direction > ground.getWidth()) return false;
-		if (ground.getBlock()[x + width*((direction+1)/2) + direction][y] == 0) return true;
+		if (ground.getBlock()[x + width*((direction+1)/2) + direction][y+height] == 0) return true;
 		return false;
 	}
 	

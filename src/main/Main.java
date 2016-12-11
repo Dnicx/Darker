@@ -48,8 +48,8 @@ public class Main extends Application {
 		menuScene=new Scene(menuScreen);
 		configScreen = new ConfigScreen();
 		configScene= new Scene(configScreen);
-		gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
-		gameScene = new Scene(gameScreen);
+		//gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
+		//gameScene = new Scene(gameScreen);
 		
 		//stage.setScene(gameScene);
 		stage.setScene(menuScene);
@@ -76,8 +76,7 @@ public class Main extends Application {
 					InputUtility.update();	
 				}
 			}
-		}.start();*/
-		stage.requestFocus();
+		}.start(); */
 		//addListener();
 	}
 	
@@ -93,7 +92,7 @@ public class Main extends Application {
 				// TODO Auto-generated method stub
 				if (mainStage.getScene() == gameScene) {
 					gameScreen.gameLogic.pressKey(key.getCode());
-					System.out.println(key.getCode());
+					//System.out.println(key.getCode());
 				}
 			}
 		});
@@ -113,13 +112,13 @@ public class Main extends Application {
 		if(nextScene=="menuScene"){
 			mainStage.setScene(menuScene);
 		}
-		else if(nextScene=="configScene"){
-			mainStage.setScene(configScene);
-		}
 		else{
+			gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
+			gameScene = new Scene(gameScreen);
 			mainStage.setScene(gameScene);
-			addListener();
 		}
+		addListener();
+		mainStage.requestFocus();
 	}
 	public void resizeStage(){
 		configScreen.applyResize();

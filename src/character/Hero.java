@@ -21,7 +21,7 @@ public class Hero implements Renderable {
 	private int x = 0, y = 0;
 	public int offsetX = 80;
 	public int offsetY = 90;
-	public int width = 50;
+	public int width = 80;
 	public int height  = 140;
 	private int direction;
 	

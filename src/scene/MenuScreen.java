@@ -33,20 +33,20 @@ public class MenuScreen extends BorderPane{
 		startBtn.setPrefWidth(140);
 		menu.getChildren().add(0,startBtn);
 		
-		configBtn=new Button("Config");
+		/*configBtn=new Button("Config");
 		configBtn.setPrefHeight(40);
 		configBtn.setPrefWidth(120);
-		menu.getChildren().add(1, configBtn);
+		menu.getChildren().add(1, configBtn);*/
 		this.setCenter(menu);
 		
-		configBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		/*configBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				Main.instance.toggleScene("configScene");
 				
 			}
-		});
+		});*/
 		startBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
