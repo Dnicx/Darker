@@ -79,7 +79,7 @@ public class ConfigScreen extends BorderPane{
 					ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
 					ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
 					ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
-					Main.instance.resizeStage();
+					//Main.instance.resizeStage();
 				}
 				
 			}
@@ -91,7 +91,7 @@ public class ConfigScreen extends BorderPane{
 				ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
-				Main.instance.resizeStage();
+				//Main.instance.resizeStage();
 			}
 			
 		});

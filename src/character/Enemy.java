@@ -19,7 +19,8 @@ public abstract class Enemy implements Renderable {
 	public Animation attackLeft = null;
 	public Animation attackRight = null;
 	protected boolean visible;
-	protected int x = 0, y = 0;
+	protected int logicalX = 0, logicalY = 0;
+	protected int onScreenX = 0, onScreenY = 0;
 	public int offsetX = 80;
 	public int offsetY = 90;
 	public int width = 80;
@@ -30,8 +31,8 @@ public abstract class Enemy implements Renderable {
 	private Animation currentState;
 	
 	public Enemy() {
-		x = 0;
-		y = 0;
+		logicalX = 0;
+		logicalY = 0;
 		HP = 5;
 		speed = 5;
 		damage = 2;
@@ -45,8 +46,8 @@ public abstract class Enemy implements Renderable {
 	}
 	
 	public Enemy(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.logicalX = x;
+		this.logicalY= y;
 		HP = 5;
 		speed = 5;
 		damage = 2;
@@ -60,8 +61,8 @@ public abstract class Enemy implements Renderable {
 	}
 	
 	public Enemy(int x, int y, int hp, int speed, int damage) {
-		this.x = x;
-		this.y = y;
+		this.logicalX = x;
+		this.logicalY = y;
 		this.HP = hp;
 		this.speed = speed;
 		this.damage = damage;
@@ -112,16 +113,28 @@ public abstract class Enemy implements Renderable {
 		this.direction = dir;
 	}
 	
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public void setLogicalPosition(int x, int y) {
+		this.logicalX = x;
+		this.logicalY = y;
 	}
 	
-	public int getX() {
-		return x;
+	public void setOnScreenPosition(int onScreenX, int onScreenY) {
+		this.onScreenX = onScreenX;
+		this.onScreenY = onScreenY;
 	}
-	public int getY() {
-		return y;
+	
+	
+	public int getOnScreenX() {
+		return onScreenX;
+	}
+	public int getOnScreenY() {
+		return onScreenY;
+	}
+	public int getLogicalX() {
+		return logicalX;
+	}
+	public int getLogicalY() {
+		return logicalY;
 	}
 	
 	public boolean isAlive() {
@@ -150,7 +163,7 @@ public abstract class Enemy implements Renderable {
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		currentState.setPosition(x, y);
+		currentState.setPosition(onScreenX, onScreenY);
 		currentState.render(gc);
 		currentState.updateAnimation();
 

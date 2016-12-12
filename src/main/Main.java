@@ -81,6 +81,14 @@ public class Main extends Application {
 		
 	}
 	
+	@Override
+	public void stop() {
+		try {
+			gameScreen.getGameLogic().setGameOver();
+		} catch (NullPointerException e) {
+		}
+	}
+	
 	public Stage getMainStage() {
 		return mainStage;
 	}
@@ -122,10 +130,14 @@ public class Main extends Application {
 		addListener();
 		mainStage.requestFocus();
 	}
-	public void resizeStage(){
+	
+	public GameScreen getGameScreen() {
+		return gameScreen;
+	}
+	/*public void resizeStage(){
 		configScreen.applyResize();
 		menuScreen.applyResize();
 		//gameScreen.applyResize();
 		mainStage.sizeToScene();
-	}
+	}*/
 }

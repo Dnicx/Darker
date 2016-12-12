@@ -30,6 +30,14 @@ public class EnemyHolder {
 		enemyPack.addAll(e);
 	}
 	
+	public void clear() {
+		enemyPack.clear();
+	}
+	
+	public List<Enemy> getEnemyPack(){ 
+		return enemyPack;
+	}
+	
 	public static EnemyHolder getInstance() {
 		return instance;
 	}

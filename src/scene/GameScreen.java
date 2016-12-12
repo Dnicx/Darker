@@ -6,12 +6,14 @@ import java.util.Scanner;
 import character.Fireball;
 import character.Hero;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import logic.EnemyLogic;
 import logic.GameLogic;
 import logic.InputUtility;
 import render.Background;
@@ -26,6 +28,7 @@ public class GameScreen extends StackPane {
 	public Background background;
 	public GameLogic gameLogic;
 	public String file;
+	private Thread updateEnemy;
 
 
 	public GameScreen(int width, int height, String file) {
@@ -40,7 +43,7 @@ public class GameScreen extends StackPane {
 		background.setFarPosition(0, 0);
 		background.setNearPosition(0, 0);
 		gameLogic = new GameLogic(this);
-		
+		updateEnemy = new EnemyLogic(this);
 		
 		new AnimationTimer() {
 			long start = 1;
@@ -55,11 +58,23 @@ public class GameScreen extends StackPane {
 						r.render(gc);
 					}
 					gameLogic.updateLogic();
-					InputUtility.update();	
+					InputUtility.update();
+					System.out.println(gameLogic.isGameOver());
+					if (gameLogic.isGameOver()) {
+						System.out.println("game over");
+						this.stop();
+						
+					}
 				}
 			}
 		}.start();
+		updateEnemy.start();
 		
+	}
+
+	
+	public GameLogic getGameLogic() {
+		return gameLogic;
 	}
 
 	public GraphicsContext getGraphicContext() {
