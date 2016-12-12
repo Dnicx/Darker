@@ -32,7 +32,7 @@ public class Hero implements Renderable {
 		x = 0;
 		y = 0;
 		HP = 5;
-		speed = 3;
+		speed = 5;
 		damage = 2;
 		visible = true;
 		alive = true;

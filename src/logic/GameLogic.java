@@ -25,12 +25,13 @@ public class GameLogic {
 	private Scanner fileRead;
 	private int gravity = 2;
 	
+	
+	public int heroStartX = 450;
+	public int heroStartY = 0;
+	
 	public GameLogic(GameScreen gs) {
-		new Fireball(100, 100);
 		this.gameScreen = gs;
-		this.hero = gs.getHero();
-		//heroPositionX = hero.getX();
-		//heroPositionY = hero.getY();
+		//this.hero = new Hero(heroStartX, heroStartY);
 		this.bg = gs.background;
 		try {
 			fileRead = new Scanner(new File(gs.file));
@@ -51,6 +52,7 @@ public class GameLogic {
 		backgroundScreenY = bg.getNearPositionY();
 		heroOnScreenX = heroPositionX;
 		heroOnScreenY = heroPositionY;
+		this.hero = new Hero(heroPositionX, heroPositionY);
 	}
 	
 	public void pressKey(KeyCode key) {
