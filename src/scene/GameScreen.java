@@ -3,6 +3,7 @@ package scene;
 import java.io.File;
 import java.util.Scanner;
 
+import character.Fireball;
 import character.Hero;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;

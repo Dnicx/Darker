@@ -161,7 +161,7 @@ public class GameLogic {
 		hero.setPosition(heroOnScreenX, heroOnScreenY);
 		
 		//System.out.println(canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection()));
-		//System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY);
+		//System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY + "- screen x : " + heroOnScreenX + "| screen y : " + heroOnScreenY);
 	}
 	
 	public boolean isTouchGround(int x, int y, int width, int height) {
