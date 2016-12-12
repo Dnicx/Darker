@@ -25,6 +25,7 @@ public abstract class Enemy implements Renderable {
 	public int width = 80;
 	public int height  = 140;
 	protected int direction;
+	private boolean alive;
 	
 	private Animation currentState;
 	
@@ -32,13 +33,14 @@ public abstract class Enemy implements Renderable {
 		x = 0;
 		y = 0;
 		HP = 5;
-		speed = 3;
+		speed = 5;
 		damage = 2;
 		visible = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
 		currentState.play();
+		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
 	
@@ -53,6 +55,7 @@ public abstract class Enemy implements Renderable {
 		loadAnimation();
 		currentState = idleRight;
 		currentState.play();
+		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
 	
@@ -67,6 +70,7 @@ public abstract class Enemy implements Renderable {
 		loadAnimation();
 		currentState = idleRight;
 		currentState.play();
+		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
 	
@@ -118,6 +122,17 @@ public abstract class Enemy implements Renderable {
 	}
 	public int getY() {
 		return y;
+	}
+	
+	public boolean isAlive() {
+		return alive;
+	}
+	
+	public void hitted(int damage) {
+		this.HP -= damage;
+		if (this.HP <= 0) {
+			alive = false;
+		}
 	}
 
 	@Override

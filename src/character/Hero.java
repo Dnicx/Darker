@@ -17,6 +17,8 @@ public class Hero implements Renderable {
 	public Animation walkLeft = null;
 	public Animation idleRight = null;
 	public Animation walkRight = null;
+	public Animation attackLeft = null;
+	public Animation attackRight = null;
 	private boolean visible;
 	private int x = 0, y = 0;
 	public int offsetX = 80;
@@ -89,6 +91,14 @@ public class Hero implements Renderable {
 		walkRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 3);
 		walkRight.setOffset(offsetX, offsetY);
 		walkRight.setPosition(x, y);
+		
+		attackLeft  = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 1, 4);
+		attackLeft.setOffset(offsetX, offsetY);
+		attackLeft.setPosition(x, y);
+		
+		attackRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 1, 5);
+		attackRight.setOffset(offsetX, offsetY);
+		attackRight.setPosition(x, y);
 	}
 	
 	/**
