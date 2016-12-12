@@ -210,11 +210,15 @@ public class GameLogic {
 	}
 	
 	public void heroAttackRight() {
-		
+		if (hero.getCurrentState() != hero.attackRight) {
+			hero.setState(hero.attackRight);
+		}
 	}
 	
 	public void heroAttackLeft() {
-		
+		if (hero.getCurrentState() != hero.attackLeft ) {
+			hero.setState(hero.attackLeft);
+		}
 	}
 	
 	/**

@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import logic.EnemyLogic;
 import logic.GameLogic;
 import logic.InputUtility;
+import main.Main;
 import render.Background;
 import render.Renderable;
 import render.RenderableHolder;
@@ -62,6 +63,7 @@ public class GameScreen extends StackPane {
 					//System.out.println(gameLogic.isGameOver());
 					if (gameLogic.isGameOver()) {
 						System.out.println("game over");
+						Main.instance.toggleScene("GameOverScene");
 						this.stop();
 						
 					}

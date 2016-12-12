@@ -15,6 +15,7 @@ import logic.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
 import scene.ConfigScreen;
+import scene.GameOverScreen;
 import scene.GameScreen;
 import scene.MenuScreen;
 
@@ -25,9 +26,11 @@ public class Main extends Application {
 	private Scene gameScene;
 	private Scene configScene;
 	private Scene menuScene;
+	private Scene gameOverScene;
 	private GameScreen gameScreen;
 	private ConfigScreen configScreen;
 	private MenuScreen menuScreen;
+	private GameOverScreen gameOverScreen;
 	private Stage mainStage;
 	
 	private String level =  "./level/test-stage";// file root directory
@@ -48,6 +51,8 @@ public class Main extends Application {
 		menuScene=new Scene(menuScreen);
 		configScreen = new ConfigScreen();
 		configScene= new Scene(configScreen);
+		gameOverScreen = new GameOverScreen();
+		gameOverScene = new Scene(gameOverScreen);
 		//gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
 		//gameScene = new Scene(gameScreen);
 		
@@ -122,10 +127,12 @@ public class Main extends Application {
 		if(nextScene=="menuScene"){
 			mainStage.setScene(menuScene);
 		}
-		else{
+		else if (nextScene == "gameScene"){
 			gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
 			gameScene = new Scene(gameScreen);
 			mainStage.setScene(gameScene);
+		} else if (nextScene == "GameOverScene") {
+			mainStage.setScene(gameOverScene);
 		}
 		addListener();
 		mainStage.requestFocus();
