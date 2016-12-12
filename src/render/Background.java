@@ -6,18 +6,18 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import main.ConfigurableOption;
 
-public class Background implements Renderable{
+public class Background implements Renderable {
 
 	private Image farBackground;
 	private Image nearBackground;
 	private boolean visible;
 	private int farPositionX, farPositionY; // far background top left position
-	private int nearPositionX, nearPositionY; // near background top left position
-	
-	
+	private int nearPositionX, nearPositionY; // near background top left
+												// position
+
 	public Background(Image farBackground, Image nearBackground) {
 		farPositionX = 0;
-		farPositionY= 0;
+		farPositionY = 0;
 		nearPositionX = 0;
 		nearPositionY = 0;
 		this.farBackground = farBackground;
@@ -25,26 +25,29 @@ public class Background implements Renderable{
 		this.visible = true;
 		RenderableHolder.getInstance().add(this);
 	}
-	
+
 	public void setFarPosition(int x, int y) {
 		farPositionX = x;
 		farPositionY = y;
 	}
-	
+
 	public void setNearPosition(int x, int y) {
 		nearPositionX = x;
 		nearPositionY = y;
 	}
-	
+
 	public int getFarPositionX() {
 		return farPositionX;
 	}
+
 	public int getFarPositionY() {
 		return farPositionY;
 	}
+
 	public int getNearPositionX() {
 		return nearPositionX;
 	}
+
 	public int getNearPositionY() {
 		return nearPositionY;
 	}
@@ -52,11 +55,11 @@ public class Background implements Renderable{
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-	
+
 	public boolean isBorder(int x, int y) {
 		int width = ConfigurableOption.getInstance().getScreenWidth();
 		int height = ConfigurableOption.getInstance().getScreenHeight();
-		if (x < 0 || y < 0 || x+width > nearBackground.getWidth() || y+height > nearBackground.getHeight()) 
+		if (x < 0 || y < 0 || x + width > nearBackground.getWidth() || y + height > nearBackground.getHeight())
 			return true;
 		return false;
 	}
@@ -67,13 +70,11 @@ public class Background implements Renderable{
 		return Integer.MIN_VALUE;
 	}
 
-
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
-
 
 	@Override
 	public void render(GraphicsContext gc) {
@@ -82,11 +83,15 @@ public class Background implements Renderable{
 		int scale = option.getScale();
 		if (visible && farBackground != null && nearBackground != null) {
 			WritableImage fbg = null, nbg = null;
-			/*if (farPositionX < 0) farPositionX = 0;
-			if (farPositionY < 0) farPositionY = 0;
-			if (farPositionX + option.getScreenWidth() > farBackground.getWidth())  farPositionX = (int)farBackground.getWidth()- option.getScreenWidth();
-			if (farPositionY + option.getScreenHeight() > farBackground.getHeight()) farPositionY = (int)farBackground.getHeight()-option.getScreenHeight();
-			*/
+			/*
+			 * if (farPositionX < 0) farPositionX = 0; if (farPositionY < 0)
+			 * farPositionY = 0; if (farPositionX + option.getScreenWidth() >
+			 * farBackground.getWidth()) farPositionX =
+			 * (int)farBackground.getWidth()- option.getScreenWidth(); if
+			 * (farPositionY + option.getScreenHeight() >
+			 * farBackground.getHeight()) farPositionY =
+			 * (int)farBackground.getHeight()-option.getScreenHeight();
+			 */
 			if (nearPositionX < 0) {
 				nearPositionX = 0;
 				farPositionX = 0;
@@ -95,28 +100,36 @@ public class Background implements Renderable{
 				nearPositionY = 0;
 				farPositionY = 0;
 			}
-			if (nearPositionX + option.getScreenWidth() > nearBackground.getWidth())  {
-				nearPositionX = (int)nearBackground.getWidth()- option.getScreenWidth();
-				farPositionX  = nearPositionX/2;
+			if (nearPositionX + option.getScreenWidth() > nearBackground.getWidth()) {
+				nearPositionX = (int) nearBackground.getWidth() - option.getScreenWidth();
+				farPositionX = nearPositionX / 2;
 			}
 			if (nearPositionY + option.getScreenHeight() > nearBackground.getHeight()) {
-				nearPositionY = (int)nearBackground.getHeight()-option.getScreenHeight();
-				farPositionY = nearPositionY/2;
+				nearPositionY = (int) nearBackground.getHeight() - option.getScreenHeight();
+				farPositionY = nearPositionY / 2;
 			}
-			
+
 			try {
-				fbg = new WritableImage(farBackground.getPixelReader() , farPositionX, farPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+				fbg = new WritableImage(farBackground.getPixelReader(), farPositionX, farPositionY,
+						option.getScreenWidth() / scale, option.getScreenHeight() / scale);
 			} catch (IndexOutOfBoundsException e) {
-				fbg = new WritableImage(farBackground.getPixelReader() , (int)farBackground.getWidth()- option.getScreenWidth(), (int)farBackground.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+				fbg = new WritableImage(farBackground.getPixelReader(),
+						(int) farBackground.getWidth() - option.getScreenWidth(),
+						(int) farBackground.getHeight() - option.getScreenHeight(), option.getScreenWidth() / scale,
+						option.getScreenHeight() / scale);
 			}
 			try {
-				nbg = new WritableImage(nearBackground.getPixelReader(), nearPositionX, nearPositionY, option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+				nbg = new WritableImage(nearBackground.getPixelReader(), nearPositionX, nearPositionY,
+						option.getScreenWidth() / scale, option.getScreenHeight() / scale);
 			} catch (IndexOutOfBoundsException e) {
-				nbg = new WritableImage(nearBackground.getPixelReader() , (int)nearBackground.getWidth()- option.getScreenWidth(), (int)nearBackground.getHeight()-option.getScreenHeight(), option.getScreenWidth()/scale, option.getScreenHeight()/scale);
+				nbg = new WritableImage(nearBackground.getPixelReader(),
+						(int) nearBackground.getWidth() - option.getScreenWidth(),
+						(int) nearBackground.getHeight() - option.getScreenHeight(), option.getScreenWidth() / scale,
+						option.getScreenHeight() / scale);
 			}
 			gc.drawImage(fbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
 			gc.drawImage(nbg, 0, 0, option.getScreenWidth(), option.getScreenHeight());
 		}
 	}
-	
+
 }

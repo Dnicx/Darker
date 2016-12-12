@@ -24,12 +24,12 @@ public abstract class Enemy implements Renderable {
 	public int offsetX = 80;
 	public int offsetY = 90;
 	private int width = 80;
-	private int height  = 140;
+	private int height = 140;
 	protected int direction;
 	private boolean alive;
-	
+
 	private Animation currentState;
-	
+
 	public Enemy() {
 		logicalX = 0;
 		logicalY = 0;
@@ -44,10 +44,10 @@ public abstract class Enemy implements Renderable {
 		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
-	
+
 	public Enemy(int x, int y) {
 		this.logicalX = x;
-		this.logicalY= y;
+		this.logicalY = y;
 		HP = 5;
 		speed = 5;
 		damage = 2;
@@ -59,7 +59,7 @@ public abstract class Enemy implements Renderable {
 		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
-	
+
 	public Enemy(int x, int y, int hp, int speed, int damage) {
 		this.logicalX = x;
 		this.logicalY = y;
@@ -74,7 +74,7 @@ public abstract class Enemy implements Renderable {
 		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
-	
+
 	private void loadAnimation() {
 		loadIdleLeft();
 		loadIdleRight();
@@ -83,18 +83,23 @@ public abstract class Enemy implements Renderable {
 		loadAttackLeft();
 		loadAttackRight();
 	}
-	
+
 	protected abstract void loadIdleLeft();
+
 	protected abstract void loadIdleRight();
+
 	protected abstract void loadWalkLeft();
+
 	protected abstract void loadWalkRight();
+
 	protected abstract void loadAttackLeft();
+
 	protected abstract void loadAttackRight();
-	
-	
+
 	/**
 	 * 
-	 * @param state : (animation) current animation state
+	 * @param state
+	 *            : (animation) current animation state
 	 */
 	public void setState(Animation state) {
 		currentState.stop();
@@ -105,59 +110,68 @@ public abstract class Enemy implements Renderable {
 	public Animation getCurrentState() {
 		return currentState;
 	}
-	
+
 	public int getDirection() {
 		return direction;
 	}
+
 	public void setDirection(int dir) {
 		this.direction = dir;
 	}
-	
+
 	public void setLogicalPosition(int x, int y) {
 		this.logicalX = x;
 		this.logicalY = y;
 	}
-	
+
 	public void setOnScreenPosition(int onScreenX, int onScreenY) {
 		this.onScreenX = onScreenX;
 		this.onScreenY = onScreenY;
 	}
-	
+
 	public int getWidth() {
 		return width;
 	}
+
 	public int getheight() {
 		return height;
 	}
+
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
 	public void setheight(int height) {
 		this.height = height;
 	}
+
 	public void setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	public int getOnScreenX() {
 		return onScreenX;
 	}
+
 	public int getOnScreenY() {
 		return onScreenY;
 	}
+
 	public int getLogicalX() {
 		return logicalX;
 	}
+
 	public int getLogicalY() {
 		return logicalY;
 	}
-	
+
 	public boolean isAlive() {
 		return alive;
 	}
-	
+
 	public void hitted(int damage) {
+		System.out.println("ouch");
 		this.HP -= damage;
 		if (this.HP <= 0) {
 			alive = false;
@@ -170,6 +184,10 @@ public abstract class Enemy implements Renderable {
 		return 0;
 	}
 
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
@@ -184,5 +202,5 @@ public abstract class Enemy implements Renderable {
 		currentState.updateAnimation();
 
 	}
-	
+
 }

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
 
 public class InputUtility {
-	
+
 	private static ArrayList<KeyCode> keyTriggered = new ArrayList<>();
 	private static ArrayList<KeyCode> keyPressed = new ArrayList<>();
-	
+
 	public static boolean isKeyPressed(KeyCode key) {
 		return keyPressed.contains(key);
 	}
-	
+
 	public static boolean isKeyTriggered(KeyCode key) {
 		return keyTriggered.contains(key);
 	}
@@ -22,17 +22,17 @@ public class InputUtility {
 			keyPressed.add(key);
 			keyTriggered.add(key);
 		}
-		if (!press && keyPressed.contains(key)) { 
+		if (!press && keyPressed.contains(key)) {
 			keyPressed.remove(keyPressed.indexOf(key));
 		}
 	}
-	
+
 	public static ArrayList<KeyCode> getPressed() {
 		return keyPressed;
 	}
-	
+
 	public static void update() {
-		for (int i=0; i<keyTriggered.size(); i++) {
+		for (int i = 0; i < keyTriggered.size(); i++) {
 			keyTriggered.remove(i);
 		}
 	}

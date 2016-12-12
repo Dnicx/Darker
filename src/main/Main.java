@@ -20,9 +20,12 @@ import scene.GameScreen;
 import scene.MenuScreen;
 
 public class Main extends Application {
-	
+
 	public static Main instance;
-	//private Scene mainMenu;
+	// private Scene mainMenu;
+	public static final String menu = "menuScene";
+	public static final String game = "gameScene";
+	public static final String gameOver = "gameOverScene";
 	private Scene gameScene;
 	private Scene configScene;
 	private Scene menuScene;
@@ -32,12 +35,12 @@ public class Main extends Application {
 	private MenuScreen menuScreen;
 	private GameOverScreen gameOverScreen;
 	private Stage mainStage;
-	
-	private String level =  "./level/test-stage";// file root directory
+
+	private String level = "./level/test-stage";// file root directory
 	private static final String levelFile = "collideBox.txt"; // file name
-	
+
 	private final String GameTitle = "Darker";
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -45,47 +48,44 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		instance=this;
+		instance = this;
 		mainStage = stage;
-		menuScreen=new MenuScreen();
-		menuScene=new Scene(menuScreen);
+		menuScreen = new MenuScreen();
+		menuScene = new Scene(menuScreen);
 		configScreen = new ConfigScreen();
-		configScene= new Scene(configScreen);
+		configScene = new Scene(configScreen);
 		gameOverScreen = new GameOverScreen();
 		gameOverScene = new Scene(gameOverScreen);
-		//gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
-		//gameScene = new Scene(gameScreen);
-		
-		//stage.setScene(gameScene);
+		// gameScreen = new
+		// GameScreen(ConfigurableOption.getInstance().getScreenWidth(),
+		// ConfigurableOption.getInstance().getScreenHeight(),
+		// level+"/"+levelFile);
+		// gameScene = new Scene(gameScreen);
+
+		// stage.setScene(gameScene);
 		stage.setScene(menuScene);
 		stage.setTitle(GameTitle);
 		stage.setResizable(false);
 		stage.setWidth(ConfigurableOption.getInstance().getScreenWidth());
 		stage.setHeight(ConfigurableOption.getInstance().getScreenHeight());
 		stage.show();
-		//System.out.println(RenderableHolder.getInstance().getEntity());
-		
-		/*new AnimationTimer() {
-			long start = 1;
-			@Override
-			public void handle(long now) {
-				// TODO Auto-generated method stub
-				if (start == 1) start = now;
-				long dif = now - start;
-				if (dif >= 30000000) {
-					start = now;
-					for (Renderable r : RenderableHolder.getInstance().getEntity()) {
-						r.render(gameScreen.getGraphicContext());
-					}
-					gameScreen.gameLogic.updateLogic();
-					InputUtility.update();	
-				}
-			}
-		}.start(); */
-		//addListener();
-		
+		// System.out.println(RenderableHolder.getInstance().getEntity());
+
+		/*
+		 * new AnimationTimer() { long start = 1;
+		 * 
+		 * @Override public void handle(long now) { // TODO Auto-generated
+		 * method stub if (start == 1) start = now; long dif = now - start; if
+		 * (dif >= 30000000) { start = now; for (Renderable r :
+		 * RenderableHolder.getInstance().getEntity()) {
+		 * r.render(gameScreen.getGraphicContext()); }
+		 * gameScreen.gameLogic.updateLogic(); InputUtility.update(); } }
+		 * }.start();
+		 */
+		// addListener();
+
 	}
-	
+
 	@Override
 	public void stop() {
 		try {
@@ -93,11 +93,11 @@ public class Main extends Application {
 		} catch (NullPointerException e) {
 		}
 	}
-	
+
 	public Stage getMainStage() {
 		return mainStage;
 	}
-	
+
 	public void addListener() {
 		mainStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -106,11 +106,11 @@ public class Main extends Application {
 				// TODO Auto-generated method stub
 				if (mainStage.getScene() == gameScene) {
 					gameScreen.gameLogic.pressKey(key.getCode());
-					//System.out.println(key.getCode());
+					// System.out.println(key.getCode());
 				}
 			}
 		});
-		
+
 		mainStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -123,28 +123,28 @@ public class Main extends Application {
 		});
 		mainStage.requestFocus();
 	}
-	public void toggleScene(String nextScene){
-		if(nextScene=="menuScene"){
+
+	public void toggleScene(String nextScene) {
+		if (nextScene.equals(menu)) {
 			mainStage.setScene(menuScene);
-		}
-		else if (nextScene == "gameScene"){
-			gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(), ConfigurableOption.getInstance().getScreenHeight(), level+"/"+levelFile);
+		} else if (nextScene.equals(game)) {
+			gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(),
+					ConfigurableOption.getInstance().getScreenHeight(), level + "/" + levelFile);
 			gameScene = new Scene(gameScreen);
 			mainStage.setScene(gameScene);
-		} else if (nextScene == "GameOverScene") {
+		} else if (nextScene.equals(gameOver)) {
 			mainStage.setScene(gameOverScene);
 		}
 		addListener();
 		mainStage.requestFocus();
 	}
-	
+
 	public GameScreen getGameScreen() {
 		return gameScreen;
 	}
-	/*public void resizeStage(){
-		configScreen.applyResize();
-		menuScreen.applyResize();
-		//gameScreen.applyResize();
-		mainStage.sizeToScene();
-	}*/
+	/*
+	 * public void resizeStage(){ configScreen.applyResize();
+	 * menuScreen.applyResize(); //gameScreen.applyResize();
+	 * mainStage.sizeToScene(); }
+	 */
 }

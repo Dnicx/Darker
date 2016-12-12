@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import main.ConfigurableOption;
 import main.Main;
 
-public class ConfigScreen extends BorderPane{
+public class ConfigScreen extends BorderPane {
 	private int width;
 	private int height;
 	private GridPane topConfig;
@@ -24,21 +24,21 @@ public class ConfigScreen extends BorderPane{
 	private GridPane bottomConfig;
 	private Button menuBtn;
 	private Button applyBtn;
-	
-	public ConfigScreen(){
+
+	public ConfigScreen() {
 		width = ConfigurableOption.getInstance().getScreenWidth();
 		height = ConfigurableOption.getInstance().getScreenHeight();
 		this.setPrefSize(width, height);
-		/*======Top=====================*/
+		/* ======Top===================== */
 		topConfig = new GridPane();
 		topConfig.setPadding(new Insets(10, 10, 10, 30));
 		topConfig.setAlignment(Pos.CENTER_LEFT);
-		Label headConfig =new Label("Setting");
+		Label headConfig = new Label("Setting");
 		headConfig.setStyle("-fx-font-size: 32px; -fx-font-family:\"Arial Black\";-fx-fill: #555;");
 		topConfig.add(headConfig, 0, 0);
 		this.setTop(topConfig);
-		
-		/*=====Center==================*/
+
+		/* =====Center================== */
 		centerConfig = new FlowPane();
 		centerConfig.setHgap(10);
 		centerConfig.setVgap(10);
@@ -49,18 +49,18 @@ public class ConfigScreen extends BorderPane{
 		Label lbheight = new Label("HEIGHT");
 		TextField tfHeight = new TextField();
 		tfHeight.setText("512");
-		centerConfig.getChildren().addAll(lbwidth,tfWidth,lbheight,tfHeight);
-		Label lbBright=new Label("Brightness");
-		TextField tfBright=new TextField();
+		centerConfig.getChildren().addAll(lbwidth, tfWidth, lbheight, tfHeight);
+		Label lbBright = new Label("Brightness");
+		TextField tfBright = new TextField();
 		tfBright.setText("0");
-		centerConfig.getChildren().addAll(lbBright,tfBright);
+		centerConfig.getChildren().addAll(lbBright, tfBright);
 		this.setCenter(centerConfig);
-		
-		/*==============Bottom===========*/
-		bottomConfig=new GridPane();
+
+		/* ==============Bottom=========== */
+		bottomConfig = new GridPane();
 		bottomConfig.setPrefHeight(50);
-		menuBtn=new Button("Back");
-		applyBtn=new Button("Apply");
+		menuBtn = new Button("Back");
+		applyBtn = new Button("Apply");
 		topConfig.setPadding(new Insets(10, 10, 20, 10));
 		bottomConfig.setAlignment(Pos.CENTER);
 		bottomConfig.add(menuBtn, 0, 0);
@@ -68,20 +68,19 @@ public class ConfigScreen extends BorderPane{
 		bottomConfig.setHgap(10);
 		bottomConfig.setVgap(20);
 		this.setBottom(bottomConfig);
-		
-		
-		//====apply=====
+
+		// ====apply=====
 		applyBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
+				if (event.getCode() == KeyCode.ENTER) {
 					ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
 					ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
 					ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
-					//Main.instance.resizeStage();
+					// Main.instance.resizeStage();
 				}
-				
+
 			}
 		});
 		applyBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -91,37 +90,36 @@ public class ConfigScreen extends BorderPane{
 				ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
-				//Main.instance.resizeStage();
+				// Main.instance.resizeStage();
 			}
-			
+
 		});
-		
-		
+
 		menuBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				Main.instance.toggleScene("menuScene");
-				
+
 			}
 		});
-		
+
 		menuBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
+				if (event.getCode() == KeyCode.ENTER) {
 					Main.instance.toggleScene("menuScene");
 				}
-				
+
 			}
 		});
-		
-		
+
 	}
-	
-	public void applyResize(){
-		this.setPrefSize(ConfigurableOption.getInstance().getScreenWidth(),ConfigurableOption.getInstance().getScreenHeight());
+
+	public void applyResize() {
+		this.setPrefSize(ConfigurableOption.getInstance().getScreenWidth(),
+				ConfigurableOption.getInstance().getScreenHeight());
 	}
 
 }
