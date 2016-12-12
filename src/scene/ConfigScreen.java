@@ -1,14 +1,11 @@
 package scene;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -71,23 +68,10 @@ public class ConfigScreen extends BorderPane{
 		
 		
 		//====apply=====
-		applyBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		applyBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
-					ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
-					ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
-					ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
-					Main.instance.resizeStage();
-				}
-				
-			}
-		});
-		applyBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
 				ConfigurableOption.getInstance().setBrightness(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenHeight(Integer.parseInt(tfHeight.getText()));
 				ConfigurableOption.getInstance().setScreenWidht(Integer.parseInt(tfWidth.getText()));
@@ -95,31 +79,17 @@ public class ConfigScreen extends BorderPane{
 			}
 			
 		});
-		
-		
-		menuBtn.setOnAction(new EventHandler<ActionEvent>() {
+		menuBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
 				Main.instance.toggleScene("menuScene");
-				
-			}
-		});
-		
-		menuBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
-					Main.instance.toggleScene("menuScene");
-				}
 				
 			}
 		});
 		
 		
 	}
-	
 	public void applyResize(){
 		this.setPrefSize(ConfigurableOption.getInstance().getScreenWidth(),ConfigurableOption.getInstance().getScreenHeight());
 	}

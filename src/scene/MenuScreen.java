@@ -1,11 +1,8 @@
 package scene;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -42,40 +39,18 @@ public class MenuScreen extends BorderPane{
 		menu.getChildren().add(1, configBtn);*/
 		this.setCenter(menu);
 		
-		/*configBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		/*configBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
-					Main.instance.toggleScene("configScene");
-				}
-				
-			}
-		});
-		configBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
 				Main.instance.toggleScene("configScene");
 				
 			}
 		});*/
-		
-		startBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		startBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()==KeyCode.ENTER){
-					Main.instance.toggleScene("gameScene");
-				}
-				
-			}
-		});
-		
-		startBtn.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
 				Main.instance.toggleScene("gameScene");
 				
 			}
