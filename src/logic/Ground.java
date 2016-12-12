@@ -56,9 +56,18 @@ public class Ground {
 		}
 	}
 	
+	
+	/**
+	 * 
+	 * @return width of logical ground
+	 */
 	public int getWidth() {
 		return width;
 	}
+	/**
+	 * 
+	 * @return height of logical ground
+	 */
 	public int getHeight() {
 		return height;
 	}

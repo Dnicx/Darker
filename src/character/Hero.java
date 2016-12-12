@@ -24,6 +24,7 @@ public class Hero implements Renderable {
 	public int width = 80;
 	public int height  = 140;
 	private int direction;
+	private boolean alive;
 	
 	private Animation currentState;
 	
@@ -34,6 +35,7 @@ public class Hero implements Renderable {
 		speed = 3;
 		damage = 2;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -48,6 +50,7 @@ public class Hero implements Renderable {
 		speed = 5;
 		damage = 2;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -62,6 +65,7 @@ public class Hero implements Renderable {
 		this.speed = speed;
 		this.damage = damage;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -118,6 +122,17 @@ public class Hero implements Renderable {
 	}
 	public int getY() {
 		return y;
+	}
+	
+	public boolean isAlive() {
+		return alive;
+	}
+	
+	public void hitted(int damage) {
+		this.HP -= damage;
+		if (this.HP <= 0) {
+			alive = false;
+		}
 	}
 
 	@Override

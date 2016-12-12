@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.annotation.processing.Filer;
 
+import character.Fireball;
 import character.Hero;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
@@ -25,6 +26,7 @@ public class GameLogic {
 	private int gravity = 2;
 	
 	public GameLogic(GameScreen gs) {
+		new Fireball(100, 100);
 		this.gameScreen = gs;
 		this.hero = gs.getHero();
 		//heroPositionX = hero.getX();
@@ -153,17 +155,33 @@ public class GameLogic {
 				heroOnScreenY = 0;
 				if (hero.fall_speed < 0) hero.fall_speed = 0;
 			}
+			if (heroPositionY > ground.getHeight()) {
+				hero.hitted(10000);
+			}
 		}
+		
+		
 		heroPositionY += hero.fall_speed;
 		heroOnScreenY += hero.fall_speed;
 		if (hero.getY() >= ConfigurableOption.getInstance().getScreenHeight())
 			heroPositionY = ConfigurableOption.getInstance().getScreenHeight();
+		
+		//############## set hero position from calculation above ############
 		hero.setPosition(heroOnScreenX, heroOnScreenY);
 		
 		//System.out.println(canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection()));
 		//System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY + "- screen x : " + heroOnScreenX + "| screen y : " + heroOnScreenY);
 	}
 	
+	
+	/**
+	 * 
+	 * @param x : current X position of character
+	 * @param y : current Y position of character
+	 * @param width : width of character
+	 * @param height : height of character
+	 * @return true if character is touching ground
+	 */
 	public boolean isTouchGround(int x, int y, int width, int height) {
 		if (ground.getBlock()[x][y+height+1] == 1 || ground.getBlock()[x+width][y+height+1] == 1) return true;
 		return false;
