@@ -26,6 +26,12 @@ public class EnemyLogic extends Thread{
 	public void run() {
 		// TODO Auto-generated method stub
 		while (!gameLogic.isGameOver()) {
+			try {
+				Thread.sleep(33);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
 				logicalX = e.getLogicalX();
 				logicalY = e.getLogicalY();
@@ -33,14 +39,14 @@ public class EnemyLogic extends Thread{
 				onScreenY = e.getOnScreenY();
 				//System.out.println("x = " + logicalX + "| y = " + logicalY + "- screenX = " + onScreenX + "| screenY = " + onScreenY);
 				try {
-					if (!gameLogic.isTouchGround(logicalX, logicalY+e.fall_speed, e.width, e.height)) {
+					if (!gameLogic.isTouchGround(logicalX, logicalY+e.fall_speed, e.getWidth(), e.getheight())) {
 						e.fall_speed += gravity;
 					} else {
 						e.fall_speed = 0;
-						while (!gameLogic.isTouchGround(logicalX, logicalY, e.width, e.height)) {
+						while (!gameLogic.isTouchGround(logicalX, logicalY, e.getWidth(), e.getheight())) {
 							logicalY += 1;
 							onScreenY += 1;
-							System.out.println("loop");
+							//System.out.println("loop");
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException exception) {
@@ -49,7 +55,7 @@ public class EnemyLogic extends Thread{
 						onScreenY = 0;
 						if (e.fall_speed < 0) e.fall_speed = 0;
 					}
-					if (logicalY+e.height >= gameLogic.getGround().getHeight()) {
+					if (logicalY+e.getheight() >= gameLogic.getGround().getHeight()) {
 						e.hitted(10000);
 					}
 				}
@@ -68,7 +74,7 @@ public class EnemyLogic extends Thread{
 				onScreenY += e.fall_speed;
 				if (logicalY >= ConfigurableOption.getInstance().getScreenHeight())
 					logicalY = ConfigurableOption.getInstance().getScreenHeight();
-				e.setOnScreenPosition(onScreenX, onScreenY);
+				e.setOnScreenPosition(logicalX-gameLogic.getBackgroundX(), logicalY-gameLogic.getBackgroundY());
 				e.setLogicalPosition(logicalX, logicalY);
 			}
 		}

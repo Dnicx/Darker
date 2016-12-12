@@ -8,12 +8,14 @@ import main.ConfigurableOption;
 public class Animation {
 	
 	private Image spriteSheet = null;
-	private boolean visible = false, playing = false;
+	private boolean visible = false;
+	protected boolean playing = false;
 	private int x = 0, y = 0, z = 0;
 	private int frameWidth, frameHeight;
-	private int frameDelay, frameDelayCount;
-	private int currentFrame = 0;
-	private int numberOfFrame;
+	protected int frameDelay;
+	protected int frameDelayCount;
+	protected int currentFrame = 0;
+	protected int numberOfFrame;
 	private int offsetX = 0, offsetY = 0;
 	private int spriteLine; // specify the column in sprite sheet
 	private int scale; // size of animation. get from setting

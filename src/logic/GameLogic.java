@@ -7,6 +7,7 @@ import java.util.Scanner;
 import javax.annotation.processing.Filer;
 
 import character.Enemy;
+import character.EnemyHolder;
 import character.Fireball;
 import character.Hero;
 import javafx.scene.input.KeyCode;
@@ -35,7 +36,7 @@ public class GameLogic {
 		//this.gameScreen = gs;
 		//this.hero = new Hero(heroStartX, heroStartY);
 		gameOver = false;
-		new Fireball(700, 0);
+		//new Fireball(700, 0);
 		this.bg = gs.background;
 		try {
 			fileRead = new Scanner(new File(gs.file));
@@ -85,6 +86,18 @@ public class GameLogic {
 		return ground;
 	}
 	
+	public int getBackgroundX() {
+		return backgroundScreenX;
+	}
+	
+	public int getBackgroundY() {
+		return backgroundScreenY;
+	}
+	
+	public boolean inArea(CollideBox c1, CollideBox c2) {
+		return c1.isCollide(c2);
+	}
+	
 	/**
 	 * 
 	 * @param x : current X position of character
@@ -115,7 +128,6 @@ public class GameLogic {
 	}
 	
 	public synchronized void updateLogic() {
-		
 		//########################## INPUT HANDLE ZONE #############################3
 		//System.out.println(InputUtility.getPressed());
 		if (InputUtility.isKeyPressed(KeyCode.D)) {
@@ -134,6 +146,15 @@ public class GameLogic {
 		if (InputUtility.isKeyTriggered(KeyCode.K)) {
 			if (isTouchGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 				hero.fall_speed = -hero.jumpStrength;
+			}
+		}
+		
+		if (InputUtility.isKeyTriggered(KeyCode.J)) {
+			if (hero.getDirection() == Hero.FACE_RIGHT) {
+				heroAttackRight();
+			}
+			if (hero.getDirection() == Hero.FACE_LEFT) {
+				heroAttackLeft();
 			}
 		}
 		
@@ -185,6 +206,14 @@ public class GameLogic {
 		if (!isHeroAlive()) {
 			setGameOver();
 		}
+		
+	}
+	
+	public void heroAttackRight() {
+		
+	}
+	
+	public void heroAttackLeft() {
 		
 	}
 	

@@ -23,8 +23,8 @@ public abstract class Enemy implements Renderable {
 	protected int onScreenX = 0, onScreenY = 0;
 	public int offsetX = 80;
 	public int offsetY = 90;
-	public int width = 80;
-	public int height  = 140;
+	private int width = 80;
+	private int height  = 140;
 	protected int direction;
 	private boolean alive;
 	
@@ -123,6 +123,22 @@ public abstract class Enemy implements Renderable {
 		this.onScreenY = onScreenY;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+	public int getheight() {
+		return height;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public void setheight(int height) {
+		this.height = height;
+	}
+	public void setSize(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
 	
 	public int getOnScreenX() {
 		return onScreenX;

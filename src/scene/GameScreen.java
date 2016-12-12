@@ -59,7 +59,7 @@ public class GameScreen extends StackPane {
 					}
 					gameLogic.updateLogic();
 					InputUtility.update();
-					System.out.println(gameLogic.isGameOver());
+					//System.out.println(gameLogic.isGameOver());
 					if (gameLogic.isGameOver()) {
 						System.out.println("game over");
 						this.stop();
