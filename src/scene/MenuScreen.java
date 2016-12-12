@@ -3,6 +3,8 @@ package scene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -12,20 +14,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import main.ConfigurableOption;
 import main.Main;
+import render.RenderableHolder;
 
 public class MenuScreen extends BorderPane{
-	private GridPane headline;
+	private Canvas headline;
 	private VBox menu;
 	private Button startBtn;
-	private Button configBtn;
+	//private Button configBtn;
 	private int width,height;
 	
 	public MenuScreen(){
 		width = ConfigurableOption.getInstance().getScreenWidth();
 		height = ConfigurableOption.getInstance().getScreenHeight();
 		this.setPrefSize(width, height);
+		this.setStyle("-fx-background-color:black;");
+		RenderableHolder.getInstance().loadResource();
 		
-		headline= new GridPane();
+		headline= new Canvas(768,250);
+		GraphicsContext gc = headline.getGraphicsContext2D();
+		gc.drawImage(RenderableHolder.getInstance().titlemenu, 234, 50);
 		this.setTop(headline);
 		
 		menu=new VBox();

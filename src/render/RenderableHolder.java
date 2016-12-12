@@ -15,10 +15,18 @@ public class RenderableHolder {
 	private String testStageFarSrc = "level/test-stage/arena-background.png";
 	private String testStageNearSrc = "level/test-stage/arena-ground.png";
 	private String fireballSpriteSrc = "fireball-spriteSheet.png";
+	private String titleSrc = "menu/darker.png";
+	private String rtmNomalSrc="menu/rtm-nomal.png";
+	private String rtmEnterSrc="menu/rtm-enter.png";
+	public String gameOverSrc="menu/gameover.png";
 	public Image heroSprite = null;
 	public Image testStageFar = null;
 	public Image testStageNear = null;
 	public Image fireballSprete = null;
+	public Image titlemenu = null;
+	public Image rtmNomal=null;
+	public Image rtmEnter=null;
+	public Image gameOver=null;
 	
 	private List<Renderable> entities;
 	private Comparator<Renderable> comparator;
@@ -45,6 +53,10 @@ public class RenderableHolder {
 			testStageFar = new Image(loader.getResourceAsStream(testStageFarSrc));
 			testStageNear = new Image(loader.getResourceAsStream(testStageNearSrc));
 			fireballSprete = new Image(loader.getResourceAsStream(fireballSpriteSrc));
+			titlemenu =new Image(loader.getResourceAsStream(titleSrc));
+			rtmEnter=new Image(loader.getResourceAsStream(rtmEnterSrc));
+			rtmNomal=new Image(loader.getResourceAsStream(rtmNomalSrc));
+			gameOver=new Image(loader.getResourceAsStream(gameOverSrc));
 		} catch( NullPointerException e) {
 			System.out.println("can not find resource : "+ e);
 		} catch( Exception e) {
