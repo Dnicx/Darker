@@ -74,6 +74,14 @@ public class RenderableHolder {
 		entities.add(e);
 		Collections.sort(entities, comparator);
 	}
+	
+	public synchronized void remove(Renderable e) {
+		entities.remove(e);
+	}
+	
+	public synchronized void remove(int e) {
+		entities.remove(e);
+	}
 
 	public static RenderableHolder getInstance() {
 		return instance;

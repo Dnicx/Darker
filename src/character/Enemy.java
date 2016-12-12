@@ -37,6 +37,7 @@ public abstract class Enemy implements Renderable {
 		speed = 5;
 		damage = 2;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -52,6 +53,7 @@ public abstract class Enemy implements Renderable {
 		speed = 5;
 		damage = 2;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -67,6 +69,7 @@ public abstract class Enemy implements Renderable {
 		this.speed = speed;
 		this.damage = damage;
 		visible = true;
+		alive = true;
 		direction = FACE_RIGHT;
 		loadAnimation();
 		currentState = idleRight;
@@ -172,6 +175,7 @@ public abstract class Enemy implements Renderable {
 
 	public void hitted(int damage) {
 		System.out.println("ouch");
+		System.out.println(EnemyHolder.getInstance().getEnemyPack().size());
 		this.HP -= damage;
 		if (this.HP <= 0) {
 			alive = false;

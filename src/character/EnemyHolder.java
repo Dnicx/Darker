@@ -18,7 +18,7 @@ public class EnemyHolder {
 	 * @param e
 	 *            : single enemy
 	 */
-	public void add(Enemy e) {
+	public synchronized void add(Enemy e) {
 		enemyPack.add(e);
 	}
 
@@ -26,8 +26,16 @@ public class EnemyHolder {
 	 * @param e
 	 *            : list of enemy
 	 */
-	public void addall(List<Enemy> e) {
+	public synchronized void addall(List<Enemy> e) {
 		enemyPack.addAll(e);
+	}
+	
+	public synchronized void remove(Enemy e) {
+		enemyPack.remove(enemyPack.indexOf(e));
+	}
+	
+	public synchronized void remove(int e) {
+		enemyPack.remove(e);
 	}
 
 	public void clear() {

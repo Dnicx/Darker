@@ -33,12 +33,14 @@ public class EnemyLogic extends Thread {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				/*if (!e.isAlive()) {
-					EnemyHolder.getInstance().getEnemyPack().remove(e);
-					RenderableHolder.getInstance().getEntity().remove(e);
-					//continue;
-				}*/
+			for (int i = 0; i < EnemyHolder.getInstance().getEnemyPack().size() ; i++) {
+				Enemy e = EnemyHolder.getInstance().getEnemyPack().get(i);
+				if (!e.isAlive()) {
+					e.setVisible(false);
+					EnemyHolder.getInstance().remove(i);
+					RenderableHolder.getInstance().remove(e);
+					continue;
+				}
 				logicalX = e.getLogicalX();
 				logicalY = e.getLogicalY();
 				onScreenX = e.getOnScreenX();
