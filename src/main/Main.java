@@ -78,6 +78,7 @@ public class Main extends Application {
 			}
 		}.start(); */
 		//addListener();
+		
 	}
 	
 	public Stage getMainStage() {
@@ -107,6 +108,7 @@ public class Main extends Application {
 				}
 			}
 		});
+		mainStage.requestFocus();
 	}
 	public void toggleScene(String nextScene){
 		if(nextScene=="menuScene"){
