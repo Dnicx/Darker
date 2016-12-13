@@ -14,7 +14,7 @@ public class Background implements Renderable {
 	private int farPositionX, farPositionY; // far background top left position
 	private int nearPositionX, nearPositionY; // near background top left
 												// position
-
+	
 	public Background(Image farBackground, Image nearBackground) {
 		farPositionX = 0;
 		farPositionY = 0;
@@ -55,11 +55,32 @@ public class Background implements Renderable {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+	
+	public double getWidth() {
+		return nearBackground.getWidth();
+	}
+	
+	public double getHeight() {
+		return nearBackground.getHeight();
+	}
 
-	public boolean isBorder(int x, int y) {
+	
+	/**
+	 * this method is to check if the screen can move any further.
+	 * @param x : x position of screen
+	 * @param y : y position of screen
+	 * @return true if screen can't move anymore 
+	 */
+	public boolean isBorderX(int x) {
 		int width = ConfigurableOption.getInstance().getScreenWidth();
+		if (x <= 0 || x + width >= nearBackground.getWidth())
+			return true;
+		return false;
+	}
+	
+	public boolean isBoderY(int y) {
 		int height = ConfigurableOption.getInstance().getScreenHeight();
-		if (x < 0 || y < 0 || x + width > nearBackground.getWidth() || y + height > nearBackground.getHeight())
+		if (y <= 0 || y + height >= nearBackground.getHeight())
 			return true;
 		return false;
 	}

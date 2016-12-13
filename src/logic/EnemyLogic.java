@@ -2,6 +2,7 @@ package logic;
 
 import character.Enemy;
 import character.EnemyHolder;
+import character.Fireball;
 import main.ConfigurableOption;
 import main.Main;
 import render.RenderableHolder;
@@ -35,6 +36,7 @@ public class EnemyLogic extends Thread {
 				e1.printStackTrace();
 			}
 			for (int i = 0; i < EnemyHolder.getInstance().getEnemyPack().size() ; i++) {
+				
 				Enemy e = EnemyHolder.getInstance().getEnemyPack().get(i);
 				if (!e.isAlive()) {
 					e.setVisible(false);
@@ -49,6 +51,7 @@ public class EnemyLogic extends Thread {
 				//onScreenY = e.getOnScreenY();
 				// System.out.println("x = " + logicalX + "| y = " + logicalY +
 				// "- screenX = " + onScreenX + "| screenY = " + onScreenY);
+				//System.out.println("x = " + logicalX + " y = " + logicalY);
 				try {
 					if (!gameLogic.isTouchingGround(logicalX, logicalY + e.fall_speed, e.getWidth(), e.getheight())) {
 						e.fall_speed += gravity;

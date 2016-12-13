@@ -45,7 +45,7 @@ public class GameScreen extends StackPane {
 		background.setNearPosition(0, 0);
 		gameLogic = new GameLogic(this);
 		updateEnemy = new EnemyLogic(this);
-
+		InputUtility.clear();
 		new AnimationTimer() {
 			long start = 1;
 

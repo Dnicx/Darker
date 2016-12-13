@@ -21,10 +21,8 @@ public abstract class Enemy implements Renderable {
 	protected boolean visible;
 	protected int logicalX = 0, logicalY = 0;
 	protected int onScreenX = 0, onScreenY = 0;
-	public int offsetX = 80;
-	public int offsetY = 90;
-	private int width = 80;
-	private int height = 140;
+	protected int width = 80;
+	protected int height = 140;
 	protected int direction;
 	private boolean alive;
 	private int score = 10;

@@ -178,7 +178,7 @@ public class GameLogic {
 				if (isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 					hero.fall_speed = -hero.jumpStrength;
 				}
-			} else if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height)) {
+			} else if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 				if (hero.getDirection() == Hero.FACE_RIGHT) {
 					heroAttackRight(4);
 				}
@@ -254,8 +254,9 @@ public class GameLogic {
 
 		// System.out.println(canGoForward(heroPositionX, heroPositionY,
 		// hero.width, hero.height, hero.getDirection()));
-		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
-		 + "- screen x : " + heroOnScreenX + "| screen y : " + heroOnScreenY);
+//		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
+//		 + "- hs x : " + heroOnScreenX + "| hs y : " + heroOnScreenY + "- screenx : " + backgroundScreenX + 
+//		 "| screeny : " + backgroundScreenY);
 
 		if (!isHeroAlive()) {
 			setGameOver();
@@ -283,7 +284,7 @@ public class GameLogic {
 		if (hero.getCurrentState().isFrameTriggered()) {
 			//System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (hit(new CollideBox(heroPositionX + hero.width, heroPositionY,heroPositionX + hero.width + 40, heroPositionY + hero.height), 
+				if (hit(new CollideBox(heroPositionX + hero.width, heroPositionY,heroPositionX + Hero.width + Hero.attackRange, heroPositionY + hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
 					System.out.println("hit");
 					e.hitted(hero.damage);
@@ -306,7 +307,7 @@ public class GameLogic {
 		if (hero.getCurrentState().isFrameTriggered()) {
 			//System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (hit(new CollideBox(heroPositionX - 40, heroPositionY,heroPositionX, heroPositionY + hero.height), 
+				if (hit(new CollideBox(heroPositionX - Hero.attackRange, heroPositionY,heroPositionX, heroPositionY + hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
 					e.hitted(hero.damage);
 					System.out.println("hit");
@@ -336,22 +337,39 @@ public class GameLogic {
 		hero.setDirection(Hero.FACE_RIGHT);
 		if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 			heroPositionX += hero.speed * hero.getDirection();
-			backgroundScreenX += hero.speed * hero.getDirection();
-			if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
-				heroOnScreenX += hero.speed * hero.getDirection();
-				if (heroOnScreenX < 0)
-					heroOnScreenX = 0;
-				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
-					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
+				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
+				backgroundScreenX += hero.speed * hero.getDirection();
+			} else {
+				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
+					backgroundScreenX = 0;
+				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2))
+					backgroundScreenX = (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
 			}
-		} else {
+			if (bg.isBorderX(backgroundScreenX)) {
+				//System.out.println("rrr");
+				if (backgroundScreenX == 0) 
+					heroOnScreenX = heroPositionX;
+				if (backgroundScreenX == (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth()))
+					heroOnScreenX = heroPositionX - (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
+//				heroOnScreenX += hero.speed * hero.getDirection();
+//				
+//				if (heroOnScreenX < 0)
+//					heroOnScreenX = 0;
+//				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
+//					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+			} else {
+				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()/2;
+			}
+			
+		} //else {
 			while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 				heroPositionX -= 1;
-				// heroOnScreenX -= 1;
+				//heroOnScreenX -= 1;
 			}
 			heroPositionX += 1;
-			// heroOnScreenX += 1;
-		}
+			//heroOnScreenX += 1;
+		//}
 
 		if (heroPositionX < 0) {
 			heroPositionX = 0;
@@ -373,22 +391,39 @@ public class GameLogic {
 		hero.setDirection(Hero.FACE_LEFT);
 		if (canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 			heroPositionX += hero.speed * hero.getDirection();
-			backgroundScreenX += hero.speed * hero.getDirection();
-			if (bg.isBorder(backgroundScreenX, backgroundScreenY)) {
-				heroOnScreenX += hero.speed * hero.getDirection();
-				if (heroOnScreenX < 0)
-					heroOnScreenX = 0;
-				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
-					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
+				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
+				backgroundScreenX += hero.speed * hero.getDirection();
+			} else {
+				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
+					backgroundScreenX = 0;
+				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2))
+					backgroundScreenX = (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
 			}
-		} else {
+			if (bg.isBorderX(backgroundScreenX)) {
+				//System.out.println("lllllllllllll");
+				if (backgroundScreenX == 0) 
+					heroOnScreenX = heroPositionX;
+				if (backgroundScreenX == (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth()))
+					heroOnScreenX = heroPositionX - (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
+//				heroOnScreenX += hero.speed * hero.getDirection();
+//					
+//				if (heroOnScreenX < 0)
+//					heroOnScreenX = 0;
+//				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
+//					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+			} else {
+				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()/2;
+			}
+			
+		} //else {
 			while (!canGoForward(heroPositionX, heroPositionY, hero.width, hero.height, hero.getDirection())) {
 				heroPositionX += 1;
-				// heroOnScreenX += 1;
+				//heroOnScreenX += 1;
 			}
 			heroPositionX -= 1;
-			// heroOnScreenX -= 1;
-		}
+			//heroOnScreenX -= 1;
+		//}
 		if (heroPositionX < 0) {
 			heroPositionX = 0;
 		}

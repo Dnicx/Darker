@@ -22,6 +22,7 @@ public class Animation {
 	private int spriteLine; // specify the column in sprite sheet
 	private int scale; // size of animation. get from setting
 
+
 	/**
 	 * 
 	 * @param spriteSheet
@@ -59,10 +60,6 @@ public class Animation {
 	}
 
 	public void setPosition(int x, int y) {
-		setCenterPosition(x, y);
-	}
-
-	public void setCenterPosition(int x, int y) {
 		setTopleftPosition(x - offsetX, y - offsetY);
 	}
 
