@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -17,20 +18,30 @@ import main.Main;
 import render.RenderableHolder;
 
 public class MenuScreen extends BorderPane {
+	
+	private static MenuScreen instance;
 	private Canvas headline;
 	private Canvas blank;
 	private Canvas blank1;
 	private Canvas blank2;
 	private VBox menu;
+	private VBox menu1;
 	private Button startBtn;
 	private Button exitBtn;
 	private Button stage1Btn;
 	private Button stage2Btn;
 	private Button backBtn;
 	// private Button configBtn;
+	private ImageView test1;
+	private ImageView test2;
+	private Boolean isSelectStartBtn=false;
+	private Boolean isSelectExitBtn =false;
+	private Boolean isPushStartBtn =false;
+	private Boolean isPushExitBtn = false;
 	private int width, height;
 
 	public MenuScreen() {
+		instance=this;
 		width = ConfigurableOption.getInstance().getScreenWidth();
 		height = ConfigurableOption.getInstance().getScreenHeight();
 		this.setPrefSize(width, height);
@@ -41,6 +52,14 @@ public class MenuScreen extends BorderPane {
 		GraphicsContext gc = headline.getGraphicsContext2D();
 		gc.drawImage(RenderableHolder.getInstance().titlemenu, 234, 50);
 		this.setTop(headline);
+		
+		test1= new ImageView(RenderableHolder.getInstance().startBtn);
+		test2= new ImageView(RenderableHolder.getInstance().startBtn);
+		
+		
+
+
+	
 
 		menu = new VBox();
 		menu.setAlignment(Pos.TOP_CENTER);
@@ -48,6 +67,7 @@ public class MenuScreen extends BorderPane {
 		startBtn = new Button("New Game");
 		startBtn.setPrefHeight(40);
 		startBtn.setPrefWidth(140);
+		startBtn.setGraphic(test2);
 		menu.getChildren().add(0, startBtn);
 		
 		
@@ -60,15 +80,11 @@ public class MenuScreen extends BorderPane {
 		exitBtn.setPrefHeight(30);
 		exitBtn.setPrefWidth(120);
 		menu.getChildren().add(2, exitBtn);
+		menu.getChildren().add(3,test1);
 		
 		
-		stage1Btn = new Button("Stage 1");
-		stage1Btn.setPrefSize(120, 30);
-		stage2Btn = new Button("Stage 2");
-		stage2Btn.setPrefSize(120, 30);
 		
-		backBtn =new Button("Back");
-		backBtn.setPrefSize(120, 30);
+		
 		
 		
 		
@@ -94,151 +110,144 @@ public class MenuScreen extends BorderPane {
 		 * } });
 		 */
 
-		startBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+		startBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER) {
-					menu.getChildren().clear();
-					menu.getChildren().add(0, stage1Btn);
-					menu.getChildren().add(1,blank1);
-					menu.getChildren().add(2, stage2Btn);
-					menu.getChildren().add(3, blank2);
-					menu.getChildren().add(4, backBtn);
-					//Main.instance.toggleScene("gameScene");
-					
-				}
-
+			public void handle(MouseEvent event) {
+				test2.setImage(RenderableHolder.getInstance().startBtnEnter);
+				test1.setImage(RenderableHolder.getInstance().startBtn);
+				
 			}
 		});
 
-		startBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+		startBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
-				menu.getChildren().clear();
-				menu.getChildren().add(0, stage1Btn);
-				menu.getChildren().add(1,blank1);
-				menu.getChildren().add(2, stage2Btn);
-				menu.getChildren().add(3, blank2);
-				menu.getChildren().add(4, backBtn);
-				//Main.instance.toggleScene("gameScene");
+			public void handle(MouseEvent event) {
+				test2.setImage(RenderableHolder.getInstance().startBtnClick);	
+				test1.setImage(RenderableHolder.getInstance().startBtn);	
+				Main.instance.toggleScene("gameScene");
+				
+			}
+		});
+		startBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 
+			@Override
+			public void handle(MouseEvent event) {
+				test2.setImage(RenderableHolder.getInstance().startBtn);
+				test1.setImage(RenderableHolder.getInstance().startBtn);
+				
 			}
 		});
 		
-		exitBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		exitBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER) {
-					System.exit(0);
-				}
-
+			public void handle(MouseEvent event) {
+				test1.setImage(RenderableHolder.getInstance().startBtnEnter);
+				test2.setImage(RenderableHolder.getInstance().startBtn);
+				
+				
 			}
 		});
 
-		exitBtn.setOnAction(new EventHandler<ActionEvent>() {
+		exitBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
+				test1.setImage(RenderableHolder.getInstance().startBtnClick);
+				test2.setImage(RenderableHolder.getInstance().startBtn);
 				System.exit(0);
 
 			}
 		});
-		
-		stage1Btn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		exitBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER) {
-					Main.instance.toggleScene("gameScene");
-					menu.getChildren().clear();
-					menu.getChildren().add(0,startBtn);
-					menu.getChildren().add(1, blank);
-					menu.getChildren().add(2, exitBtn);
-					
-				}
-
-			}
-		});
-
-		stage1Btn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				Main.instance.toggleScene("gameScene");
-				menu.getChildren().clear();
-				menu.getChildren().add(0,startBtn);
-				menu.getChildren().add(1, blank);
-				menu.getChildren().add(2, exitBtn);
-
-			}
-		});
-
-		
-		stage2Btn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER) {
-					Main.instance.toggleScene("gameScene");
-					menu.getChildren().clear();
-					menu.getChildren().add(0,startBtn);
-					menu.getChildren().add(1, blank);
-					menu.getChildren().add(2, exitBtn);
-					
-				}
-
-			}
-		});
-
-		stage2Btn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				Main.instance.toggleScene("gameScene");
-				menu.getChildren().clear();
-				menu.getChildren().add(0,startBtn);
-				menu.getChildren().add(1, blank);
-				menu.getChildren().add(2, exitBtn);
-
+			public void handle(MouseEvent event) {
+				test1.setImage(RenderableHolder.getInstance().startBtn);
+				test2.setImage(RenderableHolder.getInstance().startBtn);
+				
 			}
 		});
 		
 		
-		backBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ENTER) {
-					menu.getChildren().clear();
-					menu.getChildren().add(0,startBtn);
-					menu.getChildren().add(1, blank);
-					menu.getChildren().add(2, exitBtn);
-					
-				}
-
-			}
-		});
-
-		backBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				menu.getChildren().clear();
-				menu.getChildren().add(0,startBtn);
-				menu.getChildren().add(1, blank);
-				menu.getChildren().add(2, exitBtn);
-
-			}
-		});
 		
 	}
 
 	public void applyResize() {
 		this.setPrefSize(ConfigurableOption.getInstance().getScreenWidth(),
 				ConfigurableOption.getInstance().getScreenHeight());
+	}
+	
+	public void setmenu(int select){
+		if(select==0){
+			this.setCenter(menu);
+		}
+		else if(select==1){
+			this.setCenter(menu1);
+		}
+	}
+	public void updatemenu(){
+		if(isPushStartBtn){
+			test2.setImage(RenderableHolder.getInstance().startBtnClick);
+			test1.setImage(RenderableHolder.getInstance().startBtn);
+		}
+		else if(isPushExitBtn){
+			test1.setImage(RenderableHolder.getInstance().startBtnClick);
+			test2.setImage(RenderableHolder.getInstance().startBtn);
+		}
+		else if(isSelectStartBtn){
+			test2.setImage(RenderableHolder.getInstance().startBtnEnter);
+			test1.setImage(RenderableHolder.getInstance().startBtn);
+		}
+		else if(isSelectExitBtn){
+			test1.setImage(RenderableHolder.getInstance().startBtnEnter);
+			test2.setImage(RenderableHolder.getInstance().startBtn);
+		}
+		
+	}
+	public void reset(){
+		test2.setImage(RenderableHolder.getInstance().startBtn);
+		test1.setImage(RenderableHolder.getInstance().startBtn);
+		isPushExitBtn=false;
+		isPushStartBtn=false;
+		isSelectExitBtn=false;
+		isSelectStartBtn=false;
+	}
+
+	public Boolean getIsSelectStartBtn() {
+		return isSelectStartBtn;
+	}
+
+	public void setIsSelectStartBtn(Boolean isSelectStartBtn) {
+		this.isSelectStartBtn = isSelectStartBtn;
+	}
+
+	public Boolean getIsSelectExitBtn() {
+		return isSelectExitBtn;
+	}
+
+	public void setIsSelectExitBtn(Boolean isSelectExitBtn) {
+		this.isSelectExitBtn = isSelectExitBtn;
+	}
+
+	public Boolean getIsPushStartBtn() {
+		return isPushStartBtn;
+	}
+
+	public void setIsPushStartBtn(Boolean isPushStartBtn) {
+		this.isPushStartBtn = isPushStartBtn;
+	}
+
+	public Boolean getIsPushExitBtn() {
+		return isPushExitBtn;
+	}
+
+	public void setIsPushExitBtn(Boolean isPushExitBtn) {
+		this.isPushExitBtn = isPushExitBtn;
 	}
 
 }

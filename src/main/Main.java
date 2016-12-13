@@ -1,6 +1,7 @@
 package main;
 
 import java.io.File;
+import java.nio.charset.MalformedInputException;
 import java.util.Scanner;
 
 import javafx.animation.AnimationTimer;
@@ -8,6 +9,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import logic.GameLogic;
@@ -18,6 +20,7 @@ import scene.ConfigScreen;
 import scene.GameOverScreen;
 import scene.GameScreen;
 import scene.MenuScreen;
+import scene.WinScreen;
 
 public class Main extends Application {
 
@@ -26,14 +29,17 @@ public class Main extends Application {
 	public static final String menu = "menuScene";
 	public static final String game = "gameScene";
 	public static final String gameOver = "gameOverScene";
+	public static final String win = "winScene";
 	private Scene gameScene;
 	private Scene configScene;
 	private Scene menuScene;
 	private Scene gameOverScene;
+	private Scene winScene;
 	private GameScreen gameScreen;
 	private ConfigScreen configScreen;
 	private MenuScreen menuScreen;
 	private GameOverScreen gameOverScreen;
+	private WinScreen winScreen;
 	private Stage mainStage;
 
 	private String level = "./level/test-stage";// file root directory
@@ -56,6 +62,8 @@ public class Main extends Application {
 		configScene = new Scene(configScreen);
 		gameOverScreen = new GameOverScreen();
 		gameOverScene = new Scene(gameOverScreen);
+		winScreen = new WinScreen();
+		winScene = new Scene(winScreen);
 		// gameScreen = new
 		// GameScreen(ConfigurableOption.getInstance().getScreenWidth(),
 		// ConfigurableOption.getInstance().getScreenHeight(),
@@ -82,7 +90,7 @@ public class Main extends Application {
 		 * gameScreen.gameLogic.updateLogic(); InputUtility.update(); } }
 		 * }.start();
 		 */
-		// addListener();
+		addListener();
 
 	}
 
@@ -108,6 +116,87 @@ public class Main extends Application {
 					gameScreen.gameLogic.pressKey(key.getCode());
 					// System.out.println(key.getCode());
 				}
+				else if(mainStage.getScene() == menuScene){
+					if(key.getCode()==KeyCode.ENTER){
+						if(menuScreen.getIsSelectStartBtn()){
+							menuScreen.setIsPushStartBtn(true);
+							menuScreen.updatemenu();
+						}
+						else if(menuScreen.getIsSelectExitBtn()){
+							menuScreen.setIsPushExitBtn(true);
+							menuScreen.updatemenu();
+						}
+					}
+					else if(key.getCode()==KeyCode.W){
+						if(!menuScreen.getIsSelectExitBtn()){
+							menuScreen.setIsSelectStartBtn(false);
+							menuScreen.setIsSelectExitBtn(true);
+							menuScreen.updatemenu();
+						}
+						else{
+							menuScreen.setIsSelectExitBtn(false);
+							menuScreen.setIsSelectStartBtn(true);
+							menuScreen.updatemenu();
+							
+						}
+					}
+					else if(key.getCode()==KeyCode.S){
+						if(!menuScreen.getIsSelectStartBtn()){
+							menuScreen.setIsSelectStartBtn(true);
+							menuScreen.setIsSelectExitBtn(false);
+							menuScreen.updatemenu();
+						}
+						else{
+							menuScreen.setIsSelectExitBtn(true);
+							menuScreen.setIsSelectStartBtn(false);
+							menuScreen.updatemenu();
+							
+						}
+					}
+				}
+				else if(mainStage.getScene() == gameOverScene&&key.getCode()==KeyCode.ENTER){
+					gameOverScreen.reset=false;
+					gameOverScreen.update();
+					
+				}
+				else if(mainStage.getScene() == winScene){
+					if(key.getCode()==KeyCode.ENTER){
+						if(winScreen.getSelectrtmBtn()){
+							winScreen.setPushrtmBtn(true);
+							winScreen.updatemenu();
+						}
+						else if(winScreen.getSelectExitBtn()){
+							winScreen.setPushExitBtn(true);
+							winScreen.updatemenu();
+						}
+					}
+					else if(key.getCode()==KeyCode.A){
+						if(!winScreen.getSelectExitBtn()){
+							winScreen.setSelectrtmBtn(false);
+							winScreen.setSelectExitBtn(true);
+							winScreen.updatemenu();
+						}
+						else{
+							winScreen.setSelectExitBtn(false);
+							winScreen.setSelectrtmBtn(true);
+							winScreen.updatemenu();
+							
+						}
+					}
+					else if(key.getCode()==KeyCode.D){
+						if(!winScreen.getSelectrtmBtn()){
+							winScreen.setSelectrtmBtn(true);
+							winScreen.setSelectExitBtn(false);
+							winScreen.updatemenu();
+						}
+						else{
+							winScreen.setSelectExitBtn(true);
+							winScreen.setSelectrtmBtn(false);
+							winScreen.updatemenu();
+							
+						}
+					}
+				}
 			}
 		});
 
@@ -118,6 +207,28 @@ public class Main extends Application {
 				// TODO Auto-generated method stub
 				if (mainStage.getScene() == gameScene) {
 					gameScreen.gameLogic.releaseKey(key.getCode());
+				}
+				else if(mainStage.getScene() == gameOverScene&&!gameOverScreen.reset){
+					toggleScene(menu);
+					gameOverScreen.reset();
+				}
+				else if(mainStage.getScene() == menuScene){
+					if(menuScreen.getIsPushExitBtn()){
+						System.exit(0);
+					}
+					else if (menuScreen.getIsPushStartBtn()){
+						toggleScene(game);
+						menuScreen.reset();
+					}
+				}
+				else if(mainStage.getScene() == winScene){
+					if(winScreen.getPushExitBtn()){
+						System.exit(0);
+					}
+					else if (winScreen.getPushrtmBtn()){
+						toggleScene(menu);
+						winScreen.reset();
+					}
 				}
 			}
 		});

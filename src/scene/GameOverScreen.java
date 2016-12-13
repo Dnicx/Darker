@@ -1,6 +1,5 @@
 package scene;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,6 +18,7 @@ public class GameOverScreen extends BorderPane {
 	private Canvas headline;
 	private Button btnrtm;
 	private GridPane bottom;
+	public boolean reset=true;
 
 	public GameOverScreen() {
 		this.setPrefSize(768, 512);
@@ -57,15 +57,29 @@ public class GameOverScreen extends BorderPane {
 			}
 		});
 
-		btnrtm.setOnAction(new EventHandler<ActionEvent>() {
+		btnrtm.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
+			public void handle(MouseEvent event) {
+				menu.setImage(RenderableHolder.getInstance().rtmEnter);
 				Main.instance.toggleScene("menuScene");
 
 			}
 		});
+		update();
 
 	}
+	
+	public void update(){
+		if(reset)
+			menu.setImage(RenderableHolder.getInstance().rtmNomal);
+		else
+			menu.setImage(RenderableHolder.getInstance().rtmEnter);
+	}
+	public void reset(){
+		reset=true;
+		menu.setImage(RenderableHolder.getInstance().rtmNomal);
+	}
+
 
 }
