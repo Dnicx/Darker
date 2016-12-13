@@ -126,10 +126,17 @@ public class MenuScreen extends BorderPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test2.setImage(RenderableHolder.getInstance().startBtnClick);	
-				test1.setImage(RenderableHolder.getInstance().startBtn);	
+				
 				Main.instance.toggleScene("gameScene");
 				
+			}
+		});
+		startBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				test2.setImage(RenderableHolder.getInstance().startBtnClick);	
+				test1.setImage(RenderableHolder.getInstance().startBtn);	
 			}
 		});
 		startBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -152,13 +159,20 @@ public class MenuScreen extends BorderPane {
 				
 			}
 		});
+		exitBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				test1.setImage(RenderableHolder.getInstance().startBtnClick);	
+				test2.setImage(RenderableHolder.getInstance().startBtn);	
+			}
+		});
 
 		exitBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test1.setImage(RenderableHolder.getInstance().startBtnClick);
-				test2.setImage(RenderableHolder.getInstance().startBtn);
+				
 				System.exit(0);
 
 			}
