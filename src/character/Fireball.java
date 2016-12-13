@@ -3,6 +3,7 @@ package character;
 import logic.EnemyPattern;
 import render.Animation;
 import render.RenderableHolder;
+import render.SequenceAnimation;
 
 public class Fireball extends Enemy {
 	
@@ -19,6 +20,8 @@ public class Fireball extends Enemy {
 	private static final int idleFrameCount = 4;
 	private static final int attackFrameCount = 8;
 	
+	private static final int attackRange = 40;
+	private static final int attackFrame = 4;
 	
 	/**
 	 * create fireball with default status
@@ -83,6 +86,11 @@ public class Fireball extends Enemy {
 		return currentPattern;
 	}
 	
+	public int getAttackRange() { 
+		return attackRange;
+	}
+	 
+	
 	@Override
 	protected void loadIdleLeft() {
 		// TODO Auto-generated method stub
@@ -122,7 +130,7 @@ public class Fireball extends Enemy {
 	@Override
 	protected void loadAttackLeft() {
 		// TODO Auto-generated method stub
-		this.attackLeft = new Animation(RenderableHolder.getInstance().fireballSprite, frameWidth, frameHeight, attackFrameCount, 2, 2);
+		this.attackLeft = new SequenceAnimation(RenderableHolder.getInstance().fireballSprite, frameWidth, frameHeight, attackFrameCount, 2, 2);
 		this.attackLeft.setOffset(offsetX, offsetY);
 		this.attackLeft.setPosition(this.logicalX, this.logicalY);
 		
@@ -131,7 +139,7 @@ public class Fireball extends Enemy {
 	@Override
 	protected void loadAttackRight() {
 		// TODO Auto-generated method stub
-		this.attackRight = new Animation(RenderableHolder.getInstance().fireballSprite, frameWidth, frameHeight, attackFrameCount, 2, 2);
+		this.attackRight = new SequenceAnimation(RenderableHolder.getInstance().fireballSprite, frameWidth, frameHeight, attackFrameCount, 2, 2);
 		this.attackRight.setOffset(offsetX, offsetY);
 		this.attackRight.setPosition(this.logicalX, this.logicalY);
 		
@@ -150,22 +158,24 @@ public class Fireball extends Enemy {
 	@Override
 	protected void loadAttackRightPattern() {
 		// TODO Auto-generated method stub
-		this.attackRightPattern = new EnemyPattern(7);
-		this.attackRightPattern.add(idleRight);
+		this.attackRightPattern = new EnemyPattern(25);
 		this.attackRightPattern.add(idleRight);
 		this.attackRightPattern.add(attackRight);
-		this.attackRightPattern.add(idleRight);
 		this.attackRightPattern.add(idleRight);
 	}
 	
 	@Override
 	protected void loadAttackLeftPattern() {
-		this.attackLeftPattern = new EnemyPattern(7);
-		this.attackLeftPattern.add(idleLeft);
+		this.attackLeftPattern = new EnemyPattern(25);
 		this.attackLeftPattern.add(idleLeft);
 		this.attackLeftPattern.add(attackLeft);
 		this.attackLeftPattern.add(idleLeft);
-		this.attackLeftPattern.add(idleLeft);
+	}
+
+	@Override
+	public int getAtttackFrame() {
+		// TODO Auto-generated method stub
+		return attackFrame;
 	}
 
 }

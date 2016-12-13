@@ -19,12 +19,12 @@ import scene.GameScreen;
 public class GameLogic {
 
 	private Ground ground = null;
-	private int heroPositionX, heroPositionY; // position in logic block
-	private int heroOnScreenX, heroOnScreenY;
+	protected int heroPositionX, heroPositionY; // position in logic block
+	protected int heroOnScreenX, heroOnScreenY;
 	private int backgroundScreenX, backgroundScreenY; // background position
 														// show on screen
 	// private GameScreen gameScreen;
-	private Hero hero;
+	protected Hero hero;
 	private Background bg;
 	private Scanner fileRead;
 	private int gravity = 2;
@@ -115,7 +115,7 @@ public class GameLogic {
 	 *            : collideBox of damage taker
 	 * @return true if the attack hits
 	 */
-	public static boolean hit(CollideBox c1, CollideBox c2) {
+	public static boolean isHit(CollideBox c1, CollideBox c2) {
 		//System.out.println("top x = : " + c1.getLeft() + "top y = : " + c1.getTop());
 		return c1.isCollide(c2);
 	}
@@ -275,7 +275,7 @@ public class GameLogic {
 		if (hero.getCurrentState().isFrameTriggered()) {
 			//System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (hit(new CollideBox(heroPositionX + Hero.width, heroPositionY,heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height), 
+				if (isHit(new CollideBox(heroPositionX + Hero.width, heroPositionY,heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
 					System.out.println("hit");
 					e.hitted(hero.damage);
@@ -298,7 +298,7 @@ public class GameLogic {
 		if (hero.getCurrentState().isFrameTriggered()) {
 			//System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (hit(new CollideBox(heroPositionX - Hero.attackRange, heroPositionY,heroPositionX, heroPositionY + Hero.height), 
+				if (isHit(new CollideBox(heroPositionX - Hero.attackRange, heroPositionY,heroPositionX, heroPositionY + Hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
 					e.hitted(hero.damage);
 					System.out.println("hit");

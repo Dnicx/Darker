@@ -113,7 +113,11 @@ public abstract class Enemy implements Renderable {
 	protected abstract void loadAttackLeftPattern();
 	
 	protected abstract void loadAttackRightPattern();
-
+	
+	public abstract int getAttackRange();
+	
+	public abstract int getAtttackFrame();
+	
 	/**
 	 * 
 	 * @param state
@@ -231,6 +235,11 @@ public abstract class Enemy implements Renderable {
 		currentState.render(gc);
 		currentState.updateAnimation();
 
+	}
+	
+	@Override
+	public String toString() {
+		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = " + speed;
 	}
 
 }

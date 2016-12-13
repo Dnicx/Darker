@@ -3,10 +3,12 @@ package logic;
 import character.Enemy;
 import character.EnemyHolder;
 import character.Fireball;
+import character.Hero;
 import main.ConfigurableOption;
 import main.Main;
 import render.Animation;
 import render.RenderableHolder;
+import render.SequenceAnimation;
 import scene.GameScreen;
 import sun.misc.GC;
 
@@ -63,7 +65,6 @@ public class EnemyLogic extends Thread {
 						while (!gameLogic.isTouchingGround(logicalX, logicalY, e.getWidth(), e.getheight())) {
 							logicalY += 1;
 //							onScreenY += 1;
-							// System.out.println("loop");
 						}
 					} 
 				} catch (ArrayIndexOutOfBoundsException exception) {
@@ -78,7 +79,6 @@ public class EnemyLogic extends Thread {
 				}
 				if (logicalY >= gameLogic.getGround().getHeight()) {
 					e.hitted(10000);
-					// System.out.println("hitt");
 				}
 
 				logicalY += e.fall_speed;
@@ -88,24 +88,44 @@ public class EnemyLogic extends Thread {
 				
 				e.getCurrentPattern().patternUpdate();
 				
+				
+				if (e.getCurrentPattern().isEnd()) {
+					if (e.getCurrentPattern() != e.walkPattern) e.setCurrentPattern(e.walkPattern);
+					e.getCurrentPattern().playPattern();
+				}
+//				if (e.getCurrentPattern().isEnd() && e.getCurrentPattern() != e.walkPattern) {
+//					e.setCurrentPattern(e.walkPattern);
+//					System.out.println("end");
+////					e.getCurrentPattern().playPattern();
+//				}
+				attempAttack(e);
 				currentState = e.getCurrentPattern().getCurrentState();
-				if (e.getCurrentPattern().isEnd()) e.getCurrentPattern().playPattern();
 				if (currentState == e.idleLeft) {
-					System.out.println("1");
+//					System.out.println("1");
 					idleLeft(e);
 				}
 				if (currentState == e.idleRight) {
-					System.out.println("2");
+//					System.out.println("2");
 					idleRight(e);
 				}
 				if (currentState == e.walkLeft) {
-					System.out.println("3");
+//					System.out.println("3");
 					walkLeft(e);
 				}
 				if (currentState == e.walkRight) {
-					System.out.println("4");
+//					System.out.println("4");
 					walkRight(e);
 				}
+				if (currentState == e.attackLeft) {
+//					System.out.println("atl");
+					attackLeft(e);
+				}
+				if (currentState == e.attackRight) {
+//					System.out.println("atr");
+					attackRight(e);
+				}
+				
+//				System.out.println(e.getAttackRange());
 				
 				e.setOnScreenPosition(logicalX - gameLogic.getBackgroundX(), logicalY - gameLogic.getBackgroundY());
 				e.setLogicalPosition(logicalX, logicalY);
@@ -117,7 +137,7 @@ public class EnemyLogic extends Thread {
 		if (e.getCurrentState() != e.walkLeft) {
 			e.setState(e.walkLeft);
 		}
-		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), e.FACE_LEFT)) 
+		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), Enemy.FACE_LEFT)) 
 				logicalX -= e.speed;
 	}
 	
@@ -125,7 +145,7 @@ public class EnemyLogic extends Thread {
 		if (e.getCurrentState() != e.walkRight) {
 			e.setState(e.walkRight);
 		}
-		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), e.FACE_RIGHT)) 
+		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), Enemy.FACE_RIGHT)) 
 			logicalX += e.speed;
 	}
 	
@@ -140,5 +160,58 @@ public class EnemyLogic extends Thread {
 			e.setState(e.idleRight);
 		}
 	}
+	
+	private void attempAttack(Enemy e) {
+//		System.out.println("attack?");
+		if (e.getLogicalX() - e.getAttackRange() < gameLogic.heroPositionX + Hero.width &&
+			e.getLogicalX() + e.getWidth() > gameLogic.heroPositionX + Hero.width) {
+			e.setCurrentPattern(e.attackLeftPattern);
+			e.getCurrentPattern().playPattern();
+//			System.out.println("attack!!!!!!!!!!");
+		}
+		if (e.getLogicalX() + e.getWidth() + e.getAttackRange() > gameLogic.heroPositionX &&
+			e.getLogicalX()  < gameLogic.heroPositionX) {
+			e.setCurrentPattern(e.attackRightPattern);
+			e.getCurrentPattern().playPattern();
+//			System.out.println("!!!!!!!!!!!!!!!!!!!!!1attack");
+		}
+	}
+	
+	public void attackLeft(Enemy e) {
+		if (e.getCurrentState() != e.attackLeft) {
+			e.setState(e.attackLeft);
+		}
+		if (((SequenceAnimation)e.getCurrentState()).isFinished()){
+			e.getCurrentPattern().skipState();
+		}
+		if (e.getCurrentState().getCurrentFrame() == e.getAtttackFrame() && e.getCurrentState().isFrameTriggered()) {
+			doDamage(e);
+		}
+	}
+	
+	public void attackRight (Enemy e) {
+		if (e.getCurrentState() != e.attackRight) {
+			e.setState(e.attackRight);
+		}
+		if (((SequenceAnimation)e.getCurrentState()).isFinished()){
+			e.getCurrentPattern().skipState();
+		}
+		if (e.getCurrentState().getCurrentFrame() == e.getAtttackFrame() && e.getCurrentState().isFrameTriggered()) {
+			doDamage(e);
+		}
+	}
+	
+	private void doDamage(Enemy e) {
+		Hero hero = gameLogic.hero;
+		System.out.println(hero.toString() + " w " + Hero.width + " h " + Hero.height);
+		System.out.println(e.toString() + " w " + e.getWidth() + " h " + e.getheight());
+		if (GameLogic.isHit(new CollideBox(e.getLogicalX()-e.getAttackRange(), e.getLogicalY(), e.getLogicalX() + e.getWidth() + e.getAttackRange(), e.getLogicalY() + e.getheight()), 
+							new CollideBox(hero.getLogicalX(), hero.getlogicalY(), hero.getLogicalX() + Hero.width, hero.getlogicalY() + Hero.height))) {
+			hero.hitted(e.damage);
+			System.out.println(hero.HP);
+			System.out.println("hitted");
+		}
+	}
+	
 
 }

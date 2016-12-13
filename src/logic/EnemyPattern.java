@@ -62,6 +62,12 @@ public class EnemyPattern {
 		return pattern.get(currentStateNumber);
 	}
 	
+	public void skipState() {
+		patternDelayCount = patternDelay;
+		currentStateNumber += 1;
+		pattern.get(currentStateNumber).play();
+	}
+	
 	public void patternUpdate() {
 		if (end) return;
 		patternDelayCount -= 1;

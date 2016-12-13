@@ -30,8 +30,8 @@ public class Main extends Application {
 	public static final String game = "gameScene";
 	public static final String gameOver = "gameOverScene";
 	public static final String win = "winScene";
+	public static final String loading = "loadingscene";
 	private Scene gameScene;
-	private Scene configScene;
 	private Scene menuScene;
 	private Scene gameOverScene;
 	private Scene winScene;
@@ -58,8 +58,6 @@ public class Main extends Application {
 		mainStage = stage;
 		menuScreen = new MenuScreen();
 		menuScene = new Scene(menuScreen);
-		configScreen = new ConfigScreen();
-		configScene = new Scene(configScreen);
 		gameOverScreen = new GameOverScreen();
 		gameOverScene = new Scene(gameOverScreen);
 		winScreen = new WinScreen();

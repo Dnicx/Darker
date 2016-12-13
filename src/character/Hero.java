@@ -206,5 +206,10 @@ public class Hero implements Renderable {
 		currentState.updateAnimation();
 
 	}
+	
+	@Override
+	public String toString() {
+		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = " + speed;
+	}
 
 }
