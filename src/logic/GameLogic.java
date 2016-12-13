@@ -95,7 +95,6 @@ public class GameLogic {
 	public int getBackgroundX() {
 		return backgroundScreenX;
 	}
-
 	public int getBackgroundY() {
 		return backgroundScreenY;
 	}

@@ -6,6 +6,7 @@ import main.ConfigurableOption;
 import main.Main;
 import render.RenderableHolder;
 import scene.GameScreen;
+import sun.misc.GC;
 
 public class EnemyLogic extends Thread {
 
@@ -44,8 +45,8 @@ public class EnemyLogic extends Thread {
 				}
 				logicalX = e.getLogicalX();
 				logicalY = e.getLogicalY();
-				onScreenX = e.getOnScreenX();
-				onScreenY = e.getOnScreenY();
+				//onScreenX = e.getOnScreenX();
+				//onScreenY = e.getOnScreenY();
 				// System.out.println("x = " + logicalX + "| y = " + logicalY +
 				// "- screenX = " + onScreenX + "| screenY = " + onScreenY);
 				try {
