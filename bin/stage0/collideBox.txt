@@ -1,3 +1,5 @@
+arena-background.png
+arena-ground.png
 4 1024 512
 0 450 924 512
 400 350 500 450

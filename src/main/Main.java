@@ -42,7 +42,8 @@ public class Main extends Application {
 	private WinScreen winScreen;
 	private Stage mainStage;
 
-	private String level = "./level/test-stage";// file root directory
+	private String level = "./level/stage";// file root directory
+	public static int stage = 1;
 	private static final String levelFile = "collideBox.txt"; // file name
 
 	private final String GameTitle = "Darker";
@@ -238,7 +239,7 @@ public class Main extends Application {
 			mainStage.setScene(menuScene);
 		} else if (nextScene.equals(game)) {
 			gameScreen = new GameScreen(ConfigurableOption.getInstance().getScreenWidth(),
-					ConfigurableOption.getInstance().getScreenHeight(), level + "/" + levelFile);
+					ConfigurableOption.getInstance().getScreenHeight(), level + stage + "/" + levelFile);
 			gameScene = new Scene(gameScreen);
 			mainStage.setScene(gameScene);
 		} else if (nextScene.equals(gameOver)) {
@@ -247,6 +248,7 @@ public class Main extends Application {
 		addListener();
 		mainStage.requestFocus();
 	}
+	
 
 	public GameScreen getGameScreen() {
 		return gameScreen;

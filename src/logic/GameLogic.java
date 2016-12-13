@@ -11,8 +11,10 @@ import character.Fireball;
 import character.Hero;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
+import main.Main;
 import render.AudioUtility;
 import render.Background;
+import render.RenderableHolder;
 import render.SequenceAnimation;
 import scene.GameScreen;
 
@@ -41,13 +43,20 @@ public class GameLogic {
 		score = 0;
 		gameOver = false;
 		EnemyHolder.getInstance().getEnemyPack().clear();
-		new Fireball(510, 0, 20, 5, 2);
+		new Fireball(500, 0, 20, 5, 2);
+		new Fireball(1000, 0, 20, 5, 2);
+		new Fireball(1500, 0, 20, 5, 2);
+		new Fireball(2000, 0, 20, 5, 2);
+		new Fireball(2500, 0, 20, 5, 2);
+		new Fireball(3000, 0, 20, 5, 2);
+		new Fireball(3500, 0, 20, 5, 2);
+		new Fireball(4000, 0, 20, 5, 2);
+		new Fireball(4500, 0, 20, 5, 2);
+		new Fireball(5000, 0, 20, 5, 2);
 		this.bg = gs.background;
+		this.fileRead = gs.fileRead;
 		try {
-			fileRead = new Scanner(new File(gs.file));
 			ground = new Ground(fileRead);
-		} catch (FileNotFoundException e) {
-			System.out.println("cant find file : " + e);
 		} catch (NullPointerException e) {
 			System.out.println("error load fiel : " + e);
 		}
@@ -245,9 +254,9 @@ public class GameLogic {
 
 //		 System.out.println(canGoForward(heroPositionX, heroPositionY,
 //		 hero.width, hero.height, hero.getDirection()));
-//		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
-//		 + "- hs x : " + heroOnScreenX + "| hs y : " + heroOnScreenY + "- screenx : " + backgroundScreenX + 
-//		 "| screeny : " + backgroundScreenY);
+		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
+		 + "- hs x : " + heroOnScreenX + "| hs y : " + heroOnScreenY + "- screenx : " + backgroundScreenX + 
+		 "| screeny : " + backgroundScreenY);
 
 		if (!isHeroAlive()) {
 			setGameOver();
@@ -330,7 +339,8 @@ public class GameLogic {
 			heroPositionX += hero.speed * hero.getDirection();
 			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
 				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
-				backgroundScreenX += hero.speed * hero.getDirection();
+//				backgroundScreenX += hero.speed * hero.getDirection();
+				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth()/2;
 			} else {
 				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
 					backgroundScreenX = 0;
@@ -384,7 +394,8 @@ public class GameLogic {
 			heroPositionX += hero.speed * hero.getDirection();
 			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
 				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
-				backgroundScreenX += hero.speed * hero.getDirection();
+//				backgroundScreenX += hero.speed * hero.getDirection();
+				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth()/2;
 			} else {
 				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
 					backgroundScreenX = 0;

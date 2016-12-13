@@ -1,6 +1,7 @@
 package scene;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import character.Fireball;
@@ -29,18 +30,30 @@ public class GameScreen extends StackPane {
 	public Background background;
 	public GameLogic gameLogic;
 	public String file;
+	public Scanner fileRead;
 	private Thread updateEnemy;
 
 	public GameScreen(int width, int height, String file) {
 		this.file = file;
-
 		canvas = new Canvas(width, height);
 		gc = canvas.getGraphicsContext2D();
 		this.getChildren().add(canvas);
-		RenderableHolder.getInstance().loadResource();
+//		RenderableHolder.getInstance().loadResource();
 		// knight = new Hero(heroStartX, heroStartY);
-		background = new Background(RenderableHolder.getInstance().testStageFar,
-				RenderableHolder.getInstance().testStageNear);
+		try {
+			fileRead = new Scanner(new File(file));
+			RenderableHolder.getInstance().setNearBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+			RenderableHolder.getInstance().setFarBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+//			System.out.println(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+//			System.out.println(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
+		RenderableHolder.getInstance().loadResource();
+		
+		background = new Background(RenderableHolder.getInstance().StageFar,
+				RenderableHolder.getInstance().StageNear);
 		background.setFarPosition(0, 0);
 		background.setNearPosition(0, 0);
 		gameLogic = new GameLogic(this);

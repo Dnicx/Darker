@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import main.Main;
+import render.RenderableHolder;
+
 public class Ground {
 
 	private List<CollideBox> box = null;
 	private int[][] block;
 	private int width, height;
-	private static final int MAX_X = 2500;
+	private static final int MAX_X = 6000;
 	private static final int MAX_Y = 1000;
 
 	/**
