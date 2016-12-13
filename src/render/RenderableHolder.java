@@ -14,7 +14,10 @@ public class RenderableHolder {
 	private String heroSpriteSrc = "consumed-knight-spriteSheet.png";
 	private String testStageFarSrc = "level/test-stage/arena-background.png";
 	private String testStageNearSrc = "level/test-stage/arena-ground.png";
-	private String fireballSpriteSrc = "fireball-spriteSheet.png";
+	private String fireballSpriteSrc = "monster/fireball-spriteSheet.png";
+	private String cuteMonsterSpriteSrc = "monster/cute-monster.png";
+	private String skullMonsterSpriteSrc = "monster/skull-monster.png";
+	private String tongueMonsterSpriteSrc = "monster/tongue-monster.png";
 	private String titleSrc = "menu/darker.png";
 	private String rtmNomalSrc = "menu/rtm-nomal.png";
 	private String rtmEnterSrc = "menu/rtm-enter.png";
@@ -22,7 +25,10 @@ public class RenderableHolder {
 	public Image heroSprite = null;
 	public Image testStageFar = null;
 	public Image testStageNear = null;
-	public Image fireballSprete = null;
+	public Image fireballSprite = null;
+	public Image cuteMonsterSprite = null;
+	public Image skullMonsterSprite = null;
+	public Image tongueMonsterSprite = null;
 	public Image titlemenu = null;
 	public Image rtmNomal = null;
 	public Image rtmEnter = null;
@@ -54,7 +60,10 @@ public class RenderableHolder {
 			heroSprite = new Image(loader.getResourceAsStream(heroSpriteSrc));
 			testStageFar = new Image(loader.getResourceAsStream(testStageFarSrc));
 			testStageNear = new Image(loader.getResourceAsStream(testStageNearSrc));
-			fireballSprete = new Image(loader.getResourceAsStream(fireballSpriteSrc));
+			fireballSprite = new Image(loader.getResourceAsStream(fireballSpriteSrc));
+			cuteMonsterSprite = new Image(loader.getResourceAsStream(cuteMonsterSpriteSrc));
+			skullMonsterSprite = new Image(loader.getResourceAsStream(skullMonsterSpriteSrc));
+			tongueMonsterSprite = new Image(loader.getResourceAsStream(tongueMonsterSpriteSrc));
 			titlemenu = new Image(loader.getResourceAsStream(titleSrc));
 			rtmEnter = new Image(loader.getResourceAsStream(rtmEnterSrc));
 			rtmNomal = new Image(loader.getResourceAsStream(rtmNomalSrc));
