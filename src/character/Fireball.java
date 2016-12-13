@@ -39,7 +39,7 @@ public class Fireball extends Enemy {
 	public Fireball(int positionX, int positionY, int hp, int speed, int damage) {
 		super(positionX, positionY, hp, speed, damage);
 	}
-
+	
 	@Override
 	protected void loadIdleLeft() {
 		// TODO Auto-generated method stub

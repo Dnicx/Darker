@@ -12,6 +12,7 @@ import character.Fireball;
 import character.Hero;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
+import render.AudioUtility;
 import render.Background;
 import render.SequenceAnimation;
 import scene.GameScreen;
@@ -57,6 +58,7 @@ public class GameLogic {
 			System.out.println("file corrupt : " + e);
 		}
 		ground.createGround();
+		AudioUtility.getinstance().loadResource();
 		backgroundScreenX = bg.getNearPositionX();
 		backgroundScreenY = bg.getNearPositionY();
 		heroOnScreenX = heroPositionX;
@@ -259,36 +261,48 @@ public class GameLogic {
 	}
 
 	public void heroAttackRight(int damageFrame) {
+		boolean missed = true;
 		if (hero.getCurrentState() != hero.attackRight) {
 			hero.setState(hero.attackRight);
 		}
 		if (damageFrame != hero.getCurrentState().getCurrentFrame()) {
 			return;
 		}
-		for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-			if (hero.getCurrentState().isFrameTriggered() && 
-				hit(new CollideBox(heroPositionX + hero.width, heroPositionY,heroPositionX + hero.width + 40, heroPositionY + hero.height), 
-				new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
-				System.out.println("hit");
-				e.hitted(hero.damage);
+		if (hero.getCurrentState().isFrameTriggered()) {
+			//System.out.println(missed);
+			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
+				if (hit(new CollideBox(heroPositionX + hero.width, heroPositionY,heroPositionX + hero.width + 40, heroPositionY + hero.height), 
+					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
+					System.out.println("hit");
+					e.hitted(hero.damage);
+					AudioUtility.playSound(AudioUtility.swordSlashSound);
+					missed = false;
+				}
 			}
+			if (missed) AudioUtility.playSound(AudioUtility.swordSlashWindSound);
 		}
 	}
 
 	public void heroAttackLeft(int damageFrame) {
+		boolean missed = true;
 		if (hero.getCurrentState() != hero.attackLeft) {
 			hero.setState(hero.attackLeft);
 		}
 		if (damageFrame != hero.getCurrentState().getCurrentFrame()) {
 			return;
 		}
-		for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-			if (hero.getCurrentState().isFrameTriggered() && 
-				hit(new CollideBox(heroPositionX - 40, heroPositionY,heroPositionX, heroPositionY + hero.height), 
-				new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
-				e.hitted(hero.damage);
-				System.out.println("hit");
+		if (hero.getCurrentState().isFrameTriggered()) {
+			//System.out.println(missed);
+			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
+				if (hit(new CollideBox(heroPositionX - 40, heroPositionY,heroPositionX, heroPositionY + hero.height), 
+					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
+					e.hitted(hero.damage);
+					System.out.println("hit");
+					AudioUtility.playSound(AudioUtility.swordSlashSound);
+					missed = false;
+				}
 			}
+			if (missed) AudioUtility.playSound(AudioUtility.swordSlashWindSound);
 		}
 	}
 	
