@@ -118,6 +118,14 @@ public class GameLogic {
 	public synchronized void addScore(int score) {
 		this.score += score;
 	}
+	
+	public int getHeroHealth() {
+		return hero.HP;
+	}
+	
+	public int getHeroFullHealth() {
+		return hero.fullHP;
+	}
 
 	/**
 	 * 
@@ -299,7 +307,7 @@ public class GameLogic {
 								heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height),
 						new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(),
 								e.getLogicalY() + e.getheight()))) {
-					System.out.println("hit");
+//					System.out.println("hit");
 					e.hitted(hero.damage);
 					AudioUtility.playSound(AudioUtility.swordSlashSound);
 					missed = false;

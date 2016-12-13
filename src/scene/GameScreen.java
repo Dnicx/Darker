@@ -67,14 +67,21 @@ public class GameScreen extends StackPane {
 				long dif = now - start;
 				if (dif >= 30000000) {
 					start = now;
-					for (Renderable r : RenderableHolder.getInstance().getEntity()) {
-						if (r.isVisible())
-							r.render(gc);
-					}
 					gameLogic.updateLogic();
 					InputUtility.update();
-					// System.out.println(gameLogic.isGameOver());
-					drawScore();
+					Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							for (Renderable r : RenderableHolder.getInstance().getEntity()) {
+								if (r.isVisible())
+									r.render(gc);
+							}
+							drawScore();
+							drawHealthBar();
+						}
+					});
 					if (gameLogic.isGameOver()) {
 						System.out.println("game over");
 						Main.instance.toggleScene(Main.gameOver);
@@ -99,6 +106,14 @@ public class GameScreen extends StackPane {
 	private void drawScore() {
 		gc.setFill(Color.WHITE);
 		gc.fillText("Score : " + gameLogic.getScore(), 700, 50);
+	}
+	
+	private void drawHealthBar() {
+		gc.setStroke(Color.WHITE);
+		gc.setLineWidth(2);
+		gc.setFill(Color.GREEN);
+		gc.strokeRect(100, 50, gameLogic.getHeroFullHealth()*40, 20);
+		gc.fillRect(100, 50, gameLogic.getHeroHealth()*40, 20);
 	}
 
 	/*

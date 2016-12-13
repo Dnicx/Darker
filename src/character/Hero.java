@@ -9,6 +9,7 @@ import render.SequenceAnimation;
 public class Hero implements Renderable {
 
 	public int HP;
+	public int fullHP;
 	public int speed;
 	public int damage;
 	public int fall_speed = 0;
@@ -40,6 +41,7 @@ public class Hero implements Renderable {
 		logicalX = 0;
 		logicalY = 0;
 		HP = 5;
+		fullHP = HP;
 		speed = 10;
 		damage = 2;
 		visible = true;
@@ -56,6 +58,7 @@ public class Hero implements Renderable {
 		this.logicalX = x;
 		this.logicalY = y;
 		HP = 5;
+		fullHP = HP;
 		speed = 10;
 		damage = 2;
 		visible = true;
@@ -72,6 +75,7 @@ public class Hero implements Renderable {
 		this.logicalX = x;
 		this.logicalY = y;
 		this.HP = hp;
+		fullHP = HP;
 		this.speed = speed;
 		this.damage = damage;
 		visible = true;
