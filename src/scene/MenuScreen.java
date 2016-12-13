@@ -22,12 +22,12 @@ public class MenuScreen extends BorderPane {
 	private Button startBtn;
 	private Button exitBtn;
 	// private Button configBtn;
-	private ImageView test1;
-	private ImageView test2;
-	private Boolean isSelectStartBtn=false;
-	private Boolean isSelectExitBtn =false;
-	private Boolean isPushStartBtn =false;
-	private Boolean isPushExitBtn = false;
+	private ImageView exitBtnImg;
+	private ImageView startBtnImg;
+	private Boolean selectStartBtn=true;
+	private Boolean selectExitBtn =false;
+	private Boolean pushStartBtn =false;
+	private Boolean pushExitBtn = false;
 	private int width, height;
 
 	public MenuScreen() {
@@ -42,8 +42,8 @@ public class MenuScreen extends BorderPane {
 		gc.drawImage(RenderableHolder.getInstance().titlemenu, 234, 50);
 		this.setTop(headline);
 		
-		test1= new ImageView(RenderableHolder.getInstance().exitBtn);
-		test2= new ImageView(RenderableHolder.getInstance().startBtn);
+		exitBtnImg= new ImageView(RenderableHolder.getInstance().exitBtn);
+		startBtnImg= new ImageView(RenderableHolder.getInstance().startBtnEnter);
 		
 		
 
@@ -57,7 +57,7 @@ public class MenuScreen extends BorderPane {
 		startBtn.setPrefHeight(40);
 		startBtn.setPrefWidth(140);
 		startBtn.setStyle("-fx-background-color:black;");
-		startBtn.setGraphic(test2);
+		startBtn.setGraphic(startBtnImg);
 		menu.getChildren().add(0, startBtn);
 		
 		
@@ -68,7 +68,7 @@ public class MenuScreen extends BorderPane {
 		exitBtn.setStyle("-fx-background-color:black;");
 		exitBtn.setPrefHeight(30);
 		exitBtn.setPrefWidth(120);
-		exitBtn.setGraphic(test1);
+		exitBtn.setGraphic(exitBtnImg);
 		menu.getChildren().add(2, exitBtn);
 			
 		
@@ -100,8 +100,10 @@ public class MenuScreen extends BorderPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test2.setImage(RenderableHolder.getInstance().startBtnEnter);
-				test1.setImage(RenderableHolder.getInstance().exitBtn);
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtnEnter);
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
+				selectExitBtn=false;
+				selectStartBtn=true;
 				
 			}
 		});
@@ -120,26 +122,28 @@ public class MenuScreen extends BorderPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test2.setImage(RenderableHolder.getInstance().startBtnClick);	
-				test1.setImage(RenderableHolder.getInstance().exitBtn);	
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtnClick);	
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
 			}
 		});
-		startBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
+		/*startBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test2.setImage(RenderableHolder.getInstance().startBtn);
-				test1.setImage(RenderableHolder.getInstance().exitBtn);
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtn);
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
 				
 			}
-		});
+		});*/
 		
 		exitBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test1.setImage(RenderableHolder.getInstance().exitBtnEnter);
-				test2.setImage(RenderableHolder.getInstance().startBtn);
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtnEnter);
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtn);
+				selectExitBtn=true;
+				selectStartBtn=false;
 				
 				
 			}
@@ -148,8 +152,8 @@ public class MenuScreen extends BorderPane {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test1.setImage(RenderableHolder.getInstance().exitBtnClick);	
-				test2.setImage(RenderableHolder.getInstance().startBtn);	
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtnClick);	
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtn);	
 			}
 		});
 
@@ -162,15 +166,17 @@ public class MenuScreen extends BorderPane {
 
 			}
 		});
-		exitBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
+		/*exitBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
-				test1.setImage(RenderableHolder.getInstance().exitBtn);
-				test2.setImage(RenderableHolder.getInstance().startBtn);
+				exitBtnImg.setImage(RenderableHolder.getInstance().exitBtnEnter);
+				startBtnImg.setImage(RenderableHolder.getInstance().startBtn);
+				selectExitBtn=true;
+				selectStartBtn=false;
 				
 			}
-		});
+		});*/
 		
 		
 		
@@ -182,63 +188,63 @@ public class MenuScreen extends BorderPane {
 	}
 	
 	public void updatemenu(){
-		if(isPushStartBtn){
-			test2.setImage(RenderableHolder.getInstance().startBtnClick);
-			test1.setImage(RenderableHolder.getInstance().exitBtn);
+		if(pushStartBtn){
+			startBtnImg.setImage(RenderableHolder.getInstance().startBtnClick);
+			exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
 		}
-		else if(isPushExitBtn){
-			test1.setImage(RenderableHolder.getInstance().exitBtnClick);
-			test2.setImage(RenderableHolder.getInstance().startBtn);
+		else if(pushExitBtn){
+			exitBtnImg.setImage(RenderableHolder.getInstance().exitBtnClick);
+			startBtnImg.setImage(RenderableHolder.getInstance().startBtn);
 		}
-		else if(isSelectStartBtn){
-			test2.setImage(RenderableHolder.getInstance().startBtnEnter);
-			test1.setImage(RenderableHolder.getInstance().exitBtn);
+		else if(selectStartBtn){
+			startBtnImg.setImage(RenderableHolder.getInstance().startBtnEnter);
+			exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
 		}
-		else if(isSelectExitBtn){
-			test1.setImage(RenderableHolder.getInstance().exitBtnEnter);
-			test2.setImage(RenderableHolder.getInstance().startBtn);
+		else if(selectExitBtn){
+			exitBtnImg.setImage(RenderableHolder.getInstance().exitBtnEnter);
+			startBtnImg.setImage(RenderableHolder.getInstance().startBtn);
 		}
 		
 	}
 	public void reset(){
-		test2.setImage(RenderableHolder.getInstance().startBtn);
-		test1.setImage(RenderableHolder.getInstance().exitBtn);
-		isPushExitBtn=false;
-		isPushStartBtn=false;
-		isSelectExitBtn=false;
-		isSelectStartBtn=false;
+		startBtnImg.setImage(RenderableHolder.getInstance().startBtnEnter);
+		exitBtnImg.setImage(RenderableHolder.getInstance().exitBtn);
+		pushExitBtn=false;
+		pushStartBtn=false;
+		selectExitBtn=false;
+		selectStartBtn=true;
 	}
 
-	public Boolean getIsSelectStartBtn() {
-		return isSelectStartBtn;
+	public Boolean getSelectStartBtn() {
+		return selectStartBtn;
 	}
 
-	public void setIsSelectStartBtn(Boolean isSelectStartBtn) {
-		this.isSelectStartBtn = isSelectStartBtn;
+	public void setSelectStartBtn(Boolean isSelectStartBtn) {
+		this.selectStartBtn = isSelectStartBtn;
 	}
 
-	public Boolean getIsSelectExitBtn() {
-		return isSelectExitBtn;
+	public Boolean getSelectExitBtn() {
+		return selectExitBtn;
 	}
 
-	public void setIsSelectExitBtn(Boolean isSelectExitBtn) {
-		this.isSelectExitBtn = isSelectExitBtn;
+	public void setSelectExitBtn(Boolean isSelectExitBtn) {
+		this.selectExitBtn = isSelectExitBtn;
 	}
 
-	public Boolean getIsPushStartBtn() {
-		return isPushStartBtn;
+	public Boolean getPushStartBtn() {
+		return pushStartBtn;
 	}
 
-	public void setIsPushStartBtn(Boolean isPushStartBtn) {
-		this.isPushStartBtn = isPushStartBtn;
+	public void setPushStartBtn(Boolean isPushStartBtn) {
+		this.pushStartBtn = isPushStartBtn;
 	}
 
-	public Boolean getIsPushExitBtn() {
-		return isPushExitBtn;
+	public Boolean getPushExitBtn() {
+		return pushExitBtn;
 	}
 
-	public void setIsPushExitBtn(Boolean isPushExitBtn) {
-		this.isPushExitBtn = isPushExitBtn;
+	public void setPushExitBtn(Boolean isPushExitBtn) {
+		this.pushExitBtn = isPushExitBtn;
 	}
 
 }

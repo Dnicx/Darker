@@ -55,6 +55,8 @@ public class WinScreen extends BorderPane{
 			public void handle(MouseEvent event) {
 				menu.setImage(RenderableHolder.getInstance().rtmNomal);
 				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
+				selectrtmBtn=true;
+				selectExitBtn=false;
 				
 			}
 		});
@@ -82,9 +84,7 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmEnter);
-				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
-				
+				reset();
 			}
 		});
 		
@@ -94,6 +94,8 @@ public class WinScreen extends BorderPane{
 			public void handle(MouseEvent event) {
 				exit.setImage(RenderableHolder.getInstance().exitBtnV2Enter);
 				menu.setImage(RenderableHolder.getInstance().rtmEnter);
+				selectExitBtn=true;
+				selectrtmBtn=false;
 				
 				
 			}
@@ -119,8 +121,7 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
-				menu.setImage(RenderableHolder.getInstance().rtmEnter);
+				reset();
 				
 			}
 		});

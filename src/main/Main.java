@@ -117,38 +117,38 @@ public class Main extends Application {
 					// System.out.println(key.getCode());
 				}
 				else if(mainStage.getScene() == menuScene){
-					if(key.getCode()==KeyCode.ENTER){
-						if(menuScreen.getIsSelectStartBtn()){
-							menuScreen.setIsPushStartBtn(true);
+					if(key.getCode()==KeyCode.ENTER||key.getCode()==KeyCode.K){
+						if(menuScreen.getSelectStartBtn()){
+							menuScreen.setPushStartBtn(true);
 							menuScreen.updatemenu();
 						}
-						else if(menuScreen.getIsSelectExitBtn()){
-							menuScreen.setIsPushExitBtn(true);
+						else if(menuScreen.getSelectExitBtn()){
+							menuScreen.setPushExitBtn(true);
 							menuScreen.updatemenu();
 						}
 					}
-					else if(key.getCode()==KeyCode.W){
-						if(!menuScreen.getIsSelectExitBtn()){
-							menuScreen.setIsSelectStartBtn(false);
-							menuScreen.setIsSelectExitBtn(true);
+					else if(key.getCode()==KeyCode.W||key.getCode()==KeyCode.UP){
+						if(!menuScreen.getSelectExitBtn()){
+							menuScreen.setSelectStartBtn(false);
+							menuScreen.setSelectExitBtn(true);
 							menuScreen.updatemenu();
 						}
 						else{
-							menuScreen.setIsSelectExitBtn(false);
-							menuScreen.setIsSelectStartBtn(true);
+							menuScreen.setSelectExitBtn(false);
+							menuScreen.setSelectStartBtn(true);
 							menuScreen.updatemenu();
 							
 						}
 					}
-					else if(key.getCode()==KeyCode.S){
-						if(!menuScreen.getIsSelectStartBtn()){
-							menuScreen.setIsSelectStartBtn(true);
-							menuScreen.setIsSelectExitBtn(false);
+					else if(key.getCode()==KeyCode.S||key.getCode()==KeyCode.DOWN){
+						if(!menuScreen.getSelectStartBtn()){
+							menuScreen.setSelectStartBtn(true);
+							menuScreen.setSelectExitBtn(false);
 							menuScreen.updatemenu();
 						}
 						else{
-							menuScreen.setIsSelectExitBtn(true);
-							menuScreen.setIsSelectStartBtn(false);
+							menuScreen.setSelectExitBtn(true);
+							menuScreen.setSelectStartBtn(false);
 							menuScreen.updatemenu();
 							
 						}
@@ -160,7 +160,7 @@ public class Main extends Application {
 					
 				}
 				else if(mainStage.getScene() == winScene){
-					if(key.getCode()==KeyCode.ENTER){
+					if(key.getCode()==KeyCode.ENTER||key.getCode()==KeyCode.K){
 						if(winScreen.getSelectrtmBtn()){
 							winScreen.setPushrtmBtn(true);
 							winScreen.updatemenu();
@@ -170,7 +170,7 @@ public class Main extends Application {
 							winScreen.updatemenu();
 						}
 					}
-					else if(key.getCode()==KeyCode.A){
+					else if(key.getCode()==KeyCode.A||key.getCode()==KeyCode.LEFT){
 						if(!winScreen.getSelectExitBtn()){
 							winScreen.setSelectrtmBtn(false);
 							winScreen.setSelectExitBtn(true);
@@ -183,7 +183,7 @@ public class Main extends Application {
 							
 						}
 					}
-					else if(key.getCode()==KeyCode.D){
+					else if(key.getCode()==KeyCode.D||key.getCode()==KeyCode.RIGHT){
 						if(!winScreen.getSelectrtmBtn()){
 							winScreen.setSelectrtmBtn(true);
 							winScreen.setSelectExitBtn(false);
@@ -213,10 +213,10 @@ public class Main extends Application {
 					gameOverScreen.reset();
 				}
 				else if(mainStage.getScene() == menuScene){
-					if(menuScreen.getIsPushExitBtn()){
+					if(menuScreen.getPushExitBtn()){
 						System.exit(0);
 					}
-					else if (menuScreen.getIsPushStartBtn()){
+					else if (menuScreen.getPushStartBtn()){
 						toggleScene(game);
 						menuScreen.reset();
 					}

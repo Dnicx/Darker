@@ -16,7 +16,7 @@ import render.RenderableHolder;
 public class GameOverScreen extends BorderPane {
 	private ImageView menu;
 	private Canvas headline;
-	private Button btnrtm;
+	private Button rtmBtn;
 	private GridPane bottom;
 	public boolean reset=true;
 
@@ -31,16 +31,16 @@ public class GameOverScreen extends BorderPane {
 
 		bottom = new GridPane();
 		bottom.setPadding(new Insets(10, 40, 40, 10));
-		btnrtm = new Button();
-		btnrtm.setStyle("-fx-background-color: black;-fx-background-radius: 0;");
+		rtmBtn = new Button();
+		rtmBtn.setStyle("-fx-background-color: black;-fx-background-radius: 0;");
 		menu = new ImageView(RenderableHolder.getInstance().rtmNomal);
 
-		btnrtm.setGraphic(menu);
-		bottom.add(btnrtm, 0, 0);
+		rtmBtn.setGraphic(menu);
+		bottom.add(rtmBtn, 0, 0);
 		bottom.setAlignment(Pos.CENTER_RIGHT);
 		this.setCenter(bottom);
 
-		btnrtm.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		rtmBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -48,7 +48,7 @@ public class GameOverScreen extends BorderPane {
 
 			}
 		});
-		btnrtm.setOnMouseExited(new EventHandler<MouseEvent>() {
+		rtmBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -57,7 +57,7 @@ public class GameOverScreen extends BorderPane {
 			}
 		});
 
-		btnrtm.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		rtmBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -66,7 +66,7 @@ public class GameOverScreen extends BorderPane {
 
 			}
 		});
-		btnrtm.setOnMousePressed(new EventHandler<MouseEvent>() {
+		rtmBtn.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent arg0) {
@@ -74,7 +74,7 @@ public class GameOverScreen extends BorderPane {
 				
 			}
 		});
-		update();
+		//update();
 
 	}
 	
