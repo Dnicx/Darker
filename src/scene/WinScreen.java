@@ -27,19 +27,22 @@ public class WinScreen extends BorderPane{
 	public WinScreen(){
 		this.setPrefSize(768, 512);
 		this.setStyle("-fx-background-color:black;");
-		top =new Canvas(768 ,400);
+		top =new Canvas(768 ,380);
 		GraphicsContext gc = top.getGraphicsContext2D();
-		gc.drawImage(RenderableHolder.getInstance().gameOver, 84, 70);
+		gc.drawImage(RenderableHolder.getInstance().victory, 84, 50);
 		
 		this.setTop(top);
 		
 		
-		menu =new ImageView(RenderableHolder.getInstance().rtmNomal);
-		exit =new ImageView(RenderableHolder.getInstance().startBtn);
+		menu =new ImageView(RenderableHolder.getInstance().rtmEnter);
+		exit =new ImageView(RenderableHolder.getInstance().exitBtnV2);
 		bottom= new GridPane();
-		bottom.setAlignment(Pos.CENTER);
+		bottom.setAlignment(Pos.TOP_CENTER);
+		bottom.setHgap(10);
 		exitBtn=new Button();
 		rtmBtn =new Button();
+		exitBtn.setStyle("-fx-background-color:black;");
+		rtmBtn.setStyle("-fx-background-color:black;");
 		exitBtn.setGraphic(exit);
 		rtmBtn.setGraphic(menu);
 		this.setCenter(bottom);
@@ -50,8 +53,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmEnter);
-				exit.setImage(RenderableHolder.getInstance().startBtn);
+				menu.setImage(RenderableHolder.getInstance().rtmNomal);
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
 				
 			}
 		});
@@ -60,8 +63,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmEnter);	
-				exit.setImage(RenderableHolder.getInstance().startBtn);	
+				menu.setImage(RenderableHolder.getInstance().rtmV2Click);	
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2);	
 			}
 		});
 
@@ -69,9 +72,9 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmEnter);	
-				exit.setImage(RenderableHolder.getInstance().startBtn);	
-				Main.instance.toggleScene("gameScene");
+				menu.setImage(RenderableHolder.getInstance().rtmV2Click);	
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2);	
+				Main.instance.toggleScene(Main.menu);
 				
 			}
 		});
@@ -79,8 +82,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmNomal);
-				exit.setImage(RenderableHolder.getInstance().startBtn);
+				menu.setImage(RenderableHolder.getInstance().rtmEnter);
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
 				
 			}
 		});
@@ -89,8 +92,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				exit.setImage(RenderableHolder.getInstance().startBtnEnter);
-				menu.setImage(RenderableHolder.getInstance().rtmNomal);
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2Enter);
+				menu.setImage(RenderableHolder.getInstance().rtmEnter);
 				
 				
 			}
@@ -99,8 +102,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				menu.setImage(RenderableHolder.getInstance().rtmNomal);	
-				exit.setImage(RenderableHolder.getInstance().startBtnClick);	
+				menu.setImage(RenderableHolder.getInstance().rtmEnter);	
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2Click);	
 			}
 		});
 
@@ -116,8 +119,8 @@ public class WinScreen extends BorderPane{
 
 			@Override
 			public void handle(MouseEvent event) {
-				exit.setImage(RenderableHolder.getInstance().startBtn);
-				menu.setImage(RenderableHolder.getInstance().rtmNomal);
+				exit.setImage(RenderableHolder.getInstance().exitBtnV2);
+				menu.setImage(RenderableHolder.getInstance().rtmEnter);
 				
 			}
 		});
@@ -129,20 +132,20 @@ public class WinScreen extends BorderPane{
 	
 	public void updatemenu(){
 		if(pushrtmBtn){
-			menu.setImage(RenderableHolder.getInstance().rtmEnter);
-			exit.setImage(RenderableHolder.getInstance().startBtn);
+			menu.setImage(RenderableHolder.getInstance().rtmV2Click);
+			exit.setImage(RenderableHolder.getInstance().exitBtnV2);
 		}
 		else if(pushExitBtn){
-			exit.setImage(RenderableHolder.getInstance().startBtnClick);
-			menu.setImage(RenderableHolder.getInstance().rtmNomal);
+			exit.setImage(RenderableHolder.getInstance().exitBtnV2Click);
+			menu.setImage(RenderableHolder.getInstance().rtmEnter);
 		}
 		else if(selectrtmBtn){
-			menu.setImage(RenderableHolder.getInstance().rtmEnter);
-			exit.setImage(RenderableHolder.getInstance().startBtn);
+			menu.setImage(RenderableHolder.getInstance().rtmNomal);
+			exit.setImage(RenderableHolder.getInstance().exitBtnV2);
 		}
 		else if(selectExitBtn){
-			exit.setImage(RenderableHolder.getInstance().startBtnEnter);
-			menu.setImage(RenderableHolder.getInstance().rtmNomal);
+			exit.setImage(RenderableHolder.getInstance().exitBtnV2Enter);
+			menu.setImage(RenderableHolder.getInstance().rtmEnter);
 		}
 		
 	}
@@ -187,8 +190,8 @@ public class WinScreen extends BorderPane{
 
 
 	public void reset(){
-		menu.setImage(RenderableHolder.getInstance().rtmNomal);
-		exit.setImage(RenderableHolder.getInstance().startBtn);
+		menu.setImage(RenderableHolder.getInstance().rtmEnter);
+		exit.setImage(RenderableHolder.getInstance().exitBtnV2);
 		pushExitBtn=false;
 		pushrtmBtn=false;
 		selectExitBtn=false;

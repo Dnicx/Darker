@@ -66,6 +66,14 @@ public class GameOverScreen extends BorderPane {
 
 			}
 		});
+		btnrtm.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent arg0) {
+				menu.setImage(RenderableHolder.getInstance().rtmClick);
+				
+			}
+		});
 		update();
 
 	}
@@ -74,7 +82,7 @@ public class GameOverScreen extends BorderPane {
 		if(reset)
 			menu.setImage(RenderableHolder.getInstance().rtmNomal);
 		else
-			menu.setImage(RenderableHolder.getInstance().rtmEnter);
+			menu.setImage(RenderableHolder.getInstance().rtmClick);
 	}
 	public void reset(){
 		reset=true;

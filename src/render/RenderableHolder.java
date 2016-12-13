@@ -21,10 +21,19 @@ public class RenderableHolder {
 	private String titleSrc = "menu/darker.png";
 	private String rtmNomalSrc = "menu/rtm-nomal.png";
 	private String rtmEnterSrc = "menu/rtm-enter.png";
+	private String rtmClickSrc = "menu/rtm-click.png";
+	private String rtmV2ClickSrc = "menu/rtm-v2-click.png";
 	private String gameOverSrc = "menu/gameover.png";
-	private	String startBtnSrc="menu/startBtn.png";
-	private String startBtnEnterSrc="menu/startBtn-enter.png";
-	private String startBtnClickSrc="menu/startBtn-click.png";
+	private String victorySrc = "menu/victory.png";
+	private	String startBtnSrc = "menu/startBtn-v2.png";
+	private String startBtnEnterSrc = "menu/startBtn-v2-enter.png";
+	private String startBtnClickSrc = "menu/startBtn-v2-click.png";
+	private String exitBtnSrc = "menu/exitBtn.png";
+	private String exitBtnEnterSrc = "menu/exitBtn-enter.png";
+	private String exitBtnClickSrc = "menu/exitBtn-click.png";
+	private String exitBtnV2ClickSrc = "menu/exitBtn-v2-click.png";
+	private String exitBtnV2EnterSrc = "menu/exitBtn-v2-enter.png";
+	private String exitBtnV2Src = "menu/exitBtn-v2.png";
 	public Image heroSprite = null;
 	public Image testStageFar = null;
 	public Image testStageNear = null;
@@ -35,10 +44,19 @@ public class RenderableHolder {
 	public Image titlemenu = null;
 	public Image rtmNomal = null;
 	public Image rtmEnter = null;
+	public Image rtmClick = null;
+	public Image rtmV2Click = null;
 	public Image gameOver = null;
+	public Image victory = null;
 	public Image startBtn = null;
 	public Image startBtnEnter = null;
 	public Image startBtnClick = null;
+	public Image exitBtn = null;
+	public Image exitBtnEnter = null;
+	public Image exitBtnClick = null;
+	public Image exitBtnV2Click = null;
+	public Image exitBtnV2 = null;
+	public Image exitBtnV2Enter = null;
 	
 	private List<Renderable> entities;
 	private Comparator<Renderable> comparator;
@@ -73,10 +91,19 @@ public class RenderableHolder {
 			titlemenu = new Image(loader.getResourceAsStream(titleSrc));
 			rtmEnter = new Image(loader.getResourceAsStream(rtmEnterSrc));
 			rtmNomal = new Image(loader.getResourceAsStream(rtmNomalSrc));
+			rtmClick = new Image(loader.getResourceAsStream(rtmClickSrc));
+			rtmV2Click = new Image(loader.getResourceAsStream(rtmV2ClickSrc));
 			gameOver = new Image(loader.getResourceAsStream(gameOverSrc));
+			victory = new Image(loader.getResourceAsStream(victorySrc));
 			startBtn = new Image(loader.getResourceAsStream(startBtnSrc));
 			startBtnClick = new Image(loader.getResourceAsStream(startBtnClickSrc));
 			startBtnEnter = new Image(loader.getResourceAsStream(startBtnEnterSrc));
+			exitBtn = new Image(loader.getResourceAsStream(exitBtnSrc));
+			exitBtnClick = new Image(loader.getResourceAsStream(exitBtnClickSrc));
+			exitBtnEnter = new Image(loader.getResourceAsStream(exitBtnEnterSrc));
+			exitBtnV2 = new Image(loader.getResourceAsStream(exitBtnV2Src));
+			exitBtnV2Click = new Image(loader.getResourceAsStream(exitBtnV2ClickSrc));
+			exitBtnV2Enter = new Image(loader.getResourceAsStream(exitBtnV2EnterSrc));
 			
 		} catch (NullPointerException e) {
 			System.out.println("can not find resource : " + e);
