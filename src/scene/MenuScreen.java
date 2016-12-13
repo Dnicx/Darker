@@ -18,8 +18,10 @@ import render.RenderableHolder;
 
 public class MenuScreen extends BorderPane {
 	private Canvas headline;
+	private Canvas blank;
 	private VBox menu;
 	private Button startBtn;
+	private Button exitBtn;
 	// private Button configBtn;
 	private int width, height;
 
@@ -30,18 +32,29 @@ public class MenuScreen extends BorderPane {
 		this.setStyle("-fx-background-color:black;");
 		RenderableHolder.getInstance().loadResource();
 
-		headline = new Canvas(768, 250);
+		headline = new Canvas(768, 300);
 		GraphicsContext gc = headline.getGraphicsContext2D();
 		gc.drawImage(RenderableHolder.getInstance().titlemenu, 234, 50);
 		this.setTop(headline);
 
 		menu = new VBox();
-		menu.setAlignment(Pos.CENTER);
+		menu.setAlignment(Pos.TOP_CENTER);
 
 		startBtn = new Button("New Game");
 		startBtn.setPrefHeight(40);
 		startBtn.setPrefWidth(140);
 		menu.getChildren().add(0, startBtn);
+		
+		
+		blank = new Canvas(768,30);
+		menu.getChildren().add(1,blank);
+		
+		exitBtn = new Button("Exit");
+		exitBtn.setPrefHeight(30);
+		exitBtn.setPrefWidth(120);
+		menu.getChildren().add(2, exitBtn);
+		
+		
 
 		/*
 		 * configBtn=new Button("Config"); configBtn.setPrefHeight(40);
@@ -80,6 +93,26 @@ public class MenuScreen extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				Main.instance.toggleScene("gameScene");
+
+			}
+		});
+		
+		exitBtn.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode() == KeyCode.ENTER) {
+					System.exit(0);
+				}
+
+			}
+		});
+
+		exitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				System.exit(0);
 
 			}
 		});
