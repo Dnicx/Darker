@@ -108,11 +108,11 @@ public class Hero implements Renderable {
 		attackRight = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 2, 5);
 		attackRight.setOffset(offsetX, offsetY);
 		attackRight.setPosition(onScreenX, onScreenY);
-		
+
 		fallLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 6);
 		fallLeft.setOffset(offsetX, offsetY);
 		fallLeft.setPosition(onScreenX, onScreenY);
-		
+
 		fallRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 7);
 		fallRight.setOffset(offsetX, offsetY);
 		fallRight.setPosition(onScreenX, onScreenY);
@@ -132,14 +132,14 @@ public class Hero implements Renderable {
 	public Animation getCurrentState() {
 		return currentState;
 	}
-	
+
 	public boolean isAttacking() {
 		return attackState;
 	}
+
 	public void setAttackState(boolean attack) {
 		attackState = attack;
 	}
-
 
 	public int getDirection() {
 		return direction;
@@ -153,7 +153,7 @@ public class Hero implements Renderable {
 		this.logicalX = x;
 		this.logicalY = y;
 	}
-	
+
 	public void setOnScreenPosition(int x, int y) {
 		this.onScreenX = x;
 		this.onScreenY = y;
@@ -166,11 +166,11 @@ public class Hero implements Renderable {
 	public int getlogicalY() {
 		return logicalY;
 	}
-	
+
 	public int getOnScreenX() {
 		return onScreenX;
 	}
-	
+
 	public int getOnScreenY() {
 		return onScreenY;
 	}
@@ -206,10 +206,11 @@ public class Hero implements Renderable {
 		currentState.updateAnimation();
 
 	}
-	
+
 	@Override
 	public String toString() {
-		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = " + speed;
+		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = "
+				+ speed;
 	}
 
 }

@@ -12,7 +12,7 @@ public class RenderableHolder {
 	private static final RenderableHolder instance = new RenderableHolder();
 
 	public static final String levelDir = "level/stage";
-	
+
 	private String heroSpriteSrc = "consumed-knight-spriteSheet.png";
 	private String StageFarSrc = "level/stage0/arena-background.png";
 	private String StageNearSrc = "level/stage0/arena-ground.png";
@@ -27,7 +27,7 @@ public class RenderableHolder {
 	private String rtmV2ClickSrc = "menu/rtm-v2-click.png";
 	private String gameOverSrc = "menu/gameover.png";
 	private String victorySrc = "menu/victory.png";
-	private	String startBtnSrc = "menu/startBtn-v2.png";
+	private String startBtnSrc = "menu/startBtn-v2.png";
 	private String startBtnEnterSrc = "menu/startBtn-v2-enter.png";
 	private String startBtnClickSrc = "menu/startBtn-v2-click.png";
 	private String exitBtnSrc = "menu/exitBtn.png";
@@ -59,7 +59,7 @@ public class RenderableHolder {
 	public Image exitBtnV2Click = null;
 	public Image exitBtnV2 = null;
 	public Image exitBtnV2Enter = null;
-	
+
 	private List<Renderable> entities;
 	private Comparator<Renderable> comparator;
 
@@ -84,19 +84,12 @@ public class RenderableHolder {
 		ClassLoader loader = ClassLoader.getSystemClassLoader();
 		try {
 			heroSprite = new Image(loader.getResourceAsStream(heroSpriteSrc));
-			System.out.println("1");
 			StageFar = new Image(loader.getResourceAsStream(StageFarSrc));
-			System.out.println("far : " + StageFarSrc);
 			StageNear = new Image(loader.getResourceAsStream(StageNearSrc));
-			System.out.println("near : " + StageNearSrc);
 			fireballSprite = new Image(loader.getResourceAsStream(fireballSpriteSrc));
-			System.out.println("1");
 			cuteMonsterSprite = new Image(loader.getResourceAsStream(cuteMonsterSpriteSrc));
-			System.out.println("1");
 			skullMonsterSprite = new Image(loader.getResourceAsStream(skullMonsterSpriteSrc));
-			System.out.println("1");
 			tongueMonsterSprite = new Image(loader.getResourceAsStream(tongueMonsterSpriteSrc));
-			System.out.println("1");
 			titlemenu = new Image(loader.getResourceAsStream(titleSrc));
 			rtmEnter = new Image(loader.getResourceAsStream(rtmEnterSrc));
 			rtmNomal = new Image(loader.getResourceAsStream(rtmNomalSrc));
@@ -113,7 +106,7 @@ public class RenderableHolder {
 			exitBtnV2 = new Image(loader.getResourceAsStream(exitBtnV2Src));
 			exitBtnV2Click = new Image(loader.getResourceAsStream(exitBtnV2ClickSrc));
 			exitBtnV2Enter = new Image(loader.getResourceAsStream(exitBtnV2EnterSrc));
-			
+
 		} catch (NullPointerException e) {
 			System.out.println("can not find resource : " + e);
 		} catch (Exception e) {
@@ -129,11 +122,11 @@ public class RenderableHolder {
 		entities.add(e);
 		Collections.sort(entities, comparator);
 	}
-	
+
 	public synchronized void remove(Renderable e) {
 		entities.remove(e);
 	}
-	
+
 	public synchronized void remove(int e) {
 		entities.remove(e);
 	}
@@ -141,11 +134,11 @@ public class RenderableHolder {
 	public static RenderableHolder getInstance() {
 		return instance;
 	}
-	
+
 	public void setFarBackgroundSrc(String src) {
 		StageFarSrc = src;
 	}
-	
+
 	public void setNearBackgroundSrc(String src) {
 		StageNearSrc = src;
 	}

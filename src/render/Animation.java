@@ -21,7 +21,6 @@ public class Animation {
 	private int spriteLine; // specify the column in sprite sheet
 	private int scale; // size of animation. get from setting
 
-
 	/**
 	 * 
 	 * @param spriteSheet
@@ -83,7 +82,7 @@ public class Animation {
 		visible = false;
 		playing = false;
 	}
-	
+
 	public void updateAnimation() {
 		if (!playing)
 			return;
@@ -97,25 +96,25 @@ public class Animation {
 			currentFrame = 0;
 		}
 	}
-	
+
 	/**
 	 * frame triggered means it's the first time that display current frame.
 	 * return true only one time in each frame
+	 * 
 	 * @return true if frameDelayCount == frameDelay
 	 */
 	public boolean isFrameTriggered() {
 		return frameDelayCount == frameDelay;
 	}
-		
-	
+
 	public int getNumberOfFrame() {
 		return numberOfFrame;
 	}
-	
+
 	public int getCurrentFrame() {
 		return currentFrame;
 	}
-	
+
 	public int getAnimationDelay() {
 		return frameDelay;
 	}

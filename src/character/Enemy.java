@@ -101,23 +101,23 @@ public abstract class Enemy implements Renderable {
 	protected abstract void loadAttackLeft();
 
 	protected abstract void loadAttackRight();
-	
+
 	protected void loadPattern() {
 		loadWalkPattern();
 		loadAttackLeftPattern();
 		loadAttackRightPattern();
 	}
-	
+
 	protected abstract void loadWalkPattern();
-	
+
 	protected abstract void loadAttackLeftPattern();
-	
+
 	protected abstract void loadAttackRightPattern();
-	
+
 	public abstract int getAttackRange();
-	
+
 	public abstract int getAtttackFrame();
-	
+
 	/**
 	 * 
 	 * @param state
@@ -193,21 +193,21 @@ public abstract class Enemy implements Renderable {
 	}
 
 	public void hitted(int damage) {
-//		System.out.println("ouch");
+		// System.out.println("ouch");
 		this.HP -= damage;
 		if (this.HP <= 0) {
 			alive = false;
 		}
 	}
-	
+
 	public int getScore() {
 		return score;
 	}
-	
+
 	public void setCurrentPattern(EnemyPattern pattern) {
 		this.currentPattern = pattern;
 	}
-	
+
 	public EnemyPattern getCurrentPattern() {
 		return currentPattern;
 	}
@@ -221,7 +221,7 @@ public abstract class Enemy implements Renderable {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-	
+
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
@@ -236,10 +236,11 @@ public abstract class Enemy implements Renderable {
 		currentState.updateAnimation();
 
 	}
-	
+
 	@Override
 	public String toString() {
-		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = " + speed;
+		return "x = " + this.logicalX + " y = " + this.logicalY + " hp = " + HP + " damage = " + damage + " speed = "
+				+ speed;
 	}
 
 }

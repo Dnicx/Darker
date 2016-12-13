@@ -18,7 +18,7 @@ public class GameOverScreen extends BorderPane {
 	private Canvas headline;
 	private Button rtmBtn;
 	private GridPane bottom;
-	public boolean reset=true;
+	public boolean reset = true;
 
 	public GameOverScreen() {
 		this.setPrefSize(768, 512);
@@ -71,23 +71,23 @@ public class GameOverScreen extends BorderPane {
 			@Override
 			public void handle(MouseEvent arg0) {
 				menu.setImage(RenderableHolder.getInstance().rtmClick);
-				
+
 			}
 		});
-		//update();
+		// update();
 
 	}
-	
-	public void update(){
-		if(reset)
+
+	public void update() {
+		if (reset)
 			menu.setImage(RenderableHolder.getInstance().rtmNomal);
 		else
 			menu.setImage(RenderableHolder.getInstance().rtmClick);
 	}
-	public void reset(){
-		reset=true;
+
+	public void reset() {
+		reset = true;
 		menu.setImage(RenderableHolder.getInstance().rtmNomal);
 	}
-
 
 }

@@ -19,10 +19,11 @@ public class SequenceAnimation extends Animation {
 			playing = false;
 			visible = false;
 			finished = true;
-		} else return;
-		
+		} else
+			return;
+
 	}
-	
+
 	@Override
 	public void play() {
 		visible = true;
@@ -43,11 +44,11 @@ public class SequenceAnimation extends Animation {
 		frameDelayCount = frameDelay;
 		render(gc);
 	}
-	
+
 	public boolean isFinished() {
 		return finished;
 	}
-	
+
 	@Override
 	public void updateAnimation() {
 		if (!playing)

@@ -29,11 +29,11 @@ public class EnemyHolder {
 	public synchronized void addall(List<Enemy> e) {
 		enemyPack.addAll(e);
 	}
-	
+
 	public synchronized void remove(Enemy e) {
 		enemyPack.remove(enemyPack.indexOf(e));
 	}
-	
+
 	public synchronized void remove(int e) {
 		enemyPack.remove(e);
 	}

@@ -36,7 +36,7 @@ public class GameLogic {
 
 	public int heroStartX = 450;
 	public int heroStartY = 0;
-	
+
 	public int score;
 
 	public GameLogic(GameScreen gs) {
@@ -106,14 +106,15 @@ public class GameLogic {
 	public int getBackgroundX() {
 		return backgroundScreenX;
 	}
+
 	public int getBackgroundY() {
 		return backgroundScreenY;
 	}
-	
+
 	public int getScore() {
 		return this.score;
 	}
-	
+
 	public synchronized void addScore(int score) {
 		this.score += score;
 	}
@@ -127,7 +128,8 @@ public class GameLogic {
 	 * @return true if the attack hits
 	 */
 	public static boolean isHit(CollideBox c1, CollideBox c2) {
-		//System.out.println("top x = : " + c1.getLeft() + "top y = : " + c1.getTop());
+		// System.out.println("top x = : " + c1.getLeft() + "top y = : " +
+		// c1.getTop());
 		return c1.isCollide(c2);
 	}
 
@@ -174,21 +176,24 @@ public class GameLogic {
 	}
 
 	/**
-	 * handle player's logic such as move, jump, attack etc.
-	 * player's input will be process here
+	 * handle player's logic such as move, jump, attack etc. player's input will
+	 * be process here
 	 */
 	public synchronized void updateLogic() {
-		// ########################## INPUT HANDLE ZONE #############################
+		// ########################## INPUT HANDLE ZONE
+		// #############################
 		// System.out.println(InputUtility.getPressed());
-		
-		if (hero.getCurrentState() instanceof SequenceAnimation && !((SequenceAnimation)hero.getCurrentState()).isFinished()) {
+
+		if (hero.getCurrentState() instanceof SequenceAnimation
+				&& !((SequenceAnimation) hero.getCurrentState()).isFinished()) {
 			heroAttack(4);
 		} else {
 			if (InputUtility.isKeyTriggered(KeyCode.K)) {
 				if (isTouchingGround(heroPositionX, heroPositionY, Hero.width, Hero.height)) {
 					hero.fall_speed = -hero.jumpStrength;
 				}
-			} else if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroPositionX, heroPositionY, Hero.width, Hero.height)) {
+			} else if (InputUtility.isKeyTriggered(KeyCode.J)
+					&& isTouchingGround(heroPositionX, heroPositionY, Hero.width, Hero.height)) {
 				if (hero.getDirection() == Hero.FACE_RIGHT) {
 					heroAttackRight(4);
 				}
@@ -199,9 +204,9 @@ public class GameLogic {
 				heroWalkRight();
 			} else if (InputUtility.isKeyPressed(KeyCode.A)) {
 				heroWalkLeft();
-			} else  {
-				if (hero.getCurrentState() != hero.idleLeft && hero.getCurrentState() != hero.idleRight && 
-						hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
+			} else {
+				if (hero.getCurrentState() != hero.idleLeft && hero.getCurrentState() != hero.idleRight
+						&& hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
 					if (hero.getDirection() == Hero.FACE_LEFT)
 						hero.setState(hero.idleLeft);
 					if (hero.getDirection() == Hero.FACE_RIGHT)
@@ -209,9 +214,9 @@ public class GameLogic {
 				}
 			}
 		}
-		
-		//System.out.println(isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height));
 
+		// System.out.println(isTouchingGround(heroOnScreenX, heroPositionY,
+		// hero.width, hero.height));
 
 		// ################# FALLING ZONE ##########################//
 
@@ -221,8 +226,10 @@ public class GameLogic {
 				heroFall();
 			} else {
 				if (hero.getCurrentState() == hero.fallLeft || hero.getCurrentState() == hero.fallRight) {
-					if (hero.getDirection() == Hero.FACE_LEFT ) hero.setState(hero.idleLeft);
-					else hero.setState(hero.idleRight);
+					if (hero.getDirection() == Hero.FACE_LEFT)
+						hero.setState(hero.idleLeft);
+					else
+						hero.setState(hero.idleRight);
 				}
 				hero.fall_speed = 0;
 				while (!isTouchingGround(heroPositionX, heroPositionY, Hero.width, Hero.height)) {
@@ -254,18 +261,19 @@ public class GameLogic {
 		hero.setOnScreenPosition(heroOnScreenX, heroOnScreenY);
 		hero.setLogicalPosition(heroPositionX, heroPositionY);
 
-//		 System.out.println(canGoForward(heroPositionX, heroPositionY,
-//		 hero.width, hero.height, hero.getDirection()));
-		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
-		 + "- hs x : " + heroOnScreenX + "| hs y : " + heroOnScreenY + "- screenx : " + backgroundScreenX + 
-		 "| screeny : " + backgroundScreenY);
+		// System.out.println(canGoForward(heroPositionX, heroPositionY,
+		// hero.width, hero.height, hero.getDirection()));
+		// System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
+		// + "- hs x : " + heroOnScreenX + "| hs y : " + heroOnScreenY + "-
+		// screenx : " + backgroundScreenX +
+		// "| screeny : " + backgroundScreenY);
 
 		if (!isHeroAlive()) {
 			setGameOver();
 		}
 
 	}
-	
+
 	public void heroFall() {
 		if (hero.getCurrentState() != hero.fallRight && hero.getDirection() == Hero.FACE_RIGHT) {
 			hero.setState(hero.fallRight);
@@ -277,24 +285,28 @@ public class GameLogic {
 
 	public void heroAttackRight(int damageFrame) {
 		boolean missed = true;
-		if (hero.getCurrentState() != hero.attackRight ) {
+		if (hero.getCurrentState() != hero.attackRight) {
 			hero.setState(hero.attackRight);
 		}
 		if (damageFrame != hero.getCurrentState().getCurrentFrame()) {
 			return;
 		}
 		if (hero.getCurrentState().isFrameTriggered()) {
-			//System.out.println(missed);
+			// System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (isHit(new CollideBox(heroPositionX + Hero.width, heroPositionY,heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height), 
-					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
+				if (isHit(
+						new CollideBox(heroPositionX + Hero.width, heroPositionY,
+								heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height),
+						new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(),
+								e.getLogicalY() + e.getheight()))) {
 					System.out.println("hit");
 					e.hitted(hero.damage);
 					AudioUtility.playSound(AudioUtility.swordSlashSound);
 					missed = false;
 				}
 			}
-			if (missed) AudioUtility.playSound(AudioUtility.swordSlashWindSound);
+			if (missed)
+				AudioUtility.playSound(AudioUtility.swordSlashWindSound);
 		}
 	}
 
@@ -307,20 +319,24 @@ public class GameLogic {
 			return;
 		}
 		if (hero.getCurrentState().isFrameTriggered()) {
-			//System.out.println(missed);
+			// System.out.println(missed);
 			for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
-				if (isHit(new CollideBox(heroPositionX - Hero.attackRange, heroPositionY,heroPositionX, heroPositionY + Hero.height), 
-					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
+				if (isHit(
+						new CollideBox(heroPositionX - Hero.attackRange, heroPositionY, heroPositionX,
+								heroPositionY + Hero.height),
+						new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(),
+								e.getLogicalY() + e.getheight()))) {
 					e.hitted(hero.damage);
 					System.out.println("hit");
 					AudioUtility.playSound(AudioUtility.swordSlashSound);
 					missed = false;
 				}
 			}
-			if (missed) AudioUtility.playSound(AudioUtility.swordSlashWindSound);
+			if (missed)
+				AudioUtility.playSound(AudioUtility.swordSlashWindSound);
 		}
 	}
-	
+
 	public void heroAttack(int damageFrame) {
 		if (hero.getDirection() == Hero.FACE_RIGHT) {
 			heroAttackRight(damageFrame);
@@ -339,48 +355,53 @@ public class GameLogic {
 		hero.setDirection(Hero.FACE_RIGHT);
 		if (canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
 			heroPositionX += hero.speed * hero.getDirection();
-			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
-				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
-//				backgroundScreenX += hero.speed * hero.getDirection();
-				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth()/2;
+			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth() / 2
+					&& heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth() / 2)) {
+				// backgroundScreenX += hero.speed * hero.getDirection();
+				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth() / 2;
 			} else {
-				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
+				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth() / 2)
 					backgroundScreenX = 0;
-				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2))
+				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth() / 2))
 					backgroundScreenX = (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
 			}
 			if (bg.isBorderX(backgroundScreenX)) {
-				//System.out.println("rrr");
-				if (backgroundScreenX == 0) 
+				// System.out.println("rrr");
+				if (backgroundScreenX == 0)
 					heroOnScreenX = heroPositionX;
 				if (backgroundScreenX == (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth()))
-					heroOnScreenX = heroPositionX - (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
-//				heroOnScreenX += hero.speed * hero.getDirection();
-//				
-//				if (heroOnScreenX < 0)
-//					heroOnScreenX = 0;
-//				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
-//					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+					heroOnScreenX = heroPositionX
+							- (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
+				// heroOnScreenX += hero.speed * hero.getDirection();
+				//
+				// if (heroOnScreenX < 0)
+				// heroOnScreenX = 0;
+				// if (heroOnScreenX >
+				// ConfigurableOption.getInstance().getScreenWidth() -
+				// hero.width)
+				// heroOnScreenX =
+				// ConfigurableOption.getInstance().getScreenWidth() -
+				// hero.width;
 			} else {
-				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()/2;
+				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() / 2;
 			}
-			
-		} //else {
-			while (!canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
-				heroPositionX -= 1;
-				//heroOnScreenX -= 1;
-			}
-			heroPositionX += 1;
-			//heroOnScreenX += 1;
-		//}
+
+		} // else {
+		while (!canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
+			heroPositionX -= 1;
+			// heroOnScreenX -= 1;
+		}
+		heroPositionX += 1;
+		// heroOnScreenX += 1;
+		// }
 
 		if (heroPositionX < 0) {
 			heroPositionX = 0;
 		}
 		bg.setNearPosition(backgroundScreenX, backgroundScreenY);
 		bg.setFarPosition(backgroundScreenX / 2, backgroundScreenY);
-		if (hero.getCurrentState() != hero.walkRight && 
-			hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
+		if (hero.getCurrentState() != hero.walkRight && hero.getCurrentState() != hero.fallLeft
+				&& hero.getCurrentState() != hero.fallRight) {
 			hero.setState(hero.walkRight);
 		}
 	}
@@ -394,47 +415,52 @@ public class GameLogic {
 		hero.setDirection(Hero.FACE_LEFT);
 		if (canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
 			heroPositionX += hero.speed * hero.getDirection();
-			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth()/2 &&
-				heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2)) {
-//				backgroundScreenX += hero.speed * hero.getDirection();
-				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth()/2;
+			if (heroPositionX > ConfigurableOption.getInstance().getScreenWidth() / 2
+					&& heroPositionX < bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth() / 2)) {
+				// backgroundScreenX += hero.speed * hero.getDirection();
+				backgroundScreenX = heroPositionX - ConfigurableOption.getInstance().getScreenWidth() / 2;
 			} else {
-				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth()/2) 
+				if (heroPositionX < ConfigurableOption.getInstance().getScreenWidth() / 2)
 					backgroundScreenX = 0;
-				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth()/2))
+				if (heroPositionX > bg.getWidth() - (ConfigurableOption.getInstance().getScreenWidth() / 2))
 					backgroundScreenX = (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
 			}
 			if (bg.isBorderX(backgroundScreenX)) {
-				//System.out.println("lllllllllllll");
-				if (backgroundScreenX == 0) 
+				// System.out.println("lllllllllllll");
+				if (backgroundScreenX == 0)
 					heroOnScreenX = heroPositionX;
 				if (backgroundScreenX == (int) (bg.getWidth() - ConfigurableOption.getInstance().getScreenWidth()))
-					heroOnScreenX = heroPositionX - (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
-//				heroOnScreenX += hero.speed * hero.getDirection();
-//					
-//				if (heroOnScreenX < 0)
-//					heroOnScreenX = 0;
-//				if (heroOnScreenX > ConfigurableOption.getInstance().getScreenWidth() - hero.width)
-//					heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() - hero.width;
+					heroOnScreenX = heroPositionX
+							- (ground.getWidth() - ConfigurableOption.getInstance().getScreenWidth());
+				// heroOnScreenX += hero.speed * hero.getDirection();
+				//
+				// if (heroOnScreenX < 0)
+				// heroOnScreenX = 0;
+				// if (heroOnScreenX >
+				// ConfigurableOption.getInstance().getScreenWidth() -
+				// hero.width)
+				// heroOnScreenX =
+				// ConfigurableOption.getInstance().getScreenWidth() -
+				// hero.width;
 			} else {
-				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth()/2;
+				heroOnScreenX = ConfigurableOption.getInstance().getScreenWidth() / 2;
 			}
-			
-		} //else {
-			while (!canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
-				heroPositionX += 1;
-				//heroOnScreenX += 1;
-			}
-			heroPositionX -= 1;
-			//heroOnScreenX -= 1;
-		//}
+
+		} // else {
+		while (!canGoForward(heroPositionX, heroPositionY, Hero.width, Hero.height, hero.getDirection())) {
+			heroPositionX += 1;
+			// heroOnScreenX += 1;
+		}
+		heroPositionX -= 1;
+		// heroOnScreenX -= 1;
+		// }
 		if (heroPositionX < 0) {
 			heroPositionX = 0;
 		}
 		bg.setNearPosition(backgroundScreenX, backgroundScreenY);
 		bg.setFarPosition(backgroundScreenX / 2, backgroundScreenY);
-		if (hero.getCurrentState() != hero.walkLeft && 
-			hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
+		if (hero.getCurrentState() != hero.walkLeft && hero.getCurrentState() != hero.fallLeft
+				&& hero.getCurrentState() != hero.fallRight) {
 			hero.setState(hero.walkLeft);
 		}
 	}

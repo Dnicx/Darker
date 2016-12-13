@@ -38,22 +38,19 @@ public class GameScreen extends StackPane {
 		canvas = new Canvas(width, height);
 		gc = canvas.getGraphicsContext2D();
 		this.getChildren().add(canvas);
-//		RenderableHolder.getInstance().loadResource();
+		// RenderableHolder.getInstance().loadResource();
 		// knight = new Hero(heroStartX, heroStartY);
 		try {
 			fileRead = new Scanner(new File(file));
-			RenderableHolder.getInstance().setNearBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
-			RenderableHolder.getInstance().setFarBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
-//			System.out.println(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
-//			System.out.println(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+			RenderableHolder.getInstance()
+					.setNearBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
+			RenderableHolder.getInstance()
+					.setFarBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
 		}
 		RenderableHolder.getInstance().loadResource();
-		
-		background = new Background(RenderableHolder.getInstance().StageFar,
-				RenderableHolder.getInstance().StageNear);
+
+		background = new Background(RenderableHolder.getInstance().StageFar, RenderableHolder.getInstance().StageNear);
 		background.setFarPosition(0, 0);
 		background.setNearPosition(0, 0);
 		gameLogic = new GameLogic(this);
@@ -71,7 +68,8 @@ public class GameScreen extends StackPane {
 				if (dif >= 30000000) {
 					start = now;
 					for (Renderable r : RenderableHolder.getInstance().getEntity()) {
-						if (r.isVisible()) r.render(gc);
+						if (r.isVisible())
+							r.render(gc);
 					}
 					gameLogic.updateLogic();
 					InputUtility.update();
@@ -97,10 +95,10 @@ public class GameScreen extends StackPane {
 	public GraphicsContext getGraphicContext() {
 		return gc;
 	}
-	
+
 	private void drawScore() {
 		gc.setFill(Color.WHITE);
-		gc.fillText("Score : "+gameLogic.getScore(), 700, 50);
+		gc.fillText("Score : " + gameLogic.getScore(), 700, 50);
 	}
 
 	/*

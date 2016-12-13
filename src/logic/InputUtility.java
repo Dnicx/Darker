@@ -30,7 +30,7 @@ public class InputUtility {
 	public static ArrayList<KeyCode> getPressed() {
 		return keyPressed;
 	}
-	
+
 	public static void clear() {
 		keyTriggered.clear();
 		keyPressed.clear();
