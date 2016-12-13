@@ -27,11 +27,11 @@ public abstract class Enemy implements Renderable {
 	protected int direction;
 	private boolean alive;
 	private int score = 10;
-	private Animation currentState;
-	protected EnemyPattern currentPattern;
-	public EnemyPattern walkPattern;
-	public EnemyPattern attackLeftPattern;
-	public EnemyPattern attackRightPattern;
+	private Animation currentState = null;
+	protected EnemyPattern currentPattern = null;
+	public EnemyPattern walkPattern = null;
+	public EnemyPattern attackLeftPattern = null;
+	public EnemyPattern attackRightPattern = null;
 
 	public Enemy() {
 		logicalX = 0;
@@ -189,8 +189,7 @@ public abstract class Enemy implements Renderable {
 	}
 
 	public void hitted(int damage) {
-		System.out.println("ouch");
-		System.out.println(EnemyHolder.getInstance().getEnemyPack().size());
+//		System.out.println("ouch");
 		this.HP -= damage;
 		if (this.HP <= 0) {
 			alive = false;

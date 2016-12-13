@@ -9,7 +9,6 @@ public class EnemyPattern {
 	private List<Animation> pattern;
 	private int patternDelay;
 	private int patternDelayCount;
-	private Animation currentState;
 	private int currentStateNumber;
 	private boolean end;
 	
@@ -32,7 +31,6 @@ public class EnemyPattern {
 		pattern = new ArrayList<>();
 		pattern.addAll(animation);
 		currentStateNumber = 0;
-		currentState = pattern.get(currentStateNumber);
 		end = true;
 	}
 	
@@ -41,7 +39,6 @@ public class EnemyPattern {
 		pattern = new ArrayList<>();
 		pattern.addAll(animation);
 		currentStateNumber = 0;
-		currentState = pattern.get(currentStateNumber);
 		end = true;
 	}
 	
@@ -53,12 +50,16 @@ public class EnemyPattern {
 		this.patternDelay = patternDelay;
 	}
 	
+	public boolean isEnd() {
+		return end;
+	}
+	
 	public void playPattern() {
 		end = false;
 	}
 	
 	public Animation getCurrentState() {
-		return currentState;
+		return pattern.get(currentStateNumber);
 	}
 	
 	public void patternUpdate() {
@@ -73,7 +74,6 @@ public class EnemyPattern {
 			currentStateNumber = 0;
 			end = true;
 		}
-		currentState = pattern.get(currentStateNumber);
 	}
 	
 }

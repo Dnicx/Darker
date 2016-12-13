@@ -25,11 +25,11 @@ public class Hero implements Renderable {
 	private boolean visible;
 	private int logicalX = 0, logicalY = 0;
 	private int onScreenX = 0, onScreenY = 0;
-	public static final int offsetX = 110;
-	public static final int offsetY = 125;
-	public static final int width = 70;
-	public static final int height = 115;
-	public static final int attackRange = 80;
+	public static final int offsetX = 115;
+	public static final int offsetY = 120;
+	public static final int width = 35;
+	public static final int height = 105;
+	public static final int attackRange = 110;
 	private int direction;
 	private boolean alive;
 	private boolean attackState;

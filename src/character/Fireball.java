@@ -65,6 +65,7 @@ public class Fireball extends Enemy {
 		super.setheight(height);
 		loadPattern();
 		currentPattern = walkPattern;
+		System.out.println("current patter : " + walkPattern);
 	}
 	
 	public int getOffsetX(){
@@ -76,6 +77,10 @@ public class Fireball extends Enemy {
 	
 	public Animation getCurrentStat() {
 		return this.getCurrentStat();
+	}
+	
+	public EnemyPattern getCurrentPattern() {
+		return currentPattern;
 	}
 	
 	@Override
@@ -135,11 +140,11 @@ public class Fireball extends Enemy {
 	@Override
 	protected void loadWalkPattern() {
 		// TODO Auto-generated method stub
-		this.walkPattern = new EnemyPattern(10);
+		this.walkPattern = new EnemyPattern(30);
 		this.walkPattern.add(walkLeft);
 		this.walkPattern.add(idleLeft);
 		this.walkPattern.add(walkRight);
-		this.walkPattern.add(idleLeft);
+		this.walkPattern.add(idleRight);
 	}
 
 	@Override
