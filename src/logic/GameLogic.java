@@ -16,6 +16,7 @@ import render.AudioUtility;
 import render.Background;
 import render.SequenceAnimation;
 import scene.GameScreen;
+import sun.util.resources.cldr.xog.LocaleNames_xog;
 
 public class GameLogic {
 
@@ -164,6 +165,7 @@ public class GameLogic {
 
 	/**
 	 * handle player's logic such as move, jump, attack etc.
+	 * player's input will be process here
 	 */
 	public synchronized void updateLogic() {
 		// ########################## INPUT HANDLE ZONE #############################
@@ -172,12 +174,24 @@ public class GameLogic {
 		if (hero.getCurrentState() instanceof SequenceAnimation && !((SequenceAnimation)hero.getCurrentState()).isFinished()) {
 			heroAttack(4);
 		} else {
-			if (InputUtility.isKeyPressed(KeyCode.D)) {
+			if (InputUtility.isKeyTriggered(KeyCode.K)) {
+				if (isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
+					hero.fall_speed = -hero.jumpStrength;
+				}
+			} else if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height)) {
+				if (hero.getDirection() == Hero.FACE_RIGHT) {
+					heroAttackRight(4);
+				}
+				if (hero.getDirection() == Hero.FACE_LEFT) {
+					heroAttackLeft(4);
+				}
+			} else if (InputUtility.isKeyPressed(KeyCode.D)) {
 				heroWalkRight();
 			} else if (InputUtility.isKeyPressed(KeyCode.A)) {
 				heroWalkLeft();
-			} else {
-				if (hero.getCurrentState() != hero.idleLeft && hero.getCurrentState() != hero.idleRight) {
+			} else  {
+				if (hero.getCurrentState() != hero.idleLeft && hero.getCurrentState() != hero.idleRight && 
+						hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
 					if (hero.getDirection() == Hero.FACE_LEFT)
 						hero.setState(hero.idleLeft);
 					if (hero.getDirection() == Hero.FACE_RIGHT)
@@ -188,29 +202,18 @@ public class GameLogic {
 		
 		//System.out.println(isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height));
 
-		if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height)) {
-			if (hero.getDirection() == Hero.FACE_RIGHT) {
-				heroAttackRight(4);
-			}
-			if (hero.getDirection() == Hero.FACE_LEFT) {
-				heroAttackLeft(4);
-			}
-		}
-		
-		if (InputUtility.isKeyTriggered(KeyCode.K)) {
-			if (isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
-				hero.fall_speed = -hero.jumpStrength;
-			}
-		}
-
-		
 
 		// ################# FALLING ZONE ##########################//
 
 		try {
 			if (!isTouchingGround(heroPositionX, heroPositionY + hero.fall_speed, hero.width, hero.height)) {
 				hero.fall_speed += gravity;
+				heroFall();
 			} else {
+				if (hero.getCurrentState() == hero.fallLeft || hero.getCurrentState() == hero.fallRight) {
+					if (hero.getDirection() == hero.FACE_LEFT ) hero.setState(hero.idleLeft);
+					else hero.setState(hero.idleRight);
+				}
 				hero.fall_speed = 0;
 				while (!isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
 					heroPositionY += 1;
@@ -242,26 +245,36 @@ public class GameLogic {
 
 		heroPositionY += hero.fall_speed;
 		heroOnScreenY += hero.fall_speed;
-		if (hero.getY() >= ConfigurableOption.getInstance().getScreenHeight())
+		if (hero.getlogicalY() >= ConfigurableOption.getInstance().getScreenHeight())
 			heroPositionY = ConfigurableOption.getInstance().getScreenHeight();
 
 		// ############## set hero position from calculation above ############
-		hero.setPosition(heroOnScreenX, heroOnScreenY);
+		hero.setOnScreenPosition(heroOnScreenX, heroOnScreenY);
+		hero.setLogicalPosition(heroPositionX, heroPositionY);
 
 		// System.out.println(canGoForward(heroPositionX, heroPositionY,
 		// hero.width, hero.height, hero.getDirection()));
-		// System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
-		// + "- screen x : " + heroOnScreenX + "| screen y : " + heroOnScreenY);
+		 System.out.println("X : " + heroPositionX + "| Y : " + heroPositionY
+		 + "- screen x : " + heroOnScreenX + "| screen y : " + heroOnScreenY);
 
 		if (!isHeroAlive()) {
 			setGameOver();
 		}
 
 	}
+	
+	public void heroFall() {
+		if (hero.getCurrentState() != hero.fallRight && hero.getDirection() == hero.FACE_RIGHT) {
+			hero.setState(hero.fallRight);
+		}
+		if (hero.getCurrentState() != hero.fallLeft && hero.getDirection() == hero.FACE_LEFT) {
+			hero.setState(hero.fallLeft);
+		}
+	}
 
 	public void heroAttackRight(int damageFrame) {
 		boolean missed = true;
-		if (hero.getCurrentState() != hero.attackRight) {
+		if (hero.getCurrentState() != hero.attackRight ) {
 			hero.setState(hero.attackRight);
 		}
 		if (damageFrame != hero.getCurrentState().getCurrentFrame()) {
@@ -345,7 +358,8 @@ public class GameLogic {
 		}
 		bg.setNearPosition(backgroundScreenX, backgroundScreenY);
 		bg.setFarPosition(backgroundScreenX / 2, backgroundScreenY);
-		if (hero.getCurrentState() != hero.walkRight) {
+		if (hero.getCurrentState() != hero.walkRight && 
+			hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
 			hero.setState(hero.walkRight);
 		}
 	}
@@ -380,7 +394,8 @@ public class GameLogic {
 		}
 		bg.setNearPosition(backgroundScreenX, backgroundScreenY);
 		bg.setFarPosition(backgroundScreenX / 2, backgroundScreenY);
-		if (hero.getCurrentState() != hero.walkLeft) {
+		if (hero.getCurrentState() != hero.walkLeft && 
+			hero.getCurrentState() != hero.fallLeft && hero.getCurrentState() != hero.fallRight) {
 			hero.setState(hero.walkLeft);
 		}
 	}

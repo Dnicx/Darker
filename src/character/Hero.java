@@ -21,8 +21,11 @@ public class Hero implements Renderable {
 	public Animation walkRight = null;
 	public Animation attackLeft = null;
 	public Animation attackRight = null;
+	public Animation fallRight = null;
+	public Animation fallLeft = null;
 	private boolean visible;
-	private int x = 0, y = 0;
+	private int logicalX = 0, logicalY = 0;
+	private int onScreenX = 0, onScreenY = 0;
 	public int offsetX = 80;
 	public int offsetY = 90;
 	public int width = 80;
@@ -34,10 +37,10 @@ public class Hero implements Renderable {
 	private Animation currentState;
 
 	public Hero() {
-		x = 0;
-		y = 0;
+		logicalX = 0;
+		logicalY = 0;
 		HP = 5;
-		speed = 7;
+		speed = 10;
 		damage = 2;
 		visible = true;
 		alive = true;
@@ -50,10 +53,10 @@ public class Hero implements Renderable {
 	}
 
 	public Hero(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.logicalX = x;
+		this.logicalY = y;
 		HP = 5;
-		speed = 7;
+		speed = 10;
 		damage = 2;
 		visible = true;
 		alive = true;
@@ -66,8 +69,8 @@ public class Hero implements Renderable {
 	}
 
 	public Hero(int x, int y, int hp, int speed, int damage) {
-		this.x = x;
-		this.y = y;
+		this.logicalX = x;
+		this.logicalY = y;
 		this.HP = hp;
 		this.speed = speed;
 		this.damage = damage;
@@ -84,27 +87,35 @@ public class Hero implements Renderable {
 	private void loadAnimation() {
 		idleLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 0);
 		idleLeft.setOffset(offsetX, offsetY);
-		idleLeft.setPosition(x, y);
+		idleLeft.setPosition(onScreenX, onScreenY);
 
 		walkLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 2);
 		walkLeft.setOffset(offsetX, offsetY);
-		walkLeft.setPosition(x, y);
+		walkLeft.setPosition(onScreenX, onScreenY);
 
 		idleRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 1);
 		idleRight.setOffset(offsetX, offsetY);
-		idleRight.setPosition(x, y);
+		idleRight.setPosition(onScreenX, onScreenY);
 
 		walkRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 8, 2, 3);
 		walkRight.setOffset(offsetX, offsetY);
-		walkRight.setPosition(x, y);
+		walkRight.setPosition(onScreenX, onScreenY);
 
 		attackLeft = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 2, 4);
 		attackLeft.setOffset(offsetX, offsetY);
-		attackLeft.setPosition(x, y);
+		attackLeft.setPosition(onScreenX, onScreenY);
 
 		attackRight = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 2, 5);
 		attackRight.setOffset(offsetX, offsetY);
-		attackRight.setPosition(x, y);
+		attackRight.setPosition(onScreenX, onScreenY);
+		
+		fallLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 6);
+		fallLeft.setOffset(offsetX, offsetY);
+		fallLeft.setPosition(onScreenX, onScreenY);
+		
+		fallRight = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 7);
+		fallRight.setOffset(offsetX, offsetY);
+		fallRight.setPosition(onScreenX, onScreenY);
 	}
 
 	/**
@@ -138,17 +149,30 @@ public class Hero implements Renderable {
 		this.direction = dir;
 	}
 
-	public void setPosition(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public void setLogicalPosition(int x, int y) {
+		this.logicalX = x;
+		this.logicalY = y;
+	}
+	
+	public void setOnScreenPosition(int x, int y) {
+		this.onScreenX = x;
+		this.onScreenY = y;
 	}
 
-	public int getX() {
-		return x;
+	public int getLogicalX() {
+		return logicalX;
 	}
 
-	public int getY() {
-		return y;
+	public int getlogicalY() {
+		return logicalY;
+	}
+	
+	public int getOnScreenX() {
+		return onScreenX;
+	}
+	
+	public int getOnScreenY() {
+		return onScreenY;
 	}
 
 	public boolean isAlive() {
@@ -177,7 +201,7 @@ public class Hero implements Renderable {
 	@Override
 	public void render(GraphicsContext gc) {
 		// TODO Auto-generated method stub
-		currentState.setPosition(x, y);
+		currentState.setPosition(onScreenX, onScreenY);
 		currentState.render(gc);
 		currentState.updateAnimation();
 
