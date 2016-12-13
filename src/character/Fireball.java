@@ -5,14 +5,37 @@ import render.RenderableHolder;
 
 public class Fireball extends Enemy {
 
+	/**
+	 * create fireball with default status
+	 * position = 0, 0
+	 * hp = 5
+	 * speed = 5
+	 * damage = 2
+	 */
 	public Fireball() {
 		super();
 	}
-
+	
+	/**
+	 * create fireball with default status but specific position
+	 * hp = 5
+	 * speed = 5
+	 * damage = 2
+	 * @param positionX : fireball init x position
+	 * @param positionY : fireball init y position
+	 */
 	public Fireball(int positionX, int positionY) {
 		super(positionX, positionY);
 	}
 
+	/**
+	 * create fireball with custom status
+	 * @param positionX : position x
+	 * @param positionY : position y
+	 * @param hp 
+	 * @param speed
+	 * @param damage
+	 */
 	public Fireball(int positionX, int positionY, int hp, int speed, int damage) {
 		super(positionX, positionY, hp, speed, damage);
 	}

@@ -13,6 +13,7 @@ import character.Hero;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
 import render.Background;
+import render.SequenceAnimation;
 import scene.GameScreen;
 
 public class GameLogic {
@@ -39,8 +40,7 @@ public class GameLogic {
 		// this.hero = new Hero(heroStartX, heroStartY);
 		score = 0;
 		gameOver = false;
-		new Fireball(510, 0);
-		new Fireball(500, 0);
+		new Fireball(510, 0, 20, 5, 2);
 		this.bg = gs.background;
 		try {
 			fileRead = new Scanner(new File(gs.file));
@@ -165,10 +165,12 @@ public class GameLogic {
 	 * handle player's logic such as move, jump, attack etc.
 	 */
 	public synchronized void updateLogic() {
-		// ########################## INPUT HANDLE ZONE
-		// #############################3
+		// ########################## INPUT HANDLE ZONE #############################
 		// System.out.println(InputUtility.getPressed());
-		if (!hero.isAttacking()) {
+		
+		if (hero.getCurrentState() instanceof SequenceAnimation && !((SequenceAnimation)hero.getCurrentState()).isFinished()) {
+			heroAttack(3);
+		} else {
 			if (InputUtility.isKeyPressed(KeyCode.D)) {
 				heroWalkRight();
 			} else if (InputUtility.isKeyPressed(KeyCode.A)) {
@@ -181,17 +183,11 @@ public class GameLogic {
 						hero.setState(hero.idleRight);
 				}
 			}
-		} else {
-			
 		}
+		
+		//System.out.println(isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height));
 
-		if (InputUtility.isKeyTriggered(KeyCode.K)) {
-			if (isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
-				hero.fall_speed = -hero.jumpStrength;
-			}
-		}
-
-		if (InputUtility.isKeyTriggered(KeyCode.J)) {
+		if (InputUtility.isKeyTriggered(KeyCode.J) && isTouchingGround(heroOnScreenX, heroPositionY, hero.width, hero.height)) {
 			if (hero.getDirection() == Hero.FACE_RIGHT) {
 				heroAttackRight(3);
 			}
@@ -199,6 +195,14 @@ public class GameLogic {
 				heroAttackLeft(3);
 			}
 		}
+		
+		if (InputUtility.isKeyTriggered(KeyCode.K)) {
+			if (isTouchingGround(heroPositionX, heroPositionY, hero.width, hero.height)) {
+				hero.fall_speed = -hero.jumpStrength;
+			}
+		}
+
+		
 
 		// ################# FALLING ZONE ##########################//
 
@@ -258,9 +262,13 @@ public class GameLogic {
 		if (hero.getCurrentState() != hero.attackRight) {
 			hero.setState(hero.attackRight);
 		}
+		if (delayFrame > hero.getCurrentState().getCurrentFrame()) {
+			return;
+		}
 		for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
 			if (hit(new CollideBox(heroPositionX + hero.width, heroPositionY,heroPositionX + hero.width + 40, heroPositionY + hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
+				System.out.println("hit");
 				e.hitted(hero.damage);
 			}
 		}
@@ -270,11 +278,24 @@ public class GameLogic {
 		if (hero.getCurrentState() != hero.attackLeft) {
 			hero.setState(hero.attackLeft);
 		}
+		if (delayFrame > hero.getCurrentState().getCurrentFrame()) {
+			return;
+		}
 		for (Enemy e : EnemyHolder.getInstance().getEnemyPack()) {
 			if (hit(new CollideBox(heroPositionX - 40, heroPositionY,heroPositionX, heroPositionY + hero.height), 
 					new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(), e.getLogicalY() + e.getheight()))) {
 				e.hitted(hero.damage);
+				System.out.println("hit");
 			}
+		}
+	}
+	
+	public void heroAttack(int delayFrame) {
+		if (hero.getDirection() == Hero.FACE_RIGHT) {
+			heroAttackRight(delayFrame);
+		}
+		if (hero.getDirection() == Hero.FACE_LEFT) {
+			heroAttackLeft(delayFrame);
 		}
 	}
 

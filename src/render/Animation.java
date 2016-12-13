@@ -10,7 +10,9 @@ public class Animation {
 	private Image spriteSheet = null;
 	protected boolean visible = false;
 	protected boolean playing = false;
-	private int x = 0, y = 0, z = 0;
+	protected int x = 0;
+	protected int y = 0;
+	private int z = 0;
 	private int frameWidth, frameHeight;
 	protected int frameDelay;
 	protected int frameDelayCount;
@@ -98,6 +100,14 @@ public class Animation {
 		if (currentFrame >= numberOfFrame) {
 			currentFrame = 0;
 		}
+	}
+	
+	public int getNumberOfFrame() {
+		return numberOfFrame;
+	}
+	
+	public int getCurrentFrame() {
+		return currentFrame;
 	}
 	
 	public int getAnimationDelay() {

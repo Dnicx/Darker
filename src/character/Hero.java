@@ -98,11 +98,11 @@ public class Hero implements Renderable {
 		walkRight.setOffset(offsetX, offsetY);
 		walkRight.setPosition(x, y);
 
-		attackLeft = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 1, 4);
+		attackLeft = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 2, 4);
 		attackLeft.setOffset(offsetX, offsetY);
 		attackLeft.setPosition(x, y);
 
-		attackRight = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 1, 5);
+		attackRight = new SequenceAnimation(RenderableHolder.getInstance().heroSprite, 256, 256, 6, 2, 5);
 		attackRight.setOffset(offsetX, offsetY);
 		attackRight.setPosition(x, y);
 	}
