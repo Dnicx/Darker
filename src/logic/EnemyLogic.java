@@ -37,6 +37,7 @@ public class EnemyLogic extends Thread {
 				Enemy e = EnemyHolder.getInstance().getEnemyPack().get(i);
 				if (!e.isAlive()) {
 					e.setVisible(false);
+					gameLogic.addScore(e.getScore());
 					EnemyHolder.getInstance().remove(i);
 					RenderableHolder.getInstance().remove(e);
 					continue;

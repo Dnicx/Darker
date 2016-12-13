@@ -31,12 +31,16 @@ public class GameLogic {
 
 	public int heroStartX = 450;
 	public int heroStartY = 0;
+	
+	public int score;
 
 	public GameLogic(GameScreen gs) {
 		// this.gameScreen = gs;
 		// this.hero = new Hero(heroStartX, heroStartY);
+		score = 0;
 		gameOver = false;
 		new Fireball(510, 0);
+		new Fireball(500, 0);
 		this.bg = gs.background;
 		try {
 			fileRead = new Scanner(new File(gs.file));
@@ -93,6 +97,14 @@ public class GameLogic {
 	public int getBackgroundY() {
 		return backgroundScreenY;
 	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
+	public synchronized void addScore(int score) {
+		this.score += score;
+	}
 
 	/**
 	 * 
@@ -102,7 +114,7 @@ public class GameLogic {
 	 *            : collideBox of damage taker
 	 * @return true if the attack hits
 	 */
-	public boolean hit(CollideBox c1, CollideBox c2) {
+	public static boolean hit(CollideBox c1, CollideBox c2) {
 		//System.out.println("top x = : " + c1.getLeft() + "top y = : " + c1.getTop());
 		return c1.isCollide(c2);
 	}

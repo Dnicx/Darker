@@ -27,6 +27,7 @@ public abstract class Enemy implements Renderable {
 	private int height = 140;
 	protected int direction;
 	private boolean alive;
+	private int score = 10;
 
 	private Animation currentState;
 
@@ -180,6 +181,10 @@ public abstract class Enemy implements Renderable {
 		if (this.HP <= 0) {
 			alive = false;
 		}
+	}
+	
+	public int getScore() {
+		return score;
 	}
 
 	@Override

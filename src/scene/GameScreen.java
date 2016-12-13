@@ -63,6 +63,7 @@ public class GameScreen extends StackPane {
 					gameLogic.updateLogic();
 					InputUtility.update();
 					// System.out.println(gameLogic.isGameOver());
+					drawScore();
 					if (gameLogic.isGameOver()) {
 						System.out.println("game over");
 						Main.instance.toggleScene(Main.gameOver);
@@ -82,6 +83,11 @@ public class GameScreen extends StackPane {
 
 	public GraphicsContext getGraphicContext() {
 		return gc;
+	}
+	
+	private void drawScore() {
+		gc.setFill(Color.WHITE);
+		gc.fillText("Score : "+gameLogic.getScore(), 700, 50);
 	}
 
 	/*
