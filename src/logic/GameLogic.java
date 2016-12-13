@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
+import character.Cute;
 import character.Enemy;
 import character.EnemyHolder;
 import character.Fireball;
 import character.Hero;
+import character.Skull;
+import character.Tongue;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
 import main.Main;
@@ -43,9 +45,9 @@ public class GameLogic {
 		score = 0;
 		gameOver = false;
 		EnemyHolder.getInstance().getEnemyPack().clear();
-		new Fireball(500, 0, 20, 5, 2);
-		new Fireball(1000, 0, 20, 5, 2);
-		new Fireball(1500, 0, 20, 5, 2);
+		new Skull(500, 0, 20, 5, 2);
+		new Tongue(1000, 0, 20, 5, 2);
+		new Cute(1500, 0, 20, 5, 2);
 		new Fireball(2000, 0, 20, 5, 2);
 		new Fireball(2500, 0, 20, 5, 2);
 		new Fireball(3000, 0, 20, 5, 2);
