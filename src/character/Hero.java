@@ -1,7 +1,6 @@
 package character;
 
 import javafx.scene.canvas.GraphicsContext;
-import logic.CollideBox;
 import render.Animation;
 import render.Renderable;
 import render.RenderableHolder;

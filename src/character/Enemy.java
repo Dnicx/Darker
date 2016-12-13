@@ -1,6 +1,7 @@
 package character;
 
 import javafx.scene.canvas.GraphicsContext;
+import logic.EnemyPattern;
 import render.Animation;
 import render.Renderable;
 import render.RenderableHolder;
@@ -26,8 +27,11 @@ public abstract class Enemy implements Renderable {
 	protected int direction;
 	private boolean alive;
 	private int score = 10;
-
 	private Animation currentState;
+	protected EnemyPattern currentPattern;
+	public EnemyPattern walkPattern;
+	public EnemyPattern attackLeftPattern;
+	public EnemyPattern attackRightPattern;
 
 	public Enemy() {
 		logicalX = 0;
@@ -97,6 +101,18 @@ public abstract class Enemy implements Renderable {
 	protected abstract void loadAttackLeft();
 
 	protected abstract void loadAttackRight();
+	
+	protected void loadPattern() {
+		loadWalkPattern();
+		loadAttackLeftPattern();
+		loadAttackRightPattern();
+	}
+	
+	protected abstract void loadWalkPattern();
+	
+	protected abstract void loadAttackLeftPattern();
+	
+	protected abstract void loadAttackRightPattern();
 
 	/**
 	 * 
@@ -183,6 +199,14 @@ public abstract class Enemy implements Renderable {
 	
 	public int getScore() {
 		return score;
+	}
+	
+	public void setCurrentPattern(EnemyPattern pattern) {
+		this.currentPattern = pattern;
+	}
+	
+	public EnemyPattern getCurrentPattern() {
+		return currentPattern;
 	}
 
 	@Override

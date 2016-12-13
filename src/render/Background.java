@@ -3,7 +3,6 @@ package render;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import main.ConfigurableOption;
 
 public class Background implements Renderable {

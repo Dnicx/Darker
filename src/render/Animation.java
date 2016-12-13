@@ -12,7 +12,6 @@ public class Animation {
 	protected boolean playing = false;
 	protected int x = 0;
 	protected int y = 0;
-	private int z = 0;
 	private int frameWidth, frameHeight;
 	protected int frameDelay;
 	protected int frameDelayCount;

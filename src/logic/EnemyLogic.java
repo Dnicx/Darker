@@ -14,7 +14,7 @@ public class EnemyLogic extends Thread {
 	private EnemyHolder enemys;
 	private int gravity = 2;
 	private GameLogic gameLogic;
-	private int logicalX, logicalY, onScreenX, onScreenY;
+	private int logicalX, logicalY;
 
 	/**
 	 * must be initiate before adding enemy
@@ -35,6 +35,7 @@ public class EnemyLogic extends Thread {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+//			System.out.println(enemys.getEnemyPack().size());
 			for (int i = 0; i < EnemyHolder.getInstance().getEnemyPack().size() ; i++) {
 				
 				Enemy e = EnemyHolder.getInstance().getEnemyPack().get(i);
@@ -59,14 +60,14 @@ public class EnemyLogic extends Thread {
 						e.fall_speed = 0;
 						while (!gameLogic.isTouchingGround(logicalX, logicalY, e.getWidth(), e.getheight())) {
 							logicalY += 1;
-							onScreenY += 1;
+//							onScreenY += 1;
 							// System.out.println("loop");
 						}
 					}
 				} catch (ArrayIndexOutOfBoundsException exception) {
 					if (logicalY < 0) {
 						logicalY = 0;
-						onScreenY = 0;
+//						onScreenY = 0;
 						if (e.fall_speed < 0)
 							e.fall_speed = 0;
 					}
@@ -77,7 +78,7 @@ public class EnemyLogic extends Thread {
 
 				if (logicalY < 0) {
 					logicalY = 0;
-					onScreenY = 0;
+//					onScreenY = 0;
 					if (e.fall_speed < 0)
 						e.fall_speed = 0;
 				}
@@ -87,7 +88,7 @@ public class EnemyLogic extends Thread {
 				}
 
 				logicalY += e.fall_speed;
-				onScreenY += e.fall_speed;
+//				onScreenY += e.fall_speed;
 				if (logicalY >= ConfigurableOption.getInstance().getScreenHeight())
 					logicalY = ConfigurableOption.getInstance().getScreenHeight();
 				e.setOnScreenPosition(logicalX - gameLogic.getBackgroundX(), logicalY - gameLogic.getBackgroundY());
