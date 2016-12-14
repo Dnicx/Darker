@@ -69,7 +69,7 @@ public class AudioUtility {
 			instance.currentClip = instance.fire;
 		}
 	}
-	
+
 	public static void stopCurrent() {
 		instance.currentClip.stop();
 	}

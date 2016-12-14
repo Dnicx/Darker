@@ -1,22 +1,11 @@
 package main;
 
-import java.io.File;
-import java.nio.charset.MalformedInputException;
-import java.util.Scanner;
-
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import logic.GameLogic;
-import logic.InputUtility;
-import render.Renderable;
-import render.RenderableHolder;
-import scene.ConfigScreen;
 import scene.GameOverScreen;
 import scene.GameScreen;
 import scene.MenuScreen;
@@ -36,7 +25,6 @@ public class Main extends Application {
 	private Scene gameOverScene;
 	private Scene winScene;
 	private GameScreen gameScreen;
-	private ConfigScreen configScreen;
 	private MenuScreen menuScreen;
 	private GameOverScreen gameOverScreen;
 	private WinScreen winScreen;
@@ -226,6 +214,8 @@ public class Main extends Application {
 			mainStage.setScene(gameScene);
 		} else if (nextScene.equals(gameOver)) {
 			mainStage.setScene(gameOverScene);
+		} else if (nextScene.equals(win)) {
+			mainStage.setScene(winScene);;
 		}
 		addListener();
 		mainStage.requestFocus();

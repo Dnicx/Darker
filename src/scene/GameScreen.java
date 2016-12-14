@@ -4,20 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import javax.swing.UIManager.LookAndFeelInfo;
-
-import character.Fireball;
-import character.Hero;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import logic.EnemyLogic;
 import logic.GameLogic;
 import logic.InputUtility;
@@ -48,14 +40,15 @@ public class GameScreen extends StackPane {
 		this.getChildren().add(canvas);
 		// RenderableHolder.getInstance().loadResource();
 		// knight = new Hero(heroStartX, heroStartY);
-		
+
 		try {
 			fileRead = new Scanner(new File(file));
 			RenderableHolder.getInstance()
 					.setNearBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
 			RenderableHolder.getInstance()
 					.setFarBackgroundSrc(RenderableHolder.levelDir + Main.stage + "/" + fileRead.next());
-		} catch (FileNotFoundException e) {}
+		} catch (FileNotFoundException e) {
+		}
 		RenderableHolder.getInstance().loadResource();
 		background = new Background(RenderableHolder.getInstance().StageFar, RenderableHolder.getInstance().StageNear);
 		background.setFarPosition(0, 0);
@@ -63,10 +56,9 @@ public class GameScreen extends StackPane {
 		gameLogic = new GameLogic(instance);
 		updateEnemy = new EnemyLogic(instance);
 		InputUtility.clear();
-		
-		gc.setFont(RenderableHolder.getInstance().font);
-		
-		
+
+		gc.setFont(RenderableHolder.font);
+
 		AudioUtility.backgroundMusic.play();
 		new AnimationTimer() {
 			long start = 1;
@@ -82,7 +74,7 @@ public class GameScreen extends StackPane {
 					gameLogic.updateLogic();
 					InputUtility.update();
 					Platform.runLater(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
@@ -99,7 +91,6 @@ public class GameScreen extends StackPane {
 						Main.instance.toggleScene(Main.gameOver);
 						this.stop();
 						AudioUtility.backgroundMusic.stop();
-
 					}
 				}
 			}
@@ -119,18 +110,17 @@ public class GameScreen extends StackPane {
 	private void drawScore() {
 		String score = "Score : " + gameLogic.getScore();
 		gc.setFill(Color.WHITE);
-		gc.fillText(score, ConfigurableOption.getInstance().getScreenWidth() - (score.length())*20, 50);
+		gc.fillText(score, ConfigurableOption.getInstance().getScreenWidth() - (score.length()) * 20, 50);
 	}
-	
+
 	private void drawHealthBar() {
 		gc.setStroke(Color.WHITE);
 		gc.setLineWidth(2);
 		gc.setFill(Color.GREEN);
-		gc.fillText(gameLogic.getHeroName(), 140 - gameLogic.getHeroName().length()*20, 65);
-		gc.strokeRect(100, 50, gameLogic.getHeroFullHealth()*40, 20);
-		gc.fillRect(100, 50, gameLogic.getHeroHealth()*40, 20);
+		gc.fillText(gameLogic.getHeroName(), 140 - gameLogic.getHeroName().length() * 20, 65);
+		gc.strokeRect(100, 50, gameLogic.getHeroFullHealth() * 40, 20);
+		gc.fillRect(100, 50, gameLogic.getHeroHealth() * 40, 20);
 	}
-	
 
 	/*
 	 * public Hero getHero() { return knight; }

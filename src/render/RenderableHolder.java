@@ -14,7 +14,7 @@ public class RenderableHolder {
 	private static final RenderableHolder instance = new RenderableHolder();
 
 	public static final String levelDir = "level/stage";
-	
+
 	public static final Font font = Font.font("Tahoma", FontWeight.BOLD, 20);
 
 	private String heroSpriteSrc = "consumed-knight-spriteSheet.png";

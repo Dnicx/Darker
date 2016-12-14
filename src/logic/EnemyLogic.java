@@ -2,20 +2,15 @@ package logic;
 
 import character.Enemy;
 import character.EnemyHolder;
-import character.Fireball;
 import character.Hero;
-import character.Tongue;
 import main.ConfigurableOption;
-import main.Main;
 import render.Animation;
 import render.RenderableHolder;
 import render.SequenceAnimation;
 import scene.GameScreen;
-import sun.misc.GC;
 
 public class EnemyLogic extends Thread {
 
-	private EnemyHolder enemys;
 	private int gravity = 2;
 	private GameLogic gameLogic;
 	private int logicalX, logicalY;
@@ -24,7 +19,6 @@ public class EnemyLogic extends Thread {
 	 * must be initiate before adding enemy
 	 */
 	public EnemyLogic(GameScreen gs) {
-		enemys = EnemyHolder.getInstance();
 		// enemys.clear();
 		gameLogic = gs.getGameLogic();
 	}

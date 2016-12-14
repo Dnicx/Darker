@@ -1,22 +1,15 @@
 package logic;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import character.Cute;
 import character.Enemy;
 import character.EnemyHolder;
-import character.Fireball;
 import character.Hero;
-import character.Skull;
-import character.Tongue;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
 import main.Main;
 import render.AudioUtility;
 import render.Background;
-import render.RenderableHolder;
 import render.SequenceAnimation;
 import scene.GameScreen;
 
@@ -113,11 +106,11 @@ public class GameLogic {
 	public synchronized void addScore(int score) {
 		this.score += score;
 	}
-	
+
 	public int getHeroHealth() {
 		return hero.HP;
 	}
-	
+
 	public int getHeroFullHealth() {
 		return hero.fullHP;
 	}
@@ -274,6 +267,9 @@ public class GameLogic {
 		if (!isHeroAlive()) {
 			setGameOver();
 		}
+		if (EnemyHolder.getInstance().getEnemyPack().isEmpty() && isHeroAlive()) {
+			Main.instance.toggleScene(Main.win);
+		}
 
 	}
 
@@ -302,7 +298,7 @@ public class GameLogic {
 								heroPositionX + Hero.width + Hero.attackRange, heroPositionY + Hero.height),
 						new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(),
 								e.getLogicalY() + e.getheight()))) {
-//					System.out.println("hit");
+					// System.out.println("hit");
 					e.hitted(hero.damage);
 					AudioUtility.playSound(AudioUtility.swordSlashSound);
 					missed = false;
@@ -466,7 +462,7 @@ public class GameLogic {
 			hero.setState(hero.walkLeft);
 		}
 	}
-	
+
 	public String getHeroName() {
 		return hero.heroName;
 	}
