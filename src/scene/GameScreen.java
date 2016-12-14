@@ -97,7 +97,7 @@ public class GameScreen extends StackPane {
 						this.stop();
 						AudioUtility.backgroundMusic.stop();
 					}
-					System.out.println("loop");
+//					System.out.println("loop");
 				}
 			}
 		}.start();

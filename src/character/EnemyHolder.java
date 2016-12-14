@@ -38,12 +38,19 @@ public class EnemyHolder {
 				mobType = mob.nextInt();
 				if (mobType == EnemyHolder.fireball)
 					new Fireball(mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt());
-				if (mobType == EnemyHolder.skull)
+				else if (mobType == EnemyHolder.skull)
 					new Skull(mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt());
-				if (mobType == EnemyHolder.tongue)
+				else if (mobType == EnemyHolder.tongue)
 					new Tongue(mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt());
-				if (mobType == EnemyHolder.cute)
+				else if (mobType == EnemyHolder.cute)
 					new Cute(mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt(), mob.nextInt());
+				else {
+					mobType = mob.nextInt();
+					mobType = mob.nextInt();
+					mobType = mob.nextInt();
+					mobType = mob.nextInt();
+					mobType = mob.nextInt();
+				}
 			}
 			mob.close();
 		} catch (NullPointerException e) {
