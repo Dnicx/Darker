@@ -4,6 +4,7 @@ import character.Enemy;
 import character.EnemyHolder;
 import character.Fireball;
 import character.Hero;
+import character.Tongue;
 import main.ConfigurableOption;
 import main.Main;
 import render.Animation;

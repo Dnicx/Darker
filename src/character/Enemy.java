@@ -215,7 +215,7 @@ public abstract class Enemy implements Renderable {
 	@Override
 	public int getz() {
 		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	public void setVisible(boolean visible) {

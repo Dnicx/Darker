@@ -45,16 +45,11 @@ public class GameLogic {
 		score = 0;
 		gameOver = false;
 		EnemyHolder.getInstance().getEnemyPack().clear();
-		new Skull(500, 0, 20, 5, 2);
-		new Tongue(1000, 0, 20, 5, 2);
-		new Cute(1500, 0, 20, 5, 2);
-		new Fireball(2000, 0, 20, 5, 2);
-		new Fireball(2500, 0, 20, 5, 2);
-		new Fireball(3000, 0, 20, 5, 2);
-		new Fireball(3500, 0, 20, 5, 2);
-		new Fireball(4000, 0, 20, 5, 2);
-		new Fireball(4500, 0, 20, 5, 2);
-		new Fireball(5000, 0, 20, 5, 2);
+		try {
+			EnemyHolder.getInstance().loadMob();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		this.bg = gs.background;
 		this.fileRead = gs.fileRead;
 		try {

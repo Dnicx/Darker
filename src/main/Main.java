@@ -42,10 +42,10 @@ public class Main extends Application {
 	private WinScreen winScreen;
 	private Stage mainStage;
 
-	private String level = "./level/stage";// file root directory
+	public static String level = "./level/stage";// file root directory
 	public static int stage = 1;
-	private static final String levelFile = "collideBox.txt"; // file name
-
+	public static final String levelFile = "collideBox.txt"; // file name
+	public static final String levelMonsterFile = "mob.txt";
 	private final String GameTitle = "Darker";
 
 	public static void main(String[] args) {
