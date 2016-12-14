@@ -92,6 +92,12 @@ public class GameScreen extends StackPane {
 						this.stop();
 						AudioUtility.backgroundMusic.stop();
 					}
+					if (gameLogic.isWin()) {
+						Main.instance.toggleScene(Main.win);
+						this.stop();
+						AudioUtility.backgroundMusic.stop();
+					}
+					System.out.println("loop");
 				}
 			}
 		}.start();

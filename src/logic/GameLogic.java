@@ -26,6 +26,7 @@ public class GameLogic {
 	private Scanner fileRead;
 	private int gravity = 2;
 	private boolean gameOver;
+	private boolean victory;
 
 	public int heroStartX = 450;
 	public int heroStartY = 0;
@@ -37,6 +38,7 @@ public class GameLogic {
 		// this.hero = new Hero(heroStartX, heroStartY);
 		score = 0;
 		gameOver = false;
+		victory = false;
 		EnemyHolder.getInstance().getEnemyPack().clear();
 		try {
 			EnemyHolder.getInstance().loadMob();
@@ -89,6 +91,14 @@ public class GameLogic {
 
 	public boolean isGameOver() {
 		return gameOver;
+	}
+	
+	public void setVictory() {
+		victory = true;
+	}
+	
+	public boolean isWin() {
+		return victory;
 	}
 
 	public Ground getGround() {
@@ -272,7 +282,7 @@ public class GameLogic {
 			setGameOver();
 		}
 		if (EnemyHolder.getInstance().getEnemyPack().isEmpty() && isHeroAlive()) {
-			Main.instance.toggleScene(Main.win);
+			setVictory();
 		}
 
 	}
