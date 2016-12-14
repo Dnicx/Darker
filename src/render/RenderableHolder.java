@@ -146,5 +146,9 @@ public class RenderableHolder {
 	public void setNearBackgroundSrc(String src) {
 		StageNearSrc = src;
 	}
+	
+	public void clear() {
+		entities.clear();
+	}
 
 }

@@ -34,6 +34,7 @@ public class EnemyLogic extends Thread {
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				break;
 			}
 			// System.out.println(enemys.getEnemyPack().size());
 			for (int i = 0; i < EnemyHolder.getInstance().getEnemyPack().size(); i++) {
@@ -53,7 +54,7 @@ public class EnemyLogic extends Thread {
 				// onScreenY = e.getOnScreenY();
 				// System.out.println("x = " + logicalX + "| y = " + logicalY +
 				// "- screenX = " + onScreenX + "| screenY = " + onScreenY);
-				// System.out.println("x = " + logicalX + " y = " + logicalY);
+//				 System.out.println("x = " + logicalX + " y = " + logicalY);
 				try {
 					if (!gameLogic.isTouchingGround(logicalX, logicalY + e.fall_speed, e.getWidth(), e.getheight())) {
 						e.fall_speed += gravity;

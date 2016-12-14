@@ -1,7 +1,5 @@
 package render;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBoxShadowPeer;
-
 import javafx.scene.media.AudioClip;
 
 public class AudioUtility {

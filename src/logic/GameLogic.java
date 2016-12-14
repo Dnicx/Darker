@@ -7,9 +7,9 @@ import character.EnemyHolder;
 import character.Hero;
 import javafx.scene.input.KeyCode;
 import main.ConfigurableOption;
-import main.Main;
 import render.AudioUtility;
 import render.Background;
+import render.RenderableHolder;
 import render.SequenceAnimation;
 import scene.GameScreen;
 

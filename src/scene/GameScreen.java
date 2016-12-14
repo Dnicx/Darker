@@ -33,6 +33,7 @@ public class GameScreen extends StackPane {
 	private GameScreen instance;
 
 	public GameScreen(int width, int height, String file) {
+		RenderableHolder.getInstance().clear();
 		instance = this;
 		this.file = file;
 		canvas = new Canvas(width, height);
@@ -53,10 +54,9 @@ public class GameScreen extends StackPane {
 		background = new Background(RenderableHolder.getInstance().StageFar, RenderableHolder.getInstance().StageNear);
 		background.setFarPosition(0, 0);
 		background.setNearPosition(0, 0);
-		gameLogic = new GameLogic(instance);
-		updateEnemy = new EnemyLogic(instance);
+		gameLogic = new GameLogic(this);
+		updateEnemy = new EnemyLogic(this);
 		InputUtility.clear();
-
 		gc.setFont(RenderableHolder.font);
 
 		AudioUtility.backgroundMusic.play();
@@ -96,8 +96,8 @@ public class GameScreen extends StackPane {
 						Main.instance.toggleScene(Main.win);
 						this.stop();
 						AudioUtility.backgroundMusic.stop();
+						gameLogic.setGameOver();
 					}
-//					System.out.println("loop");
 				}
 			}
 		}.start();

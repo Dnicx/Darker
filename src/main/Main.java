@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import render.AudioUtility;
 import scene.GameOverScreen;
 import scene.GameScreen;
 import scene.MenuScreen;
@@ -83,10 +84,8 @@ public class Main extends Application {
 
 	@Override
 	public void stop() {
-		try {
-			gameScreen.getGameLogic().setGameOver();
-		} catch (NullPointerException e) {
-		}
+		this.gameScreen.getGameLogic().setGameOver();
+		AudioUtility.backgroundMusic.stop();
 	}
 
 	public Stage getMainStage() {
