@@ -26,21 +26,21 @@ public class EnemyPattern {
 		end = true;
 	}
 
-	public EnemyPattern(List<Animation> animation) {
-		patternDelay = 10;
-		pattern = new ArrayList<>();
-		pattern.addAll(animation);
-		currentStateNumber = 0;
-		end = true;
-	}
-
-	public EnemyPattern(List<Animation> animation, int patternDelay) {
-		this.patternDelay = patternDelay;
-		pattern = new ArrayList<>();
-		pattern.addAll(animation);
-		currentStateNumber = 0;
-		end = true;
-	}
+//	public EnemyPattern(List<Animation> animation) {
+//		patternDelay = 10;
+//		pattern = new ArrayList<>();
+//		pattern.addAll(animation);
+//		currentStateNumber = 0;
+//		end = true;
+//	}
+//
+//	public EnemyPattern(List<Animation> animation, int patternDelay) {
+//		this.patternDelay = patternDelay;
+//		pattern = new ArrayList<>();
+//		pattern.addAll(animation);
+//		currentStateNumber = 0;
+//		end = true;
+//	}
 
 	public void add(Animation state) {
 		pattern.add(state);

@@ -68,13 +68,6 @@ public class EnemyHolder {
 		enemyPack.add(e);
 	}
 
-	/**
-	 * @param e
-	 *            : list of enemy
-	 */
-	public synchronized void addall(List<Enemy> e) {
-		enemyPack.addAll(e);
-	}
 
 	public synchronized void remove(Enemy e) {
 		enemyPack.remove(enemyPack.indexOf(e));

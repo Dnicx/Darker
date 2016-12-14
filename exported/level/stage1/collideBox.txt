@@ -1,0 +1,5 @@
+stage1-nearbg.png
+stage1-farbg.png
+1 5120 512
+0 475 5000 512
+384 100 30 7 2
