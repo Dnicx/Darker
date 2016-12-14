@@ -166,10 +166,6 @@ public class MenuScreen extends BorderPane {
 
 	}
 
-	public void applyResize() {
-		this.setPrefSize(ConfigurableOption.getInstance().getScreenWidth(),
-				ConfigurableOption.getInstance().getScreenHeight());
-	}
 
 	public void updatemenu() {
 		if (pushStartBtn) {
