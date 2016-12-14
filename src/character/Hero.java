@@ -34,6 +34,7 @@ public class Hero implements Renderable {
 	private int direction;
 	private boolean alive;
 	private boolean attackState;
+	public String heroName = "Health";
 
 	private Animation currentState;
 

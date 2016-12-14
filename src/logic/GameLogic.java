@@ -335,7 +335,6 @@ public class GameLogic {
 						new CollideBox(e.getLogicalX(), e.getLogicalY(), e.getLogicalX() + e.getWidth(),
 								e.getLogicalY() + e.getheight()))) {
 					e.hitted(hero.damage);
-					System.out.println("hit");
 					AudioUtility.playSound(AudioUtility.swordSlashSound);
 					missed = false;
 				}
@@ -471,6 +470,10 @@ public class GameLogic {
 				&& hero.getCurrentState() != hero.fallRight) {
 			hero.setState(hero.walkLeft);
 		}
+	}
+	
+	public String getHeroName() {
+		return hero.heroName;
 	}
 
 }
