@@ -151,6 +151,9 @@ public class Fireball extends Enemy {
 
 	}
 
+	/**
+	 * create wlking pattern for mob
+	 */
 	@Override
 	protected void loadWalkPattern() {
 		// TODO Auto-generated method stub
@@ -161,6 +164,9 @@ public class Fireball extends Enemy {
 		this.walkPattern.add(idleRight);
 	}
 
+	/**
+	 * create attack to the right for mob
+	 */
 	@Override
 	protected void loadAttackRightPattern() {
 		// TODO Auto-generated method stub
@@ -170,6 +176,9 @@ public class Fireball extends Enemy {
 		this.attackRightPattern.add(idleRight);
 	}
 
+	/**
+	 * create attack to the left for mob
+	 */
 	@Override
 	protected void loadAttackLeftPattern() {
 		this.attackLeftPattern = new EnemyPattern(25);

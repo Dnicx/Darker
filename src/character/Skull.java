@@ -24,7 +24,7 @@ public class Skull extends Enemy {
 	private static final int attackFrame = 4;
 
 	/**
-	 * create fireball with default status position = 0, 0 hp = 5 speed = 5
+	 * create skull mob with default status position = 0, 0 hp = 5 speed = 5
 	 * damage = 2
 	 */
 	public Skull() {
@@ -36,7 +36,7 @@ public class Skull extends Enemy {
 	}
 
 	/**
-	 * create fireball with default status but specific position hp = 5 speed =
+	 * create skull mob  with default status but specific position hp = 5 speed =
 	 * 5 damage = 2
 	 * 
 	 * @param positionX
@@ -53,7 +53,7 @@ public class Skull extends Enemy {
 	}
 
 	/**
-	 * create fireball with custom status
+	 * create skull mob  with custom status
 	 * 
 	 * @param positionX
 	 *            : position x

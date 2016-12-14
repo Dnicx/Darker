@@ -38,6 +38,12 @@ public class Hero implements Renderable {
 
 	private Animation currentState;
 
+	/**
+	 * create hero with default status
+	 * position = 0, 0
+	 * fullHP = HP = 5.
+	 * speed = 
+	 */
 	public Hero() {
 		logicalX = 0;
 		logicalY = 0;
@@ -55,6 +61,14 @@ public class Hero implements Renderable {
 		RenderableHolder.getInstance().add(this);
 	}
 
+	/**
+	 * create hero with specific position but default other status
+	 * HP = 5.
+	 * speed = 10.
+	 * damage = 2.
+	 * @param x : position x
+	 * @param y : position y
+	 */
 	public Hero(int x, int y) {
 		this.logicalX = x;
 		this.logicalY = y;
@@ -72,11 +86,19 @@ public class Hero implements Renderable {
 		RenderableHolder.getInstance().add(this);
 	}
 
-	public Hero(int x, int y, int hp, int speed, int damage) {
+	/**
+	 * create custom hero
+	 * @param x : position x
+	 * @param y : position y 
+	 * @param fullHP : hero's full hp.
+	 * @param speed : hero's walking speed.
+	 * @param damage : hero's damage.
+	 */
+	public Hero(int x, int y, int fullHP, int speed, int damage) {
 		this.logicalX = x;
 		this.logicalY = y;
-		this.HP = hp;
-		fullHP = HP;
+		this.HP = fullHP;
+		this.fullHP = fullHP;
 		this.speed = speed;
 		this.damage = damage;
 		visible = true;
@@ -89,6 +111,9 @@ public class Hero implements Renderable {
 		RenderableHolder.getInstance().add(this);
 	}
 
+	/**
+	 * load necessary animation for hero
+	 */
 	private void loadAnimation() {
 		idleLeft = new Animation(RenderableHolder.getInstance().heroSprite, 256, 256, 4, 2, 0);
 		idleLeft.setOffset(offsetX, offsetY);

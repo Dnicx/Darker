@@ -33,6 +33,14 @@ public abstract class Enemy implements Renderable {
 	public EnemyPattern attackLeftPattern = null;
 	public EnemyPattern attackRightPattern = null;
 
+	
+	/**
+	 * create enemy with default status.
+	 * position = 0, 0.
+	 * HP = 5.
+	 * speed = 5.
+	 * damage = 2.
+	 */
 	public Enemy() {
 		logicalX = 0;
 		logicalY = 0;
@@ -48,7 +56,15 @@ public abstract class Enemy implements Renderable {
 		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
-
+	/**
+	 * create enemy with default status but specific position.
+	 * 
+	 * HP = 5.
+	 * speed = 5.
+	 * damage = 2.
+	 * @param x : position x
+	 * @param y : position y
+	 */
 	public Enemy(int x, int y) {
 		this.logicalX = x;
 		this.logicalY = y;
@@ -64,7 +80,16 @@ public abstract class Enemy implements Renderable {
 		EnemyHolder.getInstance().add(this);
 		RenderableHolder.getInstance().add(this);
 	}
-
+	
+	
+	/**
+	 * create custom enemy
+	 * @param x : position x
+	 * @param y : position y
+	 * @param hp : HP
+	 * @param speed : moving speed.
+	 * @param damage : damage.
+	 */
 	public Enemy(int x, int y, int hp, int speed, int damage) {
 		this.logicalX = x;
 		this.logicalY = y;
@@ -81,6 +106,9 @@ public abstract class Enemy implements Renderable {
 		RenderableHolder.getInstance().add(this);
 	}
 
+	/**
+	 * load all necessary animation for enemy
+	 */
 	private void loadAnimation() {
 		loadIdleLeft();
 		loadIdleRight();
@@ -102,6 +130,9 @@ public abstract class Enemy implements Renderable {
 
 	protected abstract void loadAttackRight();
 
+	/**
+	 * load necessary pattern for enmey
+	 */
 	protected void loadPattern() {
 		loadWalkPattern();
 		loadAttackLeftPattern();

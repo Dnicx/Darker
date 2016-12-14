@@ -22,6 +22,11 @@ public class EnemyHolder {
 		enemyPack = new ArrayList<>();
 	}
 
+	
+	/**
+	 * load mob from file mob.txt in stage folder
+	 * @throws StageLoadingException
+	 */
 	public void loadMob() throws StageLoadingException {
 		String source = "" + Main.level + Main.stage + "/" + Main.levelMonsterFile;
 

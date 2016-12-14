@@ -16,7 +16,9 @@ public class EnemyLogic extends Thread {
 	private int logicalX, logicalY;
 
 	/**
-	 * must be initiate before adding enemy
+	 * (must be initiate before adding enemy)
+	 * thread that update enemy pattern and status. For handle with enemy behavior without
+	 * interfere with user input logic
 	 */
 	public EnemyLogic(GameScreen gs) {
 		// enemys.clear();
@@ -129,6 +131,10 @@ public class EnemyLogic extends Thread {
 		}
 	}
 
+	/**
+	 * if enemy e can go left, make it go left.
+	 * @param e
+	 */
 	public void walkLeft(Enemy e) {
 		if (e.getCurrentState() != e.walkLeft) {
 			e.setState(e.walkLeft);
@@ -136,7 +142,10 @@ public class EnemyLogic extends Thread {
 		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), Enemy.FACE_LEFT))
 			logicalX -= e.speed;
 	}
-
+	/**
+	 * if enemy e can go right, make it go right.
+	 * @param e
+	 */
 	public void walkRight(Enemy e) {
 		if (e.getCurrentState() != e.walkRight) {
 			e.setState(e.walkRight);
@@ -144,19 +153,29 @@ public class EnemyLogic extends Thread {
 		if (gameLogic.canGoForward(logicalX, logicalY, e.getWidth(), e.getheight(), Enemy.FACE_RIGHT))
 			logicalX += e.speed;
 	}
-
+	/**
+	 * do nothing , facing left.
+	 * @param e
+	 */
 	public void idleLeft(Enemy e) {
 		if (e.getCurrentState() != e.idleLeft) {
 			e.setState(e.idleLeft);
 		}
 	}
-
+	/**
+	 * do nothing, facing right.
+	 * @param e
+	 */
 	public void idleRight(Enemy e) {
 		if (e.getCurrentState() != e.idleRight) {
 			e.setState(e.idleRight);
 		}
 	}
 
+	/**
+	 * check if player in e's range or not, if yes then it will start attack pattern
+	 * @param e
+	 */
 	private void attempAttack(Enemy e) {
 		// System.out.println("attack?");
 		if (e.getLogicalX() - e.getAttackRange() < gameLogic.heroPositionX + Hero.width
@@ -173,6 +192,10 @@ public class EnemyLogic extends Thread {
 		}
 	}
 
+	/**
+	 * e attack to left and only do damage only one time.
+	 * @param e
+	 */
 	public void attackLeft(Enemy e) {
 		if (e.getCurrentState() != e.attackLeft) {
 			e.setState(e.attackLeft);
@@ -185,6 +208,10 @@ public class EnemyLogic extends Thread {
 		}
 	}
 
+	/**
+	 * e attack to right and only do damage only one time.
+	 * @param e
+	 */
 	public void attackRight(Enemy e) {
 		if (e.getCurrentState() != e.attackRight) {
 			e.setState(e.attackRight);
@@ -197,6 +224,10 @@ public class EnemyLogic extends Thread {
 		}
 	}
 
+	/**
+	 * if e hits hero, hero will get hurt.
+	 * @param e
+	 */
 	private void doDamage(Enemy e) {
 		Hero hero = gameLogic.hero;
 		// System.out.println(hero.toString() + " w " + Hero.width + " h " +
