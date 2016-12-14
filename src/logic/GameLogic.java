@@ -53,6 +53,11 @@ public class GameLogic {
 		try {
 			heroPositionX = fileRead.nextInt();
 			heroPositionY = fileRead.nextInt();
+			if (fileRead.hasNext()) {
+				this.hero = new Hero(heroPositionX, heroPositionY, fileRead.nextInt(), fileRead.nextInt(), fileRead.nextInt());
+			} else {
+				this.hero = new Hero(heroPositionX, heroPositionY);
+			}
 		} catch (Exception e) {
 			System.out.println("file corrupt : " + e);
 		}
@@ -62,7 +67,6 @@ public class GameLogic {
 		backgroundScreenY = bg.getNearPositionY();
 		heroOnScreenX = heroPositionX;
 		heroOnScreenY = heroPositionY;
-		this.hero = new Hero(heroPositionX, heroPositionY);
 	}
 
 	public void pressKey(KeyCode key) {

@@ -118,8 +118,8 @@ public class GameScreen extends StackPane {
 		gc.setLineWidth(2);
 		gc.setFill(Color.GREEN);
 		gc.fillText(gameLogic.getHeroName(), 140 - gameLogic.getHeroName().length() * 20, 65);
-		gc.strokeRect(100, 50, gameLogic.getHeroFullHealth() * 40, 20);
-		gc.fillRect(100, 50, gameLogic.getHeroHealth() * 40, 20);
+		gc.strokeRect(100, 50, 200, 20);
+		gc.fillRect(100, 50, 200 * (double)((double)gameLogic.getHeroHealth() / (double)gameLogic.getHeroFullHealth()), 20);
 	}
 
 	/*
